@@ -38,8 +38,8 @@ if (!doNotTrack) {
 
 
   
-    <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Viper" />
-    <link href="/index.xml" rel="feed" type="application/rss+xml" title="Viper" />
+    <link href="/posts/index.xml" rel="alternate" type="application/rss+xml" title="Viper" />
+    <link href="/posts/index.xml" rel="feed" type="application/rss+xml" title="Viper" />
   
 
 
@@ -47,6 +47,8 @@ if (!doNotTrack) {
 
   <body>
     <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
 	
 	<a href="/posts">归档</a>
 	<a href="/tags">标签</a>
@@ -74,31 +76,34 @@ if (!doNotTrack) {
     
 </header>
 
-<div id="list-page">
+<section id="archive">
     
+        <div class="group">
+            <h3 class="key">
+                2022
+            </h3>
+
+            
+                <div class="value">
+                  <div class="date">
+                    <time datetime="2022-08-18 00:25:33 &#43;0800 CST">08/18</time>
+                  </div>
+                  <div class="title">
+                      <a href="https://viper00.fun/posts/my-first-post/">
+                          My First Post
+                      </a>
+
+                      
+                  </div>
+                </div>
+                      
+        </div>
     
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/my-first-post/'>My First Post</a></h1>
-            <div class ="date">
-                <time datetime="2022-08-18 00:25:33 &#43;0800 CST">2022/08/18</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary"></div>
-          
-
-        </section>
-    
-
-    
 
 
-</div>
+</section>
+
+
 
     </main>
     
