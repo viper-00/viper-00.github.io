@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <title>Golang 标准库 | Viper</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="Golang 标准库 🔗Go标准库源代码地址：这里 Package builtin provides documentation for Go&#39;s predeclared identifiers. The items documented here are not actually in package builtin but their descriptions here allow godoc to present documentation for the language&#39;s special identifiers. 标准库 Builtin 提供Go语言预定义的类型和函数。">
+<meta name="generator" content="Hugo 0.101.0" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+ 
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-3CPL7G0HYV', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://viper00.fun/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Golang 标准库</h1>
+
+    <div class="tip">
+        <time datetime="2022-08-22 00:00:00 &#43;0000 UTC">2022年08月22日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2494字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          5分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="golang-标准库">Golang 标准库 <a href="#golang-%e6%a0%87%e5%87%86%e5%ba%93" class="anchor">🔗</a></h1><p>Go标准库源代码地址：<a href="https://cs.opensource.google/go/go/&#43;/master:src/builtin/builtin.go" target="_blank" rel="noopener">这里</a></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>Package builtin provides documentation <span style="color:#a2f;font-weight:bold">for</span> Go<span style="">&#39;</span>s predeclared identifiers.
+</span></span><span style="display:flex;"><span>The items documented here are not actually in <span style="color:#a2f;font-weight:bold">package</span> builtin
+</span></span><span style="display:flex;"><span>but their descriptions here allow godoc to present documentation
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">for</span> the language<span style="">&#39;</span>s special identifiers.
+</span></span></code></pre></div><p>标准库 Builtin 提供Go语言预定义的类型和函数。文件中的注释对各种类型和函数的作用做出了解释。</p>
+<p>这些预定义函数在编译过程被执行，这里只是为了我们更好地理解数据类型和函数的作用。</p>
+<p>下面是源代码和中文解释：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">package</span> builtin
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// bool 是一个布尔类型，有true和false，也就是1和0两种值。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">bool</span> <span style="color:#0b0;font-weight:bold">bool</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// true和false是两种无类型布尔值。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">const</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">true</span>  = <span style="color:#666">0</span> <span style="color:#666">==</span> <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">false</span> = <span style="color:#666">0</span> <span style="color:#666">!=</span> <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// uint8 是所有无符号 8-bit 整数类型的集合。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 有效值范围：0-255。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">uint8</span> <span style="color:#0b0;font-weight:bold">uint8</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// uint16 是所有无符号 16-bit 整数类型的集合。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 有效值范围：0-65535。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">uint16</span> <span style="color:#0b0;font-weight:bold">uint16</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// uint32 是所有无符号 32-bit 整数类型的集合。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 有效值范围：0-4294967295。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">uint32</span> <span style="color:#0b0;font-weight:bold">uint32</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// uint64 是所有无符号 64-bit 整数类型的集合。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 有效值范围：0-18446744073709551615。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">uint64</span> <span style="color:#0b0;font-weight:bold">uint64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// int8 是所有有符号 8-bit 整数类型的集合。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 有效值范围：-128-127。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">int8</span> <span style="color:#0b0;font-weight:bold">int8</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// int16 是所有有符号 16-bit 整数类型的集合。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 有效值范围：-32768-32767。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">int16</span> <span style="color:#0b0;font-weight:bold">int16</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// int32 是所有有符号 32-bit 整数类型的集合。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 有效值范围：-2147483648-2147483647。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">int32</span> <span style="color:#0b0;font-weight:bold">int32</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// int64 是所有有符号 64-bit 整数类型的集合。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 有效值范围：-9223372036854775808-9223372036854775807。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">int64</span> <span style="color:#0b0;font-weight:bold">int64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// float32 是所有 32-bit 浮点数的集合，规则遵循[IEEE-754](https://ieeexplore.ieee.org/document/8766229)标准。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">float32</span> <span style="color:#0b0;font-weight:bold">float32</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// float64 是所有 64-bit 浮点数的集合，规则遵循[IEEE-754](https://ieeexplore.ieee.org/document/8766229)标准。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">float64</span> <span style="color:#0b0;font-weight:bold">float64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// complex64 是所有 float32 复数（实部和虚部）的集合。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">complex64</span> <span style="color:#0b0;font-weight:bold">complex64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// complex128 是所有 float64 复数（实部和虚部）的集合。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">complex128</span> <span style="color:#0b0;font-weight:bold">complex128</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// string 是字符串，是所有 8-bit 字节的集合，但并一定符合传统 UTF-8 编码文本。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 字符串可以为空（”“），但不能是 nil，字符串的值是不可变的。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">string</span> <span style="color:#0b0;font-weight:bold">string</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// int 是一个整数类型，大小为32bit，与int32类似。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">int</span> <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// uint 是无符号整数类型，大小为32bit，与uint32类似。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">uint</span> <span style="color:#0b0;font-weight:bold">uint</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// uintptr 是无符号整数指针类型。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">uintptr</span> <span style="color:#0b0;font-weight:bold">uintptr</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// byte作为uint8数据类型的别名，用于处理基本的输出输出和文本数据。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">byte</span> = <span style="color:#0b0;font-weight:bold">uint8</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// rune作为int32数据类型的别名，用于处理字符值。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">rune</span> = <span style="color:#0b0;font-weight:bold">int32</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// iota 作为无符号整数类型，主要用来做常量的索引，方便数据遍历和循环。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">const</span> <span style="color:#a2f;font-weight:bold">iota</span> = <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// nil 类型用来作指针（pointer）、channel（信道）、func（函数）、interface（接口）、map和slice等数据类型的零值。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">var</span> <span style="color:#a2f;font-weight:bold">nil</span> Type
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">type</span> Type <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">type</span> Type1 <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">type</span> IntegerType <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">type</span> FloatType <span style="color:#0b0;font-weight:bold">float32</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">type</span> ComplexType <span style="color:#0b0;font-weight:bold">complex64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// append 函数用于添加元素到切片（slice）的结尾。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 添加过程中如何有足够的容量（capacity），那么就直接添加。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 否则在底层array中分配新的空间，以支持添加操作完成。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 整个操作最终会返回新的切片，因此有必要将结果值传给变量。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 例如下面的操作：
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// slice = append(slice, elem1, elem2)
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// slice = append(slice, anotherSlice...)
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 当然，append 也能将字符串类型加入到字节类型切片后面：
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// slice = append([]byte(&#34;hello &#34;), &#34;world&#34;...)
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">append</span>(slice []Type, elems <span style="color:#666">...</span>Type) []Type
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// copy 函数用于将原数据（source）切片拷贝到目标数据（destination）切片。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 拷贝过程中可能发生重叠。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 函数返回值是原数据长度（len(src)）或目标数据长度（len(dst)）拷贝数量。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">copy</span>(dst, src []Type) <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// delete 用于删除键-值对中的数据。如果本身为空或没有对应的键值，删除操作将无事发生（no-op）。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">delete</span>(m <span style="color:#a2f;font-weight:bold">map</span>[Type]Type1, key Type)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// len 函数返回传入值的长度，根据传入的类型，有如下几种：
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Array：数组中的元素数量。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Pointer to array：指针数组中的元素数量（*v）。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Slice，Map：切片和键-值对的元素数量。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// String：字符串 bytes 的数量。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Channel：信道缓冲（channel buffer）中的队列（未读）数量。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">len</span>(v Type) <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// cap 函数返回传入类型的容量。如：
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Array：数组中的元素数量。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Pointer to array：指针数组中的元素数量（*v）。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Slice：切片可达到的最大长度。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Channel：信道缓冲（channe buffer）的容量。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">cap</span>(v Type) <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// make 函数用来初始化和创建一个数据类型的对象，只支持slice、map和chan。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 数据类型和类型大小作为参数传递。返回的结果与传入的类型一致。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Slice：make([]int, 0, 10) 第一个参数是类型，第二个是长度，第三个是容量。容量可以表示底层的数组，不能比长度小。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Map：make(map([int]string), 10) 第一个参数是类型，第二个是大小。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Channel：make(chan bool, 10) 第一个是类型，第二个是buffer容量，如果为零，则为无缓冲的信道。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">make</span>(t Type, size <span style="color:#666">...</span>IntegerType) Type
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// new 函数用于为数据类型分配内存。第一个参数传入类型，不是值。返回的结果是一个零值的指针类型。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">new</span>(Type) <span style="color:#666">*</span>Type
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// complex 函数用于将传入的实部和虚部作为复数返回，支持float32和float64数据类型。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">complex</span>(r, i FloatType) ComplexType
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// real 函数将传入的复数实部作为浮点数返回。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">real</span>(c ComplexType) FloatType
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// imag 函数将传入的复数虚部作为浮点数返回。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">imag</span>(c ComplexType) FloatType
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// close 函数用于关闭信道，此时传入的参数类型（信道）必须是双向的或者发送状态。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 关闭后接收逻辑：
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// x, ok := &lt;-c
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 因为信道已被关闭，此时接收的ok值一定是false。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">close</span>(c <span style="color:#a2f;font-weight:bold">chan</span><span style="color:#666">&lt;-</span> Type)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// panic 函数用于立即停止当前正在执行的协程（goroutine），任务结束后是一个不为零的退出代码。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 当 panic 函数发生时，可以做一次defer函数，以完成必须的任务。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 通常panic函数会与recover函数一起出现，后者用于捕获可能发生的异常错误。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">panic</span>(v <span style="color:#a2f;font-weight:bold">interface</span>{})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// recover 函数用于捕获并发过程中可能出现的异常现象（Panic）。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 函数返回空时，表示无异常，否则出现异常且已被捕获，需要进一步处理。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">recover</span>() <span style="color:#a2f;font-weight:bold">interface</span>{}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// print 函数用于打印东西，例如错误，值等。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 函数也可用于自助抽样法（bootstrapping） 和代码调试。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">print</span>(args <span style="color:#666">...</span>Type)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// println 函数与print类似，都是打印，到println能打印的同时换行。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">println</span>(args <span style="color:#666">...</span>Type)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// error 接口是基本的错误处理接口，方便其他数据结构和操作实现。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> <span style="color:#0b0;font-weight:bold">error</span> <span style="color:#a2f;font-weight:bold">interface</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#00a000">Error</span>() <span style="color:#0b0;font-weight:bold">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+    </div>
+
+    
+    
+    
+  <div id="comment">
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-dxmvw3ac3t" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/viper-00" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/ZhongMingYang00" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Viper
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

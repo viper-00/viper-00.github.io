@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <title>Golang 面试题 | Viper</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="Golang 面试题 🔗= 和 := 的区别？ 🔗=只有赋值作用，而:=除去赋值外，还包含声明的作用。 因此，在变量第一次声明，可以使用var a = 0，也可以使用a := 0">
+<meta name="generator" content="Hugo 0.101.0" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+ 
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-3CPL7G0HYV', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://viper00.fun/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Golang 面试题</h1>
+
+    <div class="tip">
+        <time datetime="2022-08-22 00:00:00 &#43;0000 UTC">2022年08月22日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          4522字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          10分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#-和--的区别">= 和 := 的区别？</a></li>
+    <li><a href="#-指针的作用">= 指针的作用</a></li>
+    <li><a href="#go-允许多个返回g值吗">Go 允许多个返回g值吗？</a></li>
+    <li><a href="#go-有异常类型吗">Go 有异常类型吗？</a></li>
+    <li><a href="#什么是协程goroutine">什么是协程（Goroutine）</a></li>
+    <li><a href="#如何高效地拼接字符串">如何高效地拼接字符串？</a></li>
+    <li><a href="#什么是-rune-类型">什么是 rune 类型</a></li>
+    <li><a href="#如何判断-map-中是否包含某个-key">如何判断 map 中是否包含某个 key？</a></li>
+    <li><a href="#go-支持默认参数或可选参数吗">Go 支持默认参数或可选参数吗？</a></li>
+    <li><a href="#defer-的执行顺序">defer 的执行顺序</a></li>
+    <li><a href="#如何交换-2-个变量的值">如何交换 2 个变量的值？</a></li>
+    <li><a href="#go-语言-tag-的用处">Go 语言 tag 的用处？</a></li>
+    <li><a href="#如何判断-2-个字符串切片slice-是相等的">如何判断 2 个字符串切片（slice) 是相等的？</a></li>
+    <li><a href="#字符串打印时v-和-v-的区别">字符串打印时，%v 和 %+v 的区别</a></li>
+    <li><a href="#go-语言中如何表示枚举值enums">Go 语言中如何表示枚举值(enums)？</a></li>
+    <li><a href="#空-struct-的用途">空 struct{} 的用途？</a></li>
+    <li><a href="#init-函数是什么时候执行的">init() 函数是什么时候执行的？</a></li>
+    <li><a href="#go-语言的局部变量分配在栈上还是堆上">Go 语言的局部变量分配在栈上还是堆上？</a></li>
+    <li><a href="#2-个-interface-可以比较吗-">2 个 interface 可以比较吗 ？</a></li>
+    <li><a href="#2-个-nil-可能不相等吗">2 个 nil 可能不相等吗？</a></li>
+    <li><a href="#函数返回局部变量的指针是否安全">函数返回局部变量的指针是否安全?</a></li>
+    <li><a href="#非接口的任意类型-t-都能够调用-t-的方法吗反过来呢">非接口的任意类型 T() 都能够调用 *T 的方法吗？反过来呢?</a></li>
+    <li><a href="#无缓冲的-channel-和有缓冲的-channel-的区别">无缓冲的 channel 和有缓冲的 channel 的区别？</a></li>
+    <li><a href="#什么是协程泄露goroutine-leak">什么是协程泄露(Goroutine Leak)？</a></li>
+    <li><a href="#go-可以限制运行时操作系统线程的数量吗">Go 可以限制运行时操作系统线程的数量吗？</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="golang-面试题">Golang 面试题 <a href="#golang-%e9%9d%a2%e8%af%95%e9%a2%98" class="anchor">🔗</a></h1><h2 id="-和--的区别">= 和 := 的区别？ <a href="#-%e5%92%8c--%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><p><code>=</code>只有赋值作用，而<code>:=</code>除去赋值外，还包含声明的作用。</p>
+<p>因此，在变量第一次声明，可以使用<code>var a = 0</code>，也可以使用<code>a := 0</code>，两者等价（因为是<code>0</code>，所以可以省略类型<code>int</code>）</p>
+<p>在其他赋值的时候，只能使用<code>=</code>。</p>
+<p>可以近似认为，<code>:</code>等价于<code>var</code>关键字</p>
+<h2 id="-指针的作用">= 指针的作用 <a href="#-%e6%8c%87%e9%92%88%e7%9a%84%e4%bd%9c%e7%94%a8" class="anchor">🔗</a></h2><p>记录某个数据存放在哪块内存中。如，<code>var a int32 = 0</code>，实际上是申请了一块 4 字节的内存，并置为全空。并使用<code>&amp;a</code>来记录这块内存的地址。在任何时候，需要访问这块地址时，就可以使用<code>a</code>来获取内容了。</p>
+<ul>
+<li>对于指针<code>p</code>，可以使用<code>*p</code>获取该指针对应内存的内容</li>
+<li>对于变量<code>a</code>，可以使用<code>&amp;a</code>获取该变量对应的内存地址（指针）</li>
+</ul>
+<p>指针对应的可能是变量，也可能是一个函数，或是其他资源。</p>
+<p>在实际使用中，可以通过传输一个指针作为变量来实现非引用传参。这样在函数内部可以直接修改外部变量内容（也即实现了修改和访问其他作用域的内容），同时可以避免在函数调用时额外的内存申请与拷贝消耗；但是这种做法可能会在并发执行中引入问题。</p>
+<h2 id="go-允许多个返回g值吗">Go 允许多个返回g值吗？ <a href="#go-%e5%85%81%e8%ae%b8%e5%a4%9a%e4%b8%aa%e8%bf%94%e5%9b%9eg%e5%80%bc%e5%90%97" class="anchor">🔗</a></h2><p>允许，可以使用类似下面的方式返回多个值</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">package</span> main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">Sum</span>(a, b <span style="color:#0b0;font-weight:bold">int</span>) (c <span style="color:#0b0;font-weight:bold">int</span>, isOdd <span style="color:#0b0;font-weight:bold">bool</span>) {
+</span></span><span style="display:flex;"><span>    c = a <span style="color:#666">+</span> b
+</span></span><span style="display:flex;"><span>    isOdd = c <span style="color:#666">%</span> <span style="color:#666">2</span> <span style="color:#666">==</span> <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> 
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">main</span>() {
+</span></span><span style="display:flex;"><span>    c, isOdd <span style="color:#666">:=</span> <span style="color:#00a000">Sum</span>(a, b)
+</span></span><span style="display:flex;"><span>    fmt.<span style="color:#00a000">Printf</span>(<span style="color:#b44">&#34;%d + %d = %d, odd %v&#34;</span>, a, b, c, isOdd)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="go-有异常类型吗">Go 有异常类型吗？ <a href="#go-%e6%9c%89%e5%bc%82%e5%b8%b8%e7%b1%bb%e5%9e%8b%e5%90%97" class="anchor">🔗</a></h2><p>Go 没有单独的异常类型，其异常使用<code>panic()</code>抛出，可接受的参数为<code>interface{}</code></p>
+<p>Go 使用错误和异常两种概念，来对应其他语言中的异常(Exception)，前者使用<code>error</code>作为函数的返回值来解决，后者则通过<code>panic()</code>、<code>recover()</code>、<code>defer</code>来实现。</p>
+<h2 id="什么是协程goroutine">什么是协程（Goroutine） <a href="#%e4%bb%80%e4%b9%88%e6%98%af%e5%8d%8f%e7%a8%8bgoroutine" class="anchor">🔗</a></h2><p>Goroutine 是一种轻量级的线程，其开销很小，通过 goroutine 可以在非常短的时间内切换执行上下文，实现并发执行。在大量 IO 的情况下，这么做可以提升执行效率。</p>
+<h2 id="如何高效地拼接字符串">如何高效地拼接字符串？ <a href="#%e5%a6%82%e4%bd%95%e9%ab%98%e6%95%88%e5%9c%b0%e6%8b%bc%e6%8e%a5%e5%ad%97%e7%ac%a6%e4%b8%b2" class="anchor">🔗</a></h2><p>几乎在所有的语言中，字符串拼接都有多种方案，如直接使用<code>+</code>，或是使用构造器。</p>
+<p>对于大量的字符串拼接，应该使用<code>strings.Builder</code>或是<code>bytes.Buffer</code></p>
+<p>在 Go 中字符串本身是个不可变的数据结构，具体体现为无法修改指定下标的内容。由于无法修改字符串，下面的代码实际上是无法执行的：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">package</span> main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#b44">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">main</span>() {
+</span></span><span style="display:flex;"><span>    s <span style="color:#666">:=</span> <span style="color:#b44">&#34;abc&#34;</span>
+</span></span><span style="display:flex;"><span>    s[<span style="color:#666">1</span>] = <span style="color:#b44">&#39;d&#39;</span>
+</span></span><span style="display:flex;"><span>    fmt.<span style="color:#00a000">Println</span>(s)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>使用下面的 benchmark 测试可以看到不同拼接方法的具体执行效率</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">package</span> main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#b44">&#34;bytes&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#b44">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#b44">&#34;strings&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#b44">&#34;testing&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">const</span> (
+</span></span><span style="display:flex;"><span>    sa          = <span style="color:#b44">&#34;abcdefg&#34;</span>
+</span></span><span style="display:flex;"><span>    sb          = <span style="color:#b44">&#34;1234567&#34;</span>
+</span></span><span style="display:flex;"><span>    concatTimes = <span style="color:#666">1000</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">concat1</span>(a, b <span style="color:#0b0;font-weight:bold">string</span>) <span style="color:#0b0;font-weight:bold">string</span> {
+</span></span><span style="display:flex;"><span>    s <span style="color:#666">:=</span> <span style="color:#b44">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; concatTimes; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>        s <span style="color:#666">+=</span> a <span style="color:#666">+</span> b
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> s
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">concat2</span>(a, b <span style="color:#0b0;font-weight:bold">string</span>) <span style="color:#0b0;font-weight:bold">string</span> {
+</span></span><span style="display:flex;"><span>    s <span style="color:#666">:=</span> <span style="color:#b44">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; concatTimes; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>        s = fmt.<span style="color:#00a000">Sprintf</span>(<span style="color:#b44">&#34;%s%s%s&#34;</span>, s, a, b)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> s
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">concat3</span>(a, b <span style="color:#0b0;font-weight:bold">string</span>) <span style="color:#0b0;font-weight:bold">string</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">var</span> str strings.Builder
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; concatTimes; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>        str.<span style="color:#00a000">WriteString</span>(a)
+</span></span><span style="display:flex;"><span>        str.<span style="color:#00a000">WriteString</span>(b)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> str.<span style="color:#00a000">String</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">concat4</span>(a, b <span style="color:#0b0;font-weight:bold">string</span>) <span style="color:#0b0;font-weight:bold">string</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">var</span> str bytes.Buffer
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; concatTimes; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>        str.<span style="color:#00a000">WriteString</span>(a)
+</span></span><span style="display:flex;"><span>        str.<span style="color:#00a000">WriteString</span>(b)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> str.<span style="color:#00a000">String</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">BenchmarkPlus</span>(b <span style="color:#666">*</span>testing.B) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; b.N; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#00a000">concat1</span>(sa, sb)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">BenchmarkPrintf</span>(b <span style="color:#666">*</span>testing.B) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; b.N; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#00a000">concat2</span>(sa, sb)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">BenchmarkBuilder</span>(b <span style="color:#666">*</span>testing.B) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; b.N; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#00a000">concat3</span>(sa, sb)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">BenchmarkBytes</span>(b <span style="color:#666">*</span>testing.B) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; b.N; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#00a000">concat4</span>(sa, sb)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="">$</span> <span style="color:#a2f;font-weight:bold">go</span> test <span style="color:#666">-</span>bench=.
+</span></span><span style="display:flex;"><span>goos: linux
+</span></span><span style="display:flex;"><span>goarch: amd64
+</span></span><span style="display:flex;"><span>BenchmarkPlus<span style="color:#666">-</span><span style="color:#666">4</span>              <span style="color:#666">465</span>           <span style="color:#666">2520003</span> ns<span style="color:#666">/</span>op
+</span></span><span style="display:flex;"><span>BenchmarkPrintf<span style="color:#666">-</span><span style="color:#666">4</span>            <span style="color:#666">397</span>           <span style="color:#666">3015618</span> ns<span style="color:#666">/</span>op
+</span></span><span style="display:flex;"><span>BenchmarkBuilder<span style="color:#666">-</span><span style="color:#666">4</span>         <span style="color:#666">36073</span>             <span style="color:#666">31416</span> ns<span style="color:#666">/</span>op
+</span></span><span style="display:flex;"><span>BenchmarkBytes<span style="color:#666">-</span><span style="color:#666">4</span>           <span style="color:#666">38354</span>             <span style="color:#666">30013</span> ns<span style="color:#666">/</span>op
+</span></span><span style="display:flex;"><span>PASS
+</span></span></code></pre></div><p>可以看出，拼接速度相差了 100 倍。（如果只是简单的一次 a+b，也即<code>concatTimes = 1</code>，那么实际上直接相加更快。）</p>
+<h2 id="什么是-rune-类型">什么是 rune 类型 <a href="#%e4%bb%80%e4%b9%88%e6%98%af-rune-%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h2><p>rune 是 Go 中的字符类型，其等价于 int32（和 C 中的 char 不一样）</p>
+<p>具体表现可以看这段代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">package</span> main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#b44">&#34;bytes&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#b44">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">main</span>() {
+</span></span><span style="display:flex;"><span>    s <span style="color:#666">:=</span> <span style="color:#b44">&#34;Hello 世界&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">for</span> _, c <span style="color:#666">:=</span> <span style="color:#a2f;font-weight:bold">range</span> s {
+</span></span><span style="display:flex;"><span>        buf <span style="color:#666">:=</span> bytes.<span style="color:#00a000">NewBuffer</span>([]<span style="color:#0b0;font-weight:bold">byte</span>{})
+</span></span><span style="display:flex;"><span>        buf.<span style="color:#00a000">WriteRune</span>(c)
+</span></span><span style="display:flex;"><span>        fmt.<span style="color:#00a000">Printf</span>(<span style="color:#b44">&#34;%T %c %+v %+v\n&#34;</span>, c, c, buf.<span style="color:#00a000">Bytes</span>(), <span style="color:#a2f">byte</span>(c))
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    fmt.<span style="color:#00a000">Println</span>(<span style="color:#a2f">len</span>(s), <span style="color:#a2f">len</span>([]<span style="color:#a2f">rune</span>(s)))
+</span></span><span style="display:flex;"><span>    fmt.<span style="color:#00a000">Println</span>([]<span style="color:#a2f">rune</span>(s))
+</span></span><span style="display:flex;"><span>    fmt.<span style="color:#00a000">Println</span>([]<span style="color:#a2f">byte</span>(s))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>其输出如下，可以看出，rune 实际上是一个 int32 类型，对应的是 Unicode。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#0b0;font-weight:bold">int32</span> H [<span style="color:#666">72</span>] <span style="color:#666">72</span>
+</span></span><span style="display:flex;"><span><span style="color:#0b0;font-weight:bold">int32</span> e [<span style="color:#666">101</span>] <span style="color:#666">101</span>
+</span></span><span style="display:flex;"><span><span style="color:#0b0;font-weight:bold">int32</span> l [<span style="color:#666">108</span>] <span style="color:#666">108</span>
+</span></span><span style="display:flex;"><span><span style="color:#0b0;font-weight:bold">int32</span> l [<span style="color:#666">108</span>] <span style="color:#666">108</span>
+</span></span><span style="display:flex;"><span><span style="color:#0b0;font-weight:bold">int32</span> o [<span style="color:#666">111</span>] <span style="color:#666">111</span>
+</span></span><span style="display:flex;"><span><span style="color:#0b0;font-weight:bold">int32</span>   [<span style="color:#666">32</span>] <span style="color:#666">32</span>
+</span></span><span style="display:flex;"><span><span style="color:#0b0;font-weight:bold">int32</span> 世 [<span style="color:#666">228</span> <span style="color:#666">184</span> <span style="color:#666">150</span>] <span style="color:#666">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#0b0;font-weight:bold">int32</span> 界 [<span style="color:#666">231</span> <span style="color:#666">149</span> <span style="color:#666">140</span>] <span style="color:#666">76</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">12</span> <span style="color:#666">8</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#666">72</span> <span style="color:#666">101</span> <span style="color:#666">108</span> <span style="color:#666">108</span> <span style="color:#666">111</span> <span style="color:#666">32</span> <span style="color:#666">19990</span> <span style="color:#666">30028</span>]
+</span></span><span style="display:flex;"><span>[<span style="color:#666">72</span> <span style="color:#666">101</span> <span style="color:#666">108</span> <span style="color:#666">108</span> <span style="color:#666">111</span> <span style="color:#666">32</span> <span style="color:#666">228</span> <span style="color:#666">184</span> <span style="color:#666">150</span> <span style="color:#666">231</span> <span style="color:#666">149</span> <span style="color:#666">140</span>]
+</span></span></code></pre></div><p>这里的 19990、30028 是 Unicode 原始字码，非 UTF-8 编码。</p>
+<p>对于所有非纯英文操作，如涉及中文，应该先转换为<code>[]rune</code>后再处理。</p>
+<h2 id="如何判断-map-中是否包含某个-key">如何判断 map 中是否包含某个 key？ <a href="#%e5%a6%82%e4%bd%95%e5%88%a4%e6%96%ad-map-%e4%b8%ad%e6%98%af%e5%90%a6%e5%8c%85%e5%90%ab%e6%9f%90%e4%b8%aa-key" class="anchor">🔗</a></h2><p>直接使用<code>m[key]</code>访问对应的内容，共有两个返回值，第一个是对应的 value（如果存在），第二个是是否存在该值</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">package</span> main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#b44">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">main</span>() {
+</span></span><span style="display:flex;"><span>    m <span style="color:#666">:=</span> <span style="color:#a2f;font-weight:bold">map</span>[<span style="color:#0b0;font-weight:bold">string</span>]<span style="color:#0b0;font-weight:bold">bool</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#b44">&#34;a&#34;</span>: <span style="color:#a2f;font-weight:bold">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#b44">&#34;b&#34;</span>: <span style="color:#a2f;font-weight:bold">false</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#b44">&#34;c&#34;</span>: <span style="color:#a2f;font-weight:bold">true</span>,
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    _, exists <span style="color:#666">:=</span> m[<span style="color:#b44">&#34;a&#34;</span>]
+</span></span><span style="display:flex;"><span>    fmt.<span style="color:#00a000">Println</span>(exists)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    _, exists = m[<span style="color:#b44">&#34;d&#34;</span>]
+</span></span><span style="display:flex;"><span>    fmt.<span style="color:#00a000">Println</span>(exists)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="go-支持默认参数或可选参数吗">Go 支持默认参数或可选参数吗？ <a href="#go-%e6%94%af%e6%8c%81%e9%bb%98%e8%ae%a4%e5%8f%82%e6%95%b0%e6%88%96%e5%8f%af%e9%80%89%e5%8f%82%e6%95%b0%e5%90%97" class="anchor">🔗</a></h2><p>不支持。</p>
+<p>虽然可以变相实现，但是并不友好。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">package</span> main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#b44">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// (a + b) * k
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">run</span>(a, b <span style="color:#0b0;font-weight:bold">int</span>, args <span style="color:#666">...</span><span style="color:#a2f;font-weight:bold">map</span>[<span style="color:#0b0;font-weight:bold">string</span>]<span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>    arg <span style="color:#666">:=</span> <span style="color:#a2f;font-weight:bold">map</span>[<span style="color:#0b0;font-weight:bold">string</span>]<span style="color:#0b0;font-weight:bold">int</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#b44">&#34;mul&#34;</span>: <span style="color:#666">2</span>,
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#a2f">len</span>(args) <span style="color:#666">!=</span> <span style="color:#666">0</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">for</span> k, v <span style="color:#666">:=</span> <span style="color:#a2f;font-weight:bold">range</span> args[<span style="color:#666">0</span>] {
+</span></span><span style="display:flex;"><span>            arg[k] = v
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> (a <span style="color:#666">+</span> b) <span style="color:#666">*</span> arg[<span style="color:#b44">&#34;mul&#34;</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">main</span>() {
+</span></span><span style="display:flex;"><span>    fmt.<span style="color:#00a000">Println</span>(<span style="color:#00a000">run</span>(<span style="color:#666">2</span>, <span style="color:#666">3</span>))
+</span></span><span style="display:flex;"><span>    fmt.<span style="color:#00a000">Println</span>(<span style="color:#00a000">run</span>(<span style="color:#666">2</span>, <span style="color:#666">3</span>, <span style="color:#a2f;font-weight:bold">map</span>[<span style="color:#0b0;font-weight:bold">string</span>]<span style="color:#0b0;font-weight:bold">int</span>{<span style="color:#b44">&#34;mul&#34;</span>: <span style="color:#666">100</span>}))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="defer-的执行顺序">defer 的执行顺序 <a href="#defer-%e7%9a%84%e6%89%a7%e8%a1%8c%e9%a1%ba%e5%ba%8f" class="anchor">🔗</a></h2><p>当前函数退出时（包括发生异常等各种情况），在 return 语句后执行，因此可以在这里统一处理并修改返回值（比如对 error 进行二次包裹）</p>
+<p>如果包含多个<code>defer</code>，则会逆序执行，先<code>defer</code>的后执行。</p>
+<h2 id="如何交换-2-个变量的值">如何交换 2 个变量的值？ <a href="#%e5%a6%82%e4%bd%95%e4%ba%a4%e6%8d%a2-2-%e4%b8%aa%e5%8f%98%e9%87%8f%e7%9a%84%e5%80%bc" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">package</span> main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#b44">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">main</span>() {
+</span></span><span style="display:flex;"><span>	a <span style="color:#666">:=</span> <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>	b <span style="color:#666">:=</span> <span style="color:#666">2</span>
+</span></span><span style="display:flex;"><span>	a, b = b, a
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#00a000">Println</span>(a, b)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="go-语言-tag-的用处">Go 语言 tag 的用处？ <a href="#go-%e8%af%ad%e8%a8%80-tag-%e7%9a%84%e7%94%a8%e5%a4%84" class="anchor">🔗</a></h2><p>标记结构体，如声明该结构体在 json 中应该是哪个字段，在 MySQL 中应该是哪个字段。</p>
+<h2 id="如何判断-2-个字符串切片slice-是相等的">如何判断 2 个字符串切片（slice) 是相等的？ <a href="#%e5%a6%82%e4%bd%95%e5%88%a4%e6%96%ad-2-%e4%b8%aa%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%88%87%e7%89%87slice-%e6%98%af%e7%9b%b8%e7%ad%89%e7%9a%84" class="anchor">🔗</a></h2><p>无脑<code>reflect.DeepEqual()</code>即可</p>
+<p>要比较两个切片是否相等，有如下几种方法：</p>
+<ol>
+<li>使用<code>reflect.DeepEqual</code>，从底层比较</li>
+<li>使用<code>for</code>循环逐个比较</li>
+<li>使用<code>%+v</code>将其输出成字符串比较</li>
+</ol>
+<p>从实现上来说，1 和 3 只需要简单的一行代码，而 2 则需要一段不算太长的代码。</p>
+<p>而性能上，可以使用 benchmark 进行比较</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">package</span> main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#b44">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#b44">&#34;math/rand&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#b44">&#34;reflect&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#b44">&#34;testing&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#b44">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">var</span> (
+</span></span><span style="display:flex;"><span>	l  = <span style="color:#666">100000</span>
+</span></span><span style="display:flex;"><span>	s1 = <span style="color:#00a000">generate</span>(l)
+</span></span><span style="display:flex;"><span>	s2 = <span style="color:#00a000">generate</span>(l)
+</span></span><span style="display:flex;"><span>	s3 = <span style="color:#00a000">generate</span>(l <span style="color:#666">*</span> <span style="color:#666">2</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">var</span> letterRunes = []<span style="color:#a2f">rune</span>(<span style="color:#b44">&#34;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">randStringRunes</span>(n <span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">string</span> {
+</span></span><span style="display:flex;"><span>	rand.<span style="color:#00a000">Seed</span>(time.<span style="color:#00a000">Now</span>().<span style="color:#00a000">UnixNano</span>())
+</span></span><span style="display:flex;"><span>	b <span style="color:#666">:=</span> <span style="color:#a2f">make</span>([]<span style="color:#0b0;font-weight:bold">rune</span>, n)
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#a2f;font-weight:bold">range</span> b {
+</span></span><span style="display:flex;"><span>		b[i] = letterRunes[rand.<span style="color:#00a000">Intn</span>(<span style="color:#a2f">len</span>(letterRunes))]
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f">string</span>(b)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">generate</span>(n <span style="color:#0b0;font-weight:bold">int</span>) []<span style="color:#0b0;font-weight:bold">string</span> {
+</span></span><span style="display:flex;"><span>	s <span style="color:#666">:=</span> <span style="color:#a2f">make</span>([]<span style="color:#0b0;font-weight:bold">string</span>, n)
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; n; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		s[i] = <span style="color:#00a000">randStringRunes</span>(<span style="color:#666">10</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> s
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">cmp1</span>(a, b []<span style="color:#0b0;font-weight:bold">string</span>) <span style="color:#0b0;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> reflect.<span style="color:#00a000">DeepEqual</span>(a, b)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">cmp2</span>(a, b []<span style="color:#0b0;font-weight:bold">string</span>) <span style="color:#0b0;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>	la <span style="color:#666">:=</span> <span style="color:#a2f">len</span>(a)
+</span></span><span style="display:flex;"><span>	lb <span style="color:#666">:=</span> <span style="color:#a2f">len</span>(b)
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> la <span style="color:#666">!=</span> lb {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; la; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> a[i] <span style="color:#666">!=</span> b[i] {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">cmp3</span>(a, b []<span style="color:#0b0;font-weight:bold">string</span>) <span style="color:#0b0;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> fmt.<span style="color:#00a000">Sprintf</span>(<span style="color:#b44">&#34;%+v&#34;</span>, a) <span style="color:#666">==</span> fmt.<span style="color:#00a000">Sprintf</span>(<span style="color:#b44">&#34;%+v&#34;</span>, b)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">BenchmarkReflect</span>(b <span style="color:#666">*</span>testing.B) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; b.N; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#00a000">cmp1</span>(s1, s2)
+</span></span><span style="display:flex;"><span>		<span style="color:#00a000">cmp1</span>(s1, s3)
+</span></span><span style="display:flex;"><span>		<span style="color:#00a000">cmp1</span>(s1, s1)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">BenchmarkFor</span>(b <span style="color:#666">*</span>testing.B) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; b.N; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#00a000">cmp2</span>(s1, s2)
+</span></span><span style="display:flex;"><span>		<span style="color:#00a000">cmp2</span>(s1, s3)
+</span></span><span style="display:flex;"><span>		<span style="color:#00a000">cmp2</span>(s1, s1)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">BenchmarkString</span>(b <span style="color:#666">*</span>testing.B) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; b.N; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#00a000">cmp3</span>(s1, s2)
+</span></span><span style="display:flex;"><span>		<span style="color:#00a000">cmp3</span>(s1, s3)
+</span></span><span style="display:flex;"><span>		<span style="color:#00a000">cmp3</span>(s1, s1)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>结果如下，可以看出，反射性能远高于另两种</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="">$</span> <span style="color:#a2f;font-weight:bold">go</span> test <span style="color:#666">-</span>bench=.
+</span></span><span style="display:flex;"><span>goos: linux
+</span></span><span style="display:flex;"><span>goarch: amd64
+</span></span><span style="display:flex;"><span>BenchmarkReflect<span style="color:#666">-</span><span style="color:#666">4</span>        <span style="color:#666">942232</span>              <span style="color:#666">1463</span> ns<span style="color:#666">/</span>op
+</span></span><span style="display:flex;"><span>BenchmarkFor<span style="color:#666">-</span><span style="color:#666">4</span>              <span style="color:#666">3004</span>            <span style="color:#666">417853</span> ns<span style="color:#666">/</span>op
+</span></span><span style="display:flex;"><span>BenchmarkString<span style="color:#666">-</span><span style="color:#666">4</span>              <span style="color:#666">9</span>         <span style="color:#666">112793444</span> ns<span style="color:#666">/</span>op
+</span></span><span style="display:flex;"><span>PASS
+</span></span></code></pre></div><p>但这个结果是切片很长，而切片中的元素长的情况，如果切片本身不长，但是元素较长呢？</p>
+<p>将上面代码修改为<code>l=100</code>，<code>randStringRunes(1000000)</code>，则新的结果为</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">go</span> test <span style="color:#666">-</span>bench=.
+</span></span><span style="display:flex;"><span>goos: linux
+</span></span><span style="display:flex;"><span>goarch: amd64
+</span></span><span style="display:flex;"><span>BenchmarkReflect<span style="color:#666">-</span><span style="color:#666">4</span>        <span style="color:#666">965967</span>              <span style="color:#666">1172</span> ns<span style="color:#666">/</span>op
+</span></span><span style="display:flex;"><span>BenchmarkFor<span style="color:#666">-</span><span style="color:#666">4</span>           <span style="color:#666">3006084</span>               <span style="color:#666">434</span> ns<span style="color:#666">/</span>op
+</span></span><span style="display:flex;"><span>BenchmarkString<span style="color:#666">-</span><span style="color:#666">4</span>              <span style="color:#666">1</span>        <span style="color:#666">1144034000</span> ns<span style="color:#666">/</span>op
+</span></span><span style="display:flex;"><span>PASS
+</span></span></code></pre></div><p>可以看出，无论如何，使用<code>%+v</code>的方案完全可以舍弃，其与另两种方案差距非常之大。</p>
+<p>对于切片长度较长，而字符串本身并不长的情况，使用反射可以达到很好的效果。</p>
+<p>对于切片长度本身补偿，而字符串本身很长的情况，应该使用<code>for</code>循环来进行判断。</p>
+<p>不过考虑到性能差距，无脑用反射即可，与目前网络上生成的反射效率低下似乎并不太一致。</p>
+<h2 id="字符串打印时v-和-v-的区别">字符串打印时，%v 和 %+v 的区别 <a href="#%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%89%93%e5%8d%b0%e6%97%b6v-%e5%92%8c-v-%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><ul>
+<li><code>%v</code>: 输出结构体各项的值</li>
+<li><code>%+v</code>: 输出结构体字段和各项值</li>
+</ul>
+<p>各个格式化输出占位符含义</p>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>含义</th>
+<th>#</th>
+<th># 含义</th>
+<th>+</th>
+<th>+ 含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%v</td>
+<td>输出内容默认格式</td>
+<td>%#v</td>
+<td>输出类型及详细格式</td>
+<td>%+v</td>
+<td>输出内容详细格式（输出结构体字段名）</td>
+</tr>
+<tr>
+<td>%T</td>
+<td>输出类型</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>%%</td>
+<td>输出%</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>%t</td>
+<td>输出布尔类型</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>%b</td>
+<td>输出二进制数字</td>
+<td>%#b</td>
+<td>输出十进制数字（带前导 0b）</td>
+<td>%+b</td>
+<td>输出十进制数字（带正负号）</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>输出十进制数字</td>
+<td></td>
+<td></td>
+<td>%+d</td>
+<td>输出十进制数字（带正负号）</td>
+</tr>
+<tr>
+<td>%o</td>
+<td>输出八进制数字</td>
+<td>%#o</td>
+<td>输出八进制数字（带前导 0）</td>
+<td>%+o</td>
+<td>输出八进制数字（带正负号）</td>
+</tr>
+<tr>
+<td>%x</td>
+<td>输出十六进制数字（或十六进制表示字符串）</td>
+<td>%#x</td>
+<td>输出十六进制数字（带前导 0x）</td>
+<td>%+x</td>
+<td>输出十六进制数字（带正负号）</td>
+</tr>
+<tr>
+<td>%X</td>
+<td>输出大写十六进制数字（或十六进制表示字符串）</td>
+<td>%#X</td>
+<td>输出大写十六进制数字（带前导 0X）</td>
+<td>%+X</td>
+<td>输出大写十六进制数字（带正负号）</td>
+</tr>
+<tr>
+<td>%U</td>
+<td>输出 Unicode 编码（格式为U+0000）</td>
+<td>%#U</td>
+<td>输出 Unicode 编码及对应字符（带单引号）</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>%e</td>
+<td>按照科学计数法输出数字</td>
+<td></td>
+<td></td>
+<td>%+e</td>
+<td>按照科学计数法输出（带正负号）</td>
+</tr>
+<tr>
+<td>%E</td>
+<td>按照科学计数法输出数字（大写 e）</td>
+<td></td>
+<td></td>
+<td>%+e</td>
+<td>按照科学计数法输出（大写 E，带正负号）</td>
+</tr>
+<tr>
+<td>%f</td>
+<td>输出浮点数</td>
+<td></td>
+<td></td>
+<td>%+f</td>
+<td>输出浮点数（带正负号）</td>
+</tr>
+<tr>
+<td>%g</td>
+<td>根据合适输出%e或%f</td>
+<td></td>
+<td></td>
+<td>%+g</td>
+<td>自动选择合适的输出（带正负号）</td>
+</tr>
+<tr>
+<td>%G</td>
+<td>根据合适输出%E或%f</td>
+<td></td>
+<td></td>
+<td>%+G</td>
+<td>自动选择合适的输出（带正负号）</td>
+</tr>
+<tr>
+<td>%c</td>
+<td>输出数字对应的 Unicode 字符</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>%s</td>
+<td>输出字符串</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>%q</td>
+<td>输出字符串（使用引号包裹并转义）</td>
+<td>%#q</td>
+<td>输出字符串（使用反引号包裹，需要转义时，按%q输出）</td>
+<td>%+q</td>
+<td>输出 Unicode 编码（格式为\u0000）</td>
+</tr>
+<tr>
+<td>%p</td>
+<td>输出的地址指针（前导为 0x）</td>
+<td>%#p</td>
+<td>输出地址指针（不带前导）</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="go-语言中如何表示枚举值enums">Go 语言中如何表示枚举值(enums)？ <a href="#go-%e8%af%ad%e8%a8%80%e4%b8%ad%e5%a6%82%e4%bd%95%e8%a1%a8%e7%a4%ba%e6%9e%9a%e4%b8%be%e5%80%bcenums" class="anchor">🔗</a></h2><p>Go 没有默认的枚举值，但可以通过定义结构体实现。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">package</span> weekday
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">//go:generate stringer -type=Weekday
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Weekday 星期
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> Weekday <span style="color:#0b0;font-weight:bold">byte</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">const</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#080;font-style:italic">// Monday 星期一
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	Monday Weekday = <span style="color:#a2f;font-weight:bold">iota</span> <span style="color:#666">+</span> <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#080;font-style:italic">// Tuesday 星期二
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	Tuesday
+</span></span><span style="display:flex;"><span>	<span style="color:#080;font-style:italic">// Wedesday 星期三
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	Wedesday
+</span></span><span style="display:flex;"><span>	<span style="color:#080;font-style:italic">// Thursday 星期四
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	Thursday
+</span></span><span style="display:flex;"><span>	<span style="color:#080;font-style:italic">// Friday 星期五
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	Friday
+</span></span><span style="display:flex;"><span>	<span style="color:#080;font-style:italic">// Saturday 星期六
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	Saturday
+</span></span><span style="display:flex;"><span>	<span style="color:#080;font-style:italic">// Sunday 星期日
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	Sunday
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h2 id="空-struct-的用途">空 struct{} 的用途？ <a href="#%e7%a9%ba-struct-%e7%9a%84%e7%94%a8%e9%80%94" class="anchor">🔗</a></h2><p>空<code>struct{}</code>不占据任何空间，因此可以用在所有不需要体现数值本身，但是需要体现存在这个数据的情况。</p>
+<p>如：</p>
+<ul>
+<li>使用<code>map[string]struct{}</code>实现集合，这时值本身不会浪费任何空间。</li>
+<li>在 channel 只需要传输数据，对数据本身并不关心时，可以使用<code>chan struct{}</code>，并传输<code>c &lt;- struct{}{}</code>。</li>
+</ul>
+<h2 id="init-函数是什么时候执行的">init() 函数是什么时候执行的？ <a href="#init-%e5%87%bd%e6%95%b0%e6%98%af%e4%bb%80%e4%b9%88%e6%97%b6%e5%80%99%e6%89%a7%e8%a1%8c%e7%9a%84" class="anchor">🔗</a></h2><p>当一个编译好的 Go 程序运行时，首先会构建依赖关系，没有任何依赖的包优先处理，按照 常量 → 变量 → 各个<code>init()</code>的顺序进行初始化，接着会继续对其他包进行初始化。当所有初始化完成后，执行<code>main()</code></p>
+<p>同一个文件内，可以包含多个<code>init()</code>，但运行顺序不做保证。</p>
+<h2 id="go-语言的局部变量分配在栈上还是堆上">Go 语言的局部变量分配在栈上还是堆上？ <a href="#go-%e8%af%ad%e8%a8%80%e7%9a%84%e5%b1%80%e9%83%a8%e5%8f%98%e9%87%8f%e5%88%86%e9%85%8d%e5%9c%a8%e6%a0%88%e4%b8%8a%e8%bf%98%e6%98%af%e5%a0%86%e4%b8%8a" class="anchor">🔗</a></h2><p>如果编译器检查到该变量可能会在外部使用（如返回了指针），则会分配在堆上，否则分配在栈上。</p>
+<h2 id="2-个-interface-可以比较吗-">2 个 interface 可以比较吗 ？ <a href="#2-%e4%b8%aa-interface-%e5%8f%af%e4%bb%a5%e6%af%94%e8%be%83%e5%90%97-" class="anchor">🔗</a></h2><p>可以比较，且在如下情况时两者相等：</p>
+<p>两者类型相同，且数值相同（类型相同指类型一致，或为别名）</p>
+<h2 id="2-个-nil-可能不相等吗">2 个 nil 可能不相等吗？ <a href="#2-%e4%b8%aa-nil-%e5%8f%af%e8%83%bd%e4%b8%8d%e7%9b%b8%e7%ad%89%e5%90%97" class="anchor">🔗</a></h2><p>有可能，要比较两个变量是否相同，实际上如同前面的比较<code>interface{}</code>一样，先比较类型再比较内容。</p>
+<p>因此，两个 nil 如果是不同类型指针的 nil，那么两者的比较结果是不同的。</p>
+<p>不同类型的数据是无法比较的，因此需要使用<code>interface{}</code>进行比较（直接给<code>interface{}</code>赋值<code>nil</code>，是无类型<code>nil</code>，与其他有类型的<code>nil</code>也不同）</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">package</span> main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#b44">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> a, b <span style="color:#a2f;font-weight:bold">interface</span>{}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> c <span style="color:#666">*</span><span style="color:#0b0;font-weight:bold">int</span> = <span style="color:#a2f;font-weight:bold">nil</span>
+</span></span><span style="display:flex;"><span>	a = c
+</span></span><span style="display:flex;"><span>	b = c
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#00a000">Println</span>(a <span style="color:#666">==</span> b, a <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span>, b <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span>)
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#00a000">Printf</span>(<span style="color:#b44">&#34;%#v %#v %#v %#v\n&#34;</span>, a, b, c, <span style="color:#a2f;font-weight:bold">nil</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面的代码输出如下：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">true</span> <span style="color:#a2f;font-weight:bold">false</span> <span style="color:#a2f;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>(<span style="color:#666">*</span><span style="color:#0b0;font-weight:bold">int</span>)(<span style="color:#a2f;font-weight:bold">nil</span>) (<span style="color:#666">*</span><span style="color:#0b0;font-weight:bold">int</span>)(<span style="color:#a2f;font-weight:bold">nil</span>) (<span style="color:#666">*</span><span style="color:#0b0;font-weight:bold">int</span>)(<span style="color:#a2f;font-weight:bold">nil</span>) &lt;<span style="color:#a2f;font-weight:bold">nil</span>&gt;
+</span></span></code></pre></div><h2 id="函数返回局部变量的指针是否安全">函数返回局部变量的指针是否安全? <a href="#%e5%87%bd%e6%95%b0%e8%bf%94%e5%9b%9e%e5%b1%80%e9%83%a8%e5%8f%98%e9%87%8f%e7%9a%84%e6%8c%87%e9%92%88%e6%98%af%e5%90%a6%e5%ae%89%e5%85%a8" class="anchor">🔗</a></h2><p>安全，Go 会对局部变量进行逃逸分析，如果变量作用域超过该函数，则会将其分配在堆上。</p>
+<h2 id="非接口的任意类型-t-都能够调用-t-的方法吗反过来呢">非接口的任意类型 T() 都能够调用 *T 的方法吗？反过来呢? <a href="#%e9%9d%9e%e6%8e%a5%e5%8f%a3%e7%9a%84%e4%bb%bb%e6%84%8f%e7%b1%bb%e5%9e%8b-t-%e9%83%bd%e8%83%bd%e5%a4%9f%e8%b0%83%e7%94%a8-t-%e7%9a%84%e6%96%b9%e6%b3%95%e5%90%97%e5%8f%8d%e8%bf%87%e6%9d%a5%e5%91%a2" class="anchor">🔗</a></h2><p><code>*T</code>必然可以调用所有<code>T</code>和<code>*T的方法，但是</code>T<code>未必可以调用</code>*T<code>的方法，只有</code>T`可寻址时，才可行。</p>
+<p>由于将<code>T</code>变成<code>*T</code>，本质上引入了修改其内容的可能性，因此所有的常量、包级别的函数、<code>map</code>元素、字符串中的内容这些“不可变”内容都无法寻址。</p>
+<h2 id="无缓冲的-channel-和有缓冲的-channel-的区别">无缓冲的 channel 和有缓冲的 channel 的区别？ <a href="#%e6%97%a0%e7%bc%93%e5%86%b2%e7%9a%84-channel-%e5%92%8c%e6%9c%89%e7%bc%93%e5%86%b2%e7%9a%84-channel-%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><p>缓冲区可以允许通道内存储缓冲区个数个数据。</p>
+<p>如无缓冲的 channel（等价于<code>make(chan T,0)</code>），每当发送方发送一条数据时，发送方将会被阻塞，直到接收方取出数据后才会继续运行</p>
+<p>而有缓冲 channel 则允许存储多条数据不阻塞发送方。</p>
+<p>可以参考下面的代码，修改通道的缓冲长度，查看被阻塞的主函数</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">package</span> main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#b44">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#b44">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">main</span>() {
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#00a000">Println</span>(<span style="color:#666">1</span>)
+</span></span><span style="display:flex;"><span>	c <span style="color:#666">:=</span> <span style="color:#a2f">make</span>(<span style="color:#a2f;font-weight:bold">chan</span> <span style="color:#0b0;font-weight:bold">byte</span>, <span style="color:#666">1</span>)
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#00a000">Println</span>(<span style="color:#666">2</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">go</span> <span style="color:#a2f;font-weight:bold">func</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">for</span> {
+</span></span><span style="display:flex;"><span>			time.<span style="color:#00a000">Sleep</span>(time.Second <span style="color:#666">*</span> <span style="color:#666">5</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">select</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">case</span> <span style="color:#666">&lt;-</span>c:
+</span></span><span style="display:flex;"><span>				fmt.<span style="color:#00a000">Println</span>(<span style="color:#b44">&#34;recv&#34;</span>)
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}()
+</span></span><span style="display:flex;"><span>	c <span style="color:#666">&lt;-</span> <span style="color:#666">0x1</span>
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#00a000">Println</span>(<span style="color:#666">3</span>)
+</span></span><span style="display:flex;"><span>	c <span style="color:#666">&lt;-</span> <span style="color:#666">0x2</span>
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#00a000">Println</span>(<span style="color:#666">4</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="什么是协程泄露goroutine-leak">什么是协程泄露(Goroutine Leak)？ <a href="#%e4%bb%80%e4%b9%88%e6%98%af%e5%8d%8f%e7%a8%8b%e6%b3%84%e9%9c%b2goroutine-leak" class="anchor">🔗</a></h2><p>协程大量创建却未释放，导致内存耗尽，程序崩溃，就是协程泄露</p>
+<p>除去代码本身的问题外，如果未正确处理通道，也可能导致该问题。如大量协程等待写入通道或等待从通道读出、竞争资源导致死锁、无限循环……</p>
+<h2 id="go-可以限制运行时操作系统线程的数量吗">Go 可以限制运行时操作系统线程的数量吗？ <a href="#go-%e5%8f%af%e4%bb%a5%e9%99%90%e5%88%b6%e8%bf%90%e8%a1%8c%e6%97%b6%e6%93%8d%e4%bd%9c%e7%b3%bb%e7%bb%9f%e7%ba%bf%e7%a8%8b%e7%9a%84%e6%95%b0%e9%87%8f%e5%90%97" class="anchor">🔗</a></h2><p>使用<code>GOMAXPROCS</code>或<code>runtime.GOMAXPROCS(num int)</code>可以限制线程数目</p>
+<p>该数值默认为 CPU 的逻辑核心数，同一时间一个核心只能绑定一个线程，运行被调度的的协程。</p>
+<p>在 CPU 密集型任务中，若该值过大，则会增加线程切换的开销；</p>
+<p>在 I/O 密集型任务中，调大该值则可以提高 I/O 吞吐率。</p>
+
+    </div>
+
+    
+    
+    
+  <div id="comment">
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-dxmvw3ac3t" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/viper-00" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/ZhongMingYang00" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Viper
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

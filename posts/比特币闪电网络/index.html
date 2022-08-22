@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <title>比特币闪电网络 | Viper</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="闪电网络（The Bitcoin Lightning Network） 🔗On-blockchain, Off-blockchain：链上，链下 Micropayments: 微支付 Time-limited cryptographic script：时间限制">
+<meta name="generator" content="Hugo 0.101.0" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+ 
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-3CPL7G0HYV', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://viper00.fun/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">比特币闪电网络</h1>
+
+    <div class="tip">
+        <time datetime="2022-08-22 15:19:32 &#43;0800 CST">2022年08月22日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          4611字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          10分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#闪电网络">闪电网络：</a></li>
+    <li><a href="#使用场景案例">使用场景/案例：</a></li>
+    <li><a href="#闪电网络的原理">闪电网络的原理：</a></li>
+    <li><a href="#闪电网络的优势">闪电网络的优势：</a></li>
+    <li><a href="#闪电网络的主要概念">闪电网络的主要概念：</a></li>
+    <li><a href="#闪电网络的特征好处">闪电网络的特征/好处：</a></li>
+    <li><a href="#闪电网络的研究和资料">闪电网络的研究和资料：</a>
+      <ul>
+        <li><a href="#从技术的角度分析闪电网络">从技术的角度分析闪电网络</a></li>
+        <li><a href="#闪电网络的技术架构">闪电网络的技术架构</a></li>
+      </ul>
+    </li>
+    <li><a href="#network-connection-layer网络连接层">Network connection layer（网络连接层）</a></li>
+    <li><a href="#messaging-layer消息传递层">Messaging layer（消息传递层）</a></li>
+    <li><a href="#peer-two-peer-layer点对点层">Peer-two-peer layer（点对点层）</a></li>
+    <li><a href="#routing-layer路由层">Routing layer（路由层）</a></li>
+    <li><a href="#payment-layer支付层">Payment layer（支付层）</a></li>
+    <li><a href="#关闭通道">关闭通道</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="闪电网络the-bitcoin-lightning-network">闪电网络（The Bitcoin Lightning Network） <a href="#%e9%97%aa%e7%94%b5%e7%bd%91%e7%bb%9cthe-bitcoin-lightning-network" class="anchor">🔗</a></h1><p>On-blockchain, Off-blockchain：链上，链下
+Micropayments: 微支付
+Time-limited cryptographic script：时间限制加密脚本</p>
+<p>问题：比特币的区块链机制有很好的可信保障，但是每笔交易相对其他区块链来说较慢，那么如果有大量的小额交易在比特币的网络下进行，我们是否需要为每笔小额交易支付高昂的手续费，我们是否需要为每笔小额交易承担过高的交易保障（区块链安全机制/交易可信性）？ 为了解决这个问题，比特币社区开发了闪电网络的交易逻辑，将大量小额交易转移到二层/链下网络进行，只有当交易通道关闭时，再将最终的额度计算后记录到一层/链上（主网）的账本区块中。</p>
+<h2 id="闪电网络">闪电网络： <a href="#%e9%97%aa%e7%94%b5%e7%bd%91%e7%bb%9c" class="anchor">🔗</a></h2><ul>
+<li>案例</li>
+<li>节点交互</li>
+<li>闪电网络的原理</li>
+<li>使用场景</li>
+<li>覆盖范围</li>
+<li>业务范围</li>
+</ul>
+<h2 id="使用场景案例">使用场景/案例： <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af%e6%a1%88%e4%be%8b" class="anchor">🔗</a></h2><p>Bob’s 咖啡馆</p>
+<p>Bob有一个简单的销售点（PoS，point-of-sale）应用程序，帮助任何想通过闪电网络使用比特币支付的客户。</p>
+<p>当一位用户（A）想买一杯咖啡时，A选择用比特币来支付账单，但是一杯咖啡的价格只需要5美金，这就会导致支付比特币的手续费（fee）费用甚至超过了咖啡的价格（比特币网络上转移资产需要支付高昂的手续费/矿工费）。这时就出现一个问题：这笔交易的手续费由谁来负责？是商家还是消费者本身？显然，交易双方都不愿意为这笔“无意义”的费用买单。</p>
+<p>随着越来越多的人持有加密货币，并选择来消费和支付。Bob作为咖啡馆的老板，自然就会想如何降低每笔交易的手续费。</p>
+<p>经过长时间的探索，Bob发现比特币社区创造了一个新的概念“闪电网络”。闪电网络可以在降低用户手续费的同时快速完成一笔交易，能够实时转账、实时到账。</p>
+<p>有了闪电网络，Bob告诉客户下载支持闪电网络的支付钱包App，如
+BTCPay。BTCPay具有如下特点：</p>
+<ul>
+<li>用 Bitcoin Core 建立比特币网络节点（上链）。</li>
+<li>用 c-lightning 建立闪电网络节点。</li>
+<li>支持多种客户端的 PoS 应用。</li>
+</ul>
+<p>这时，客户A就可以下载BTCPay钱包并绑定自己的比特币地址，交易双方在闪电网络的钱包内存入一定资金用来交易，双方建立闪电网络支付通道，通道开启后，A 和 Bob 之间（存入的资金允许金额内）可以进行任何次数的转账交易。当通道关闭后，最终的交易会被记录下来，并从链下推送到链上，广播全网，直到区块被记录。通过闪电网络支付通道转移资金的手续费非常低（由A支付），几乎可以忽略不计。</p>
+<p>最终，A通过比特币购买了一杯咖啡（几乎没有的手续费），Bob也赚到了这笔钱，双方成功实现了闪电网络的支付流程。</p>
+<h2 id="闪电网络的原理">闪电网络的原理： <a href="#%e9%97%aa%e7%94%b5%e7%bd%91%e7%bb%9c%e7%9a%84%e5%8e%9f%e7%90%86" class="anchor">🔗</a></h2><p>闪电网络是一个支持及时、大小额支付的分布式系统，闪电网络是在比特币网络基础上开发二层网络，将用户的交易信息暂时在二层网络中处理。当二层网络的交易达到一定数量时，此时网络中的智能合约会将交易上到主网络，将交易记录写入区块，并广播给所有节点，等待上链。</p>
+<p>一层网络也可以说为链上，二层网络也可以说为链下，链下的交易最终要写在链上，而链上的交易是所有节点都需要存储和计算的。</p>
+<p>闪电网络这种机制避免了将资金委托给第三方不受信任的公司或机构，也意味着网络上的交易信息所有人可查。如果没有闪电网络，我们可能需要第三方机构来作为中间人处理交易信息，这就导致双方交易的信息被中间人控制，可能发生中间人攻击，出现资金被盗的风险。</p>
+<h2 id="闪电网络的优势">闪电网络的优势： <a href="#%e9%97%aa%e7%94%b5%e7%bd%91%e7%bb%9c%e7%9a%84%e4%bc%98%e5%8a%bf" class="anchor">🔗</a></h2><ul>
+<li>Instant Payments（即时支付）：比特币交易等待6个块的可信确认将导致约1个小时的最终确认时间。但是，利用闪电网络不需要块的确认，支付是即时且原子性的（atomic），这意味着闪电网络能够实现例如零售店终端、用户设备到设备交易等任何需要即时支付的地方。</li>
+<li>Micropayments（微支付）：闪电网络支持发送最小资金至0.00000001个比特币，比特币网络目前每笔的交易（fixed per-transaction fee）都有固定费用，这使得小额支付不切实际。</li>
+<li>Scalabilitys（伸缩性、规模化）：闪电网络的出现激发了比特币被大规模使用。</li>
+</ul>
+<h2 id="闪电网络的主要概念">闪电网络的主要概念： <a href="#%e9%97%aa%e7%94%b5%e7%bd%91%e7%bb%9c%e7%9a%84%e4%b8%bb%e8%a6%81%e6%a6%82%e5%bf%b5" class="anchor">🔗</a></h2><p>闪电网络主要引用智能合约的思想来完善链下的交易渠道。核心概念主要有两个：RSMC（Recoverable Sequence Maturity Contract）和HTLC（Hashed Timelock Contract）。</p>
+<ul>
+<li>RSMC（可撤销的顺序成熟度合同），类似资金池机制。通过RSMC，可以实现大量中间交易都发生在链外。</li>
+<li>HTLC（哈希的带时钟合约），限时转账。通过智能合约，双方约定转账方先冻结一笔资金，并提供一个哈希值，如果一段时间内有人能够提出一个字符串，字符串哈希后和已知值匹配（意味着转账方授权了接收方来提现），则将这笔钱转给接收方。这意味着只要在这时间内有人能生成这个哈希值，就能获取这笔转账资金。HTLC机制能扩展到支持多个转账的场景。</li>
+<li>RSMC保障了两人之间的交易可以在链下完成，HTLC保障了任何两人之间的交易都可以通过“支付”通道来完成。</li>
+</ul>
+<p>闪电网络整合了这两种机制，就可以实现任意两人之间在链下完成交易。</p>
+<p>整个交易过程中，智能合约是作为中介的角色，而区块链网络则确保了最终的交易结果被确认。
+如果一方要使用“Channel”资金池的资金，交易双方必须都进行签名并得到认证。闪电网络中的交易是动态且Open的，所以交易都是通过匹配哈希值来确认交易的可行性和正确性。</p>
+<p>闪电网络的基本技术是以智能合作为基础来实现双方共识，也称为支付通道（Channel）。</p>
+<h2 id="闪电网络的特征好处">闪电网络的特征/好处： <a href="#%e9%97%aa%e7%94%b5%e7%bd%91%e7%bb%9c%e7%9a%84%e7%89%b9%e5%be%81%e5%a5%bd%e5%a4%84" class="anchor">🔗</a></h2><ul>
+<li>Users of the Lightning Network can route payments to each other for low cost and in real time.</li>
+<li>Users who exchange value over the Lightning Network do not need to wait for block confirmations for payments.</li>
+<li>Once a payment on the Lightning Network has completed, usually within a few seconds, it is final and cannot be reversed. Like a Bitcoin transaction, a payment on the Lightning Network can only be refunded by the recipient.</li>
+<li>Whereas on-chain Bitcoin transactions are broadcast and verified by all nodes in the network, payments routed on the Lightning Network are transmitted between pairs of nodes and are not visible too everyone, resulting in much greater privacy.</li>
+<li>Unlike transactions on the Bitcoin network, payments routed on the Lightning Network do not need to be stored permanently. Lightning thus uses fewer resources and hence is cheaper. This property also has benefits for privacy.</li>
+<li>The Lightning Network uses onion routing, similar to the protocol used by The Onion Router(Tor)privacy network, so that even the nodes involved in routing a payment are only directly aware of their predecessor and successor in the payment route.</li>
+<li>When used on top of Bitcoin, the Lightning Network uses real bitcoin, which is always in the possession (custody) and full control of the user. Lightning is not a separate token or coin, it is Bitcoin.</li>
+</ul>
+<h2 id="闪电网络的研究和资料">闪电网络的研究和资料： <a href="#%e9%97%aa%e7%94%b5%e7%bd%91%e7%bb%9c%e7%9a%84%e7%a0%94%e7%a9%b6%e5%92%8c%e8%b5%84%e6%96%99" class="anchor">🔗</a></h2><ul>
+<li>A Simple Layer2 Protocol for Bitcoin( <a href="https://blockstream.com/eltoo.pdf" target="_blank" rel="noopener">https://blockstream.com/eltoo.pdf</a> )</li>
+<li>Lightning Network Whitepaper( <a href="https://lightning.network/lightning-network-paper.pdf" target="_blank" rel="noopener">Lightning Network whitepaper</a> )</li>
+<li>Mastering the Lightning Network(LN)( <a href="https://github.com/lnbook/lnbook" target="_blank" rel="noopener">https://github.com/lnbook/lnbook</a> )</li>
+<li>《The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments》( <a href="http://lightning.network/docs/" target="_blank" rel="noopener">http://lightning.network/docs/</a> )</li>
+</ul>
+<h3 id="从技术的角度分析闪电网络">从技术的角度分析闪电网络 <a href="#%e4%bb%8e%e6%8a%80%e6%9c%af%e7%9a%84%e8%a7%92%e5%ba%a6%e5%88%86%e6%9e%90%e9%97%aa%e7%94%b5%e7%bd%91%e7%bb%9c" class="anchor">🔗</a></h3><p>目前支持闪电网络的区块链网络：比特币、以太坊。</p>
+<h3 id="闪电网络的技术架构">闪电网络的技术架构 <a href="#%e9%97%aa%e7%94%b5%e7%bd%91%e7%bb%9c%e7%9a%84%e6%8a%80%e6%9c%af%e6%9e%b6%e6%9e%84" class="anchor">🔗</a></h3><p>闪电网络的五层协议组成一个协议栈（protocol stack），协议以底部协议为基础开发上层协议，并且，每层协议抽象/隐藏了底部协议的技术细节/复杂度。</p>
+<p>闪电网络的五层协议如下：</p>
+<ul>
+<li>Payment layer（支付层）</li>
+<li>Routing layer（路由层）</li>
+<li>Peer-two-peer layer（点对点层）</li>
+<li>Messaging layer（消息传递层）</li>
+<li>Network connection layer（网络连接层）</li>
+</ul>
+<p><p class="markdown-image">
+  <img src="Pasted%20Graphic.png" alt=""  />
+</p></p>
+<h2 id="network-connection-layer网络连接层">Network connection layer（网络连接层） <a href="#network-connection-layer%e7%bd%91%e7%bb%9c%e8%bf%9e%e6%8e%a5%e5%b1%82" class="anchor">🔗</a></h2><p>该协议中直接与互联网核心协议（TCP/IP）进行交互，覆盖了协议（Tor v2/v3）和互联网服务（DNS）。该层还包含了闪电网络保护消息的加密传输协议。</p>
+<ul>
+<li>Transport Bolt 08: Noise_XK, Secp256k1, Handshakes, DH Key Exchange, Key Rotation.</li>
+<li>Network I/O: IPv4, IPv6, TOR2, TOR3</li>
+<li>DNS bootstrap Bolt 10</li>
+</ul>
+<h2 id="messaging-layer消息传递层">Messaging layer（消息传递层） <a href="#messaging-layer%e6%b6%88%e6%81%af%e4%bc%a0%e9%80%92%e5%b1%82" class="anchor">🔗</a></h2><p>该层包含节点用于协商特征（negotiate features）、格式化消息和编码消息字段的协议。</p>
+<ul>
+<li>Control messages Type: 0-31 | Bolt 09 | Feature bits.</li>
+<li>Framing and message format Bolt 01</li>
+<li>Type Length Value</li>
+</ul>
+<h2 id="peer-two-peer-layer点对点层">Peer-two-peer layer（点对点层） <a href="#peer-two-peer-layer%e7%82%b9%e5%af%b9%e7%82%b9%e5%b1%82" class="anchor">🔗</a></h2><p>该层是闪电节点之间通信的主要协议层，包含节点之间交换的所有不同消息。</p>
+<ul>
+<li>Control messages Type: 0-31 | Bolt 09 | Feature bits.</li>
+<li>Channel open and close Type: 32-127</li>
+<li>Adding, settling, failing HTLCs | Bolt 02 | Channel state machine Type: 128-255</li>
+<li>Path selection | Bolt 07 | Routing fees Channel metadata | Gossip relaying Query/reply Type: 256-511</li>
+</ul>
+<h2 id="routing-layer路由层">Routing layer（路由层） <a href="#routing-layer%e8%b7%af%e7%94%b1%e5%b1%82" class="anchor">🔗</a></h2><p>该层包含用于节点之间以端到端和原子方式路由支付的协议。该层包含闪电网络的核心功能：路由支付。</p>
+<ul>
+<li>Atomic and trust-less multi-hop contracts</li>
+<li>Payment attempts trial and error loop | Bolt 04 | Source-based onion routing(SPHINX)</li>
+<li>Adding, settling, failing HTLCs | Bolt 02 | Channel state machine Type: 128-255</li>
+<li>Path selection | Bolt 07 | Routing fees Channel metadata | Gossip relaying Query/reply Type: 256-511</li>
+</ul>
+<h2 id="payment-layer支付层">Payment layer（支付层） <a href="#payment-layer%e6%94%af%e4%bb%98%e5%b1%82" class="anchor">🔗</a></h2><p>该层属于最上层的网络协议，提供可靠的支付接口给应用。</p>
+<ul>
+<li>Invoices: payment hash and pre-image Bolt 11</li>
+<li>Payment attempts trial and error loop | Bolt 04 | Source-based onion routing(SPHINX)</li>
+<li>Pathfinding(MPP, rebalancing, …)</li>
+<li>Path selection | Bolt 07 | Routing fees Channel metadata | Gossip relaying Query/reply Type: 256-511</li>
+</ul>
+<p>About Lightning Network for all components:</p>
+<ul>
+<li>Payment_channels 交易通道</li>
+<li>Routing 路由</li>
+<li>Channel_operation，HTLC（Hashed Time-lock Contract）哈希的带时钟合约</li>
+<li>Onion_routing：online routing protocol，支持加解密</li>
+<li>Gossip：实现闪电网络节点与节点之间如何交互。</li>
+<li>Path_finding：利用gossip协议建立“map”实现节点间交互。</li>
+<li>Wire_protocol：闪电网络是通过点对点协议来交换信息，bits 和 Type-Length-Value(TLV)编码。</li>
+<li>Encrypted_message_transport：加密传输系统，确保节点之间沟通的信息具有保密性和完整性。</li>
+<li>Invoices：闪电网络中非常关键的一个支付请求，也称作 Lightning invoices。</li>
+</ul>
+<p>To open a payment channel, two nodes must first be connected as direct peers by opening a connection over the internet(or Tor).</p>
+<p>Channel Establishment Message Flow（通道建立消息流）</p>
+<ul>
+<li>open_channel</li>
+<li>accept_channel</li>
+<li>funding_created</li>
+<li>funding_signed</li>
+<li>funding_locked</li>
+<li>funding_locked</li>
+</ul>
+<p><p class="markdown-image">
+  <img src="Pasted%20Graphic%201.png" alt=""  />
+</p></p>
+<p>open_channel打开一个支付通道，请求的信息是：</p>
+<p>[chain_hash:chain_hash]
+[32*byte:temporary_channel_id]
+[u64:funding_satoshis]
+[u64:push_msat]
+[u64:dust_limit_satoshis]
+[u64:max_htlc_value_in_flight_msat]
+[u64:channel_reserve_satoshis]
+[u64:htlc_minimum_msat]
+[u32:feerate_per_kw]
+[u16:to_self_delay]
+[u16:max_accepted_htlcs]
+[point:funding_pubkey]
+[point:revocation_basepoint]
+[point:payment_basepoint]
+[point:delayed_payment_basepoint]
+[point:htlc_basepoint]
+[point:first_per_commitment_point]
+[byte:channel_flags]
+[open_channel_tlvs:tlvs]</p>
+<p>解释：</p>
+<ul>
+<li>chain_hash：区块链的Hash值（如，Bitcoin mainnet）</li>
+<li>funding_satoshis：支付通道的额度，总计通道的容量，单位是satoshis</li>
+<li>channel_reserve_satoshis：通道每一侧保留的最小余额，单位是satoshis</li>
+<li>push_msat：节点给通道的支付金额</li>
+<li>to_self_delay：该协议是非常重要的安全参数。open_channel消息中的值用于响应者的承诺交易，accept_channel消息中的值用于发起者的承诺交易。这种不对称性是为了让每一方表达另一方需要等待多长时间来单方面索取承诺交易中的资金。如果B在任何时候违背了A的意愿单方面关闭通道，B就会在定义的延迟时间内不获取自己的资金。值越高，A就越安全，反之，B会被锁住资金。</li>
+<li>funding_pubkey：用于在通道中的2-of-2多签公钥。</li>
+<li>X_basepoint：主密钥，主要用来派生用于承诺、废除、routed payment(HTLCs)和关闭通道的多种子钥。</li>
+</ul>
+<p>accept_channel接受并响应一个支付通道，响应的信息是：</p>
+<p>[32*byte:temporary_channel_id]
+[u64:dust_limit_satoshis]
+[u64:max_htlc_value_in_flight_msat]
+[u64:channel_reserve_satoshis]
+[u64:htlc_minimum_msat]
+[u32:minimum_depth]
+[u16:to_self_delay]
+[u16:max_accepted_htlcs]
+[point:funding_pubkey]
+[point:revocation_basepoint]
+[point:payment_basepoint]
+[point:delayed_payment_basepoint]
+[point:htlc_basepoint]
+[point:first_per_commitment_point]
+[accept_channel_tlvs:tlvs]</p>
+<p>解释：</p>
+<ul>
+<li>funding_pubkey:  用于在通道中的2-of-2多签公钥。</li>
+<li>minimum_depth: 在通道开启和准备之前，节点支持的资金交易的确认次数。</li>
+</ul>
+<h2 id="关闭通道">关闭通道 <a href="#%e5%85%b3%e9%97%ad%e9%80%9a%e9%81%93" class="anchor">🔗</a></h2><p>任何一方的节点都可以关闭通道，但是这种方式并不理想，因为一方关闭通道就会导致另一方强制进行时间锁定（timelock）。</p>
+<p>最理想的关闭通道的方式是合作关闭（cooperative close）。在这种情况下，节点之间会确认最终交易并调用关闭交易（closing transaction），并将双方的余额（balance）支付给目标钱包。之后，节点之间发起通道关闭流程并广播关闭交易。</p>
+<p>关闭通道图如下：</p>
+<p><p class="markdown-image">
+  <img src="Pasted%20Graphic%202.png" alt=""  />
+</p></p>
+<p>关闭消息（The shutdown message）</p>
+<p>通道关闭由一方（节点）首先发起，内容如下：</p>
+<p>[channel_id:channel_id]
+[u16:len]
+[len*byte:scriptpubkey]</p>
+<ul>
+<li>channel_id：通道ID</li>
+<li>Len：节点收到余额的目标钱包脚本的长度。</li>
+<li>scriptpubkey：目标钱包的比特币脚本，地址格式有P2PKH, P2SH, P2WPKH, P2WSH等</li>
+</ul>
+<p>关闭信号消息（The closing_signed message）</p>
+<p>如果通道没有更多消息，并且节点之间已经交换了关闭消息（The shutdown message），那么节点之间就可以完成合作关闭（The shutdown message）。</p>
+<p>发送的内容如下：</p>
+<p>[channel_id:channel_id]
+[u64:fee_satoshis]
+[signature:signature]</p>
+<ul>
+<li>channel_id：通道ID</li>
+<li>fee_satoshis：建议的链上交易费用，单位是satoshis。</li>
+<li>signature：对发送交易进行签名。</li>
+</ul>
+<p>A millibitcoin (mBTC) is 0.001 bitcoins. 1 BTC = 1,000 mBTC. 1 mBTC = 100,000 satoshi.</p>
+<p>Eth 测试节点rpc地址： 129.150.47.192:38888
+Btc 测试节点rpc地址：129.150.47.192:18665
+btc 账号密码：aptest: aptest3019</p>
+
+    </div>
+
+    
+    
+    
+  <div id="comment">
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-dxmvw3ac3t" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/viper-00" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/ZhongMingYang00" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Viper
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

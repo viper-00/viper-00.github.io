@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <title>Easy of Leetcode | Viper</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="Easy of Leetcode 🔗// 1. func twoSum(nums []int, target int) []int { var items = make(map[int]int, len(nums)) for k, v := range nums { if itemKey, ok := items[target-v]; ok { return []int{itemKey, k} } items[v] = k } return []int{} } // 9. func isPalindrome(x int) bool { var oldNum, newNum, position int oldNum = x for x &gt; 0 { position = x % 10 newNum = newNum*10 &#43; position x = x / 10 } return oldNum == newNum } // 13.">
+<meta name="generator" content="Hugo 0.101.0" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+ 
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-3CPL7G0HYV', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://viper00.fun/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Easy of Leetcode</h1>
+
+    <div class="tip">
+        <time datetime="2022-08-22 00:00:00 &#43;0000 UTC">2022年08月22日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2521字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          12分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="easy-of-leetcode">Easy of Leetcode <a href="#easy-of-leetcode" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 1.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">twoSum</span>(nums []<span style="color:#0b0;font-weight:bold">int</span>, target <span style="color:#0b0;font-weight:bold">int</span>) []<span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> items = <span style="color:#a2f">make</span>(<span style="color:#a2f;font-weight:bold">map</span>[<span style="color:#0b0;font-weight:bold">int</span>]<span style="color:#0b0;font-weight:bold">int</span>, <span style="color:#a2f">len</span>(nums))
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> k, v <span style="color:#666">:=</span> <span style="color:#a2f;font-weight:bold">range</span> nums {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> itemKey, ok <span style="color:#666">:=</span> items[target<span style="color:#666">-</span>v]; ok {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> []<span style="color:#0b0;font-weight:bold">int</span>{itemKey, k}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		items[v] = k
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> []<span style="color:#0b0;font-weight:bold">int</span>{}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 9.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">isPalindrome</span>(x <span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> oldNum, newNum, position <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>	oldNum = x
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> x &gt; <span style="color:#666">0</span> {
+</span></span><span style="display:flex;"><span>		position = x <span style="color:#666">%</span> <span style="color:#666">10</span>
+</span></span><span style="display:flex;"><span>		newNum = newNum<span style="color:#666">*</span><span style="color:#666">10</span> <span style="color:#666">+</span> position
+</span></span><span style="display:flex;"><span>		x = x <span style="color:#666">/</span> <span style="color:#666">10</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> oldNum <span style="color:#666">==</span> newNum
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 13.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">romanToInt</span>(s <span style="color:#0b0;font-weight:bold">string</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	romanMap <span style="color:#666">:=</span> <span style="color:#a2f;font-weight:bold">map</span>[<span style="color:#0b0;font-weight:bold">byte</span>]<span style="color:#0b0;font-weight:bold">int</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#b44">&#39;I&#39;</span>: <span style="color:#666">1</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#b44">&#39;V&#39;</span>: <span style="color:#666">5</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#b44">&#39;X&#39;</span>: <span style="color:#666">10</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#b44">&#39;L&#39;</span>: <span style="color:#666">50</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#b44">&#39;C&#39;</span>: <span style="color:#666">100</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#b44">&#39;D&#39;</span>: <span style="color:#666">500</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#b44">&#39;M&#39;</span>: <span style="color:#666">1000</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> len <span style="color:#0b0;font-weight:bold">int</span> = <span style="color:#a2f">len</span>(s)
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> sum <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> len <span style="color:#666">==</span> <span style="color:#666">1</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> romanMap[s[<span style="color:#666">0</span>]]
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">1</span>; i &lt; len; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> romanMap[s[i<span style="color:#666">-</span><span style="color:#666">1</span>]] <span style="color:#666">&gt;=</span> romanMap[s[i]] {
+</span></span><span style="display:flex;"><span>			sum <span style="color:#666">+=</span> romanMap[s[i<span style="color:#666">-</span><span style="color:#666">1</span>]]
+</span></span><span style="display:flex;"><span>		} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>			sum <span style="color:#666">+=</span> romanMap[s[i]] <span style="color:#666">-</span> romanMap[s[i<span style="color:#666">-</span><span style="color:#666">1</span>]]
+</span></span><span style="display:flex;"><span>			i<span style="color:#666">++</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> i <span style="color:#666">==</span> len<span style="color:#666">-</span><span style="color:#666">1</span> {
+</span></span><span style="display:flex;"><span>			sum <span style="color:#666">+=</span> romanMap[s[i]]
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> sum
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 14.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">longestCommonPrefix</span>(strs []<span style="color:#0b0;font-weight:bold">string</span>) <span style="color:#0b0;font-weight:bold">string</span> {
+</span></span><span style="display:flex;"><span>	strsLen <span style="color:#666">:=</span> <span style="color:#a2f">len</span>(strs)
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> strsLen <span style="color:#666">==</span> <span style="color:#666">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#b44">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> strsLen <span style="color:#666">==</span> <span style="color:#666">1</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> strs[<span style="color:#666">0</span>]
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	same <span style="color:#666">:=</span> strs[<span style="color:#666">0</span>]
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> _, v <span style="color:#666">:=</span> <span style="color:#a2f;font-weight:bold">range</span> strs[<span style="color:#666">1</span>:] {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">var</span> commonPrefix []<span style="color:#0b0;font-weight:bold">byte</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">var</span> cycleLen <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> <span style="color:#a2f">len</span>(same) <span style="color:#666">&gt;=</span> <span style="color:#a2f">len</span>(v) {
+</span></span><span style="display:flex;"><span>			cycleLen = <span style="color:#a2f">len</span>(v)
+</span></span><span style="display:flex;"><span>		} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>			cycleLen = <span style="color:#a2f">len</span>(same)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; cycleLen; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">if</span> v[i] <span style="color:#666">==</span> same[i] {
+</span></span><span style="display:flex;"><span>				commonPrefix = <span style="color:#a2f">append</span>(commonPrefix, same[i])
+</span></span><span style="display:flex;"><span>			} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#a2f;font-weight:bold">break</span>
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		same = <span style="color:#a2f">string</span>(commonPrefix)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> same
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 20.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">isValid</span>(s <span style="color:#0b0;font-weight:bold">string</span>) <span style="color:#0b0;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>	stack <span style="color:#666">:=</span> <span style="color:#a2f">make</span>([]<span style="color:#0b0;font-weight:bold">rune</span>, <span style="color:#666">0</span>)
+</span></span><span style="display:flex;"><span>	validMap <span style="color:#666">:=</span> <span style="color:#a2f;font-weight:bold">map</span>[<span style="color:#0b0;font-weight:bold">rune</span>]<span style="color:#0b0;font-weight:bold">rune</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#b44">&#39;)&#39;</span>: <span style="color:#b44">&#39;(&#39;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#b44">&#39;]&#39;</span>: <span style="color:#b44">&#39;[&#39;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#b44">&#39;}&#39;</span>: <span style="color:#b44">&#39;{&#39;</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	sLen <span style="color:#666">:=</span> <span style="color:#a2f">len</span>(s)
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> sLen <span style="color:#666">==</span> <span style="color:#666">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> sLen<span style="color:#666">%</span><span style="color:#666">2</span> <span style="color:#666">==</span> <span style="color:#666">1</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> _, v <span style="color:#666">:=</span> <span style="color:#a2f;font-weight:bold">range</span> s {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">switch</span> v {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">case</span> <span style="color:#b44">&#39;(&#39;</span>, <span style="color:#b44">&#39;[&#39;</span>, <span style="color:#b44">&#39;{&#39;</span>:
+</span></span><span style="display:flex;"><span>			stack = <span style="color:#a2f">append</span>(stack, v)
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">case</span> <span style="color:#b44">&#39;)&#39;</span>, <span style="color:#b44">&#39;]&#39;</span>, <span style="color:#b44">&#39;}&#39;</span>:
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">if</span> <span style="color:#a2f">len</span>(stack) <span style="color:#666">==</span> <span style="color:#666">0</span> <span style="color:#666">||</span> validMap[v] <span style="color:#666">!=</span> stack[<span style="color:#a2f">len</span>(stack)<span style="color:#666">-</span><span style="color:#666">1</span>] {
+</span></span><span style="display:flex;"><span>				<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			stack = stack[:<span style="color:#a2f">len</span>(stack)<span style="color:#666">-</span><span style="color:#666">1</span>]
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f">len</span>(stack) <span style="color:#666">==</span> <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 21.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Definition for singly-linked list.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> ListNode <span style="color:#a2f;font-weight:bold">struct</span> {
+</span></span><span style="display:flex;"><span>	Val  <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>	Next <span style="color:#666">*</span>ListNode
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">mergeTwoLists</span>(list1 <span style="color:#666">*</span>ListNode, list2 <span style="color:#666">*</span>ListNode) <span style="color:#666">*</span>ListNode {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> newList = <span style="color:#666">&amp;</span>ListNode{}
+</span></span><span style="display:flex;"><span>	firstList <span style="color:#666">:=</span> newList
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> list1 <span style="color:#666">!=</span> <span style="color:#a2f;font-weight:bold">nil</span> <span style="color:#666">||</span> list2 <span style="color:#666">!=</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> list1 <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>			newList.Next = list2
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">break</span>
+</span></span><span style="display:flex;"><span>		} <span style="color:#a2f;font-weight:bold">else</span> <span style="color:#a2f;font-weight:bold">if</span> list2 <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>			newList.Next = list1
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">break</span>
+</span></span><span style="display:flex;"><span>		} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">if</span> list1.Val &gt; list2.Val {
+</span></span><span style="display:flex;"><span>				newList.Next = <span style="color:#666">&amp;</span>ListNode{Val: list2.Val}
+</span></span><span style="display:flex;"><span>				list2 = list2.Next
+</span></span><span style="display:flex;"><span>			} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>				newList.Next = <span style="color:#666">&amp;</span>ListNode{Val: list1.Val}
+</span></span><span style="display:flex;"><span>				list1 = list1.Next
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		newList = newList.Next
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> firstList <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">nil</span>
+</span></span><span style="display:flex;"><span>	} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> firstList.Next
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 26.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">removeDuplicates</span>(nums []<span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> valuesMap = <span style="color:#a2f">make</span>(<span style="color:#a2f;font-weight:bold">map</span>[<span style="color:#0b0;font-weight:bold">int</span>]<span style="color:#0b0;font-weight:bold">bool</span>, <span style="color:#a2f">len</span>(nums))
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> count <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> _, v <span style="color:#666">:=</span> <span style="color:#a2f;font-weight:bold">range</span> nums {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> _, ok <span style="color:#666">:=</span> valuesMap[v]; !ok {
+</span></span><span style="display:flex;"><span>			nums[count] = v
+</span></span><span style="display:flex;"><span>			valuesMap[v] = <span style="color:#a2f;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>			count<span style="color:#666">++</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f">len</span>(valuesMap)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 27.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">removeElement</span>(nums []<span style="color:#0b0;font-weight:bold">int</span>, val <span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> count <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> _, v <span style="color:#666">:=</span> <span style="color:#a2f;font-weight:bold">range</span> nums {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> v <span style="color:#666">!=</span> val {
+</span></span><span style="display:flex;"><span>			nums[count] = v
+</span></span><span style="display:flex;"><span>			count<span style="color:#666">++</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> count
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 28.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">strStr</span>(haystack <span style="color:#0b0;font-weight:bold">string</span>, needle <span style="color:#0b0;font-weight:bold">string</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	hLen <span style="color:#666">:=</span> <span style="color:#a2f">len</span>(haystack)
+</span></span><span style="display:flex;"><span>	nLen <span style="color:#666">:=</span> <span style="color:#a2f">len</span>(needle)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> nLen <span style="color:#666">==</span> <span style="color:#666">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; hLen; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> haystack[i] <span style="color:#666">==</span> needle[<span style="color:#666">0</span>] {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">if</span> nLen &gt; hLen<span style="color:#666">-</span>i {
+</span></span><span style="display:flex;"><span>				<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">-</span><span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">if</span> haystack[i:nLen<span style="color:#666">+</span>i] <span style="color:#666">==</span> needle {
+</span></span><span style="display:flex;"><span>				<span style="color:#a2f;font-weight:bold">return</span> i
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">-</span><span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 35.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">searchInsert</span>(nums []<span style="color:#0b0;font-weight:bold">int</span>, target <span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	nLen <span style="color:#666">:=</span> <span style="color:#a2f">len</span>(nums)
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> nLen <span style="color:#666">==</span> <span style="color:#666">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; nLen; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> nums[i] <span style="color:#666">&gt;=</span> target {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> i
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> nLen
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 53.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">maxSubArray</span>(nums []<span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	nLen <span style="color:#666">:=</span> <span style="color:#a2f">len</span>(nums)
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> nLen <span style="color:#666">==</span> <span style="color:#666">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> nLen <span style="color:#666">==</span> <span style="color:#666">1</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> nums[<span style="color:#666">0</span>]
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> max, sum <span style="color:#0b0;font-weight:bold">int</span> = nums[<span style="color:#666">0</span>], nums[<span style="color:#666">0</span>]
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">1</span>; i &lt; nLen; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> sum &lt; <span style="color:#666">0</span> {
+</span></span><span style="display:flex;"><span>			sum = nums[i]
+</span></span><span style="display:flex;"><span>		} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>			sum <span style="color:#666">+=</span> nums[i]
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> max &lt; sum {
+</span></span><span style="display:flex;"><span>			max = sum
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> max
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 58.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">lengthOfLastWord</span>(s <span style="color:#0b0;font-weight:bold">string</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	sLen <span style="color:#666">:=</span> <span style="color:#a2f">len</span>(s)
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> wordCount <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> sLen <span style="color:#666">-</span> <span style="color:#666">1</span>; i <span style="color:#666">&gt;=</span> <span style="color:#666">0</span>; i<span style="color:#666">--</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> s[i] <span style="color:#666">!=</span> <span style="color:#b44">&#39; &#39;</span> {
+</span></span><span style="display:flex;"><span>			wordCount<span style="color:#666">++</span>
+</span></span><span style="display:flex;"><span>		} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">if</span> wordCount <span style="color:#666">!=</span> <span style="color:#666">0</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#a2f;font-weight:bold">return</span> wordCount
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> wordCount
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 66.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">plusOne</span>(digits []<span style="color:#0b0;font-weight:bold">int</span>) []<span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	dlen <span style="color:#666">:=</span> <span style="color:#a2f">len</span>(digits)
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> carry <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> dlen <span style="color:#666">-</span> <span style="color:#666">1</span>; i <span style="color:#666">&gt;=</span> <span style="color:#666">0</span>; i<span style="color:#666">--</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">var</span> afterCarry <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> i <span style="color:#666">==</span> dlen<span style="color:#666">-</span><span style="color:#666">1</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">if</span> digits[i]<span style="color:#666">+</span><span style="color:#666">1</span> <span style="color:#666">&gt;=</span> <span style="color:#666">10</span> {
+</span></span><span style="display:flex;"><span>				afterCarry = <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>			} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>				afterCarry = <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			digits[i] = (digits[i] <span style="color:#666">+</span> <span style="color:#666">1</span>) <span style="color:#666">%</span> <span style="color:#666">10</span>
+</span></span><span style="display:flex;"><span>		} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">if</span> digits[i]<span style="color:#666">+</span>carry <span style="color:#666">&gt;=</span> <span style="color:#666">10</span> {
+</span></span><span style="display:flex;"><span>				afterCarry = <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>			} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>				afterCarry = <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			digits[i] = (digits[i] <span style="color:#666">+</span> carry) <span style="color:#666">%</span> <span style="color:#666">10</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		carry = afterCarry
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> carry <span style="color:#666">==</span> <span style="color:#666">1</span> {
+</span></span><span style="display:flex;"><span>		newDigits <span style="color:#666">:=</span> <span style="color:#a2f">make</span>([]<span style="color:#0b0;font-weight:bold">int</span>, dlen<span style="color:#666">+</span><span style="color:#666">1</span>)
+</span></span><span style="display:flex;"><span>		newDigits[<span style="color:#666">0</span>] = <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; dlen<span style="color:#666">-</span><span style="color:#666">1</span>; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>			newDigits[i<span style="color:#666">+</span><span style="color:#666">1</span>] = digits[i]
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> newDigits
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> digits
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 67.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">addBinary</span>(a <span style="color:#0b0;font-weight:bold">string</span>, b <span style="color:#0b0;font-weight:bold">string</span>) <span style="color:#0b0;font-weight:bold">string</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> s, carry <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> result <span style="color:#0b0;font-weight:bold">string</span>
+</span></span><span style="display:flex;"><span>	la <span style="color:#666">:=</span> <span style="color:#a2f">len</span>(a) <span style="color:#666">-</span> <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>	lb <span style="color:#666">:=</span> <span style="color:#a2f">len</span>(b) <span style="color:#666">-</span> <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> la <span style="color:#666">&gt;=</span> <span style="color:#666">0</span> <span style="color:#666">||</span> lb <span style="color:#666">&gt;=</span> <span style="color:#666">0</span> <span style="color:#666">||</span> carry <span style="color:#666">!=</span> <span style="color:#666">0</span> {
+</span></span><span style="display:flex;"><span>		s = carry
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> la <span style="color:#666">&gt;=</span> <span style="color:#666">0</span> {
+</span></span><span style="display:flex;"><span>			s <span style="color:#666">+=</span> <span style="color:#a2f">int</span>(a[la] <span style="color:#666">-</span> <span style="color:#b44">&#39;0&#39;</span>)
+</span></span><span style="display:flex;"><span>			la<span style="color:#666">--</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> lb <span style="color:#666">&gt;=</span> <span style="color:#666">0</span> {
+</span></span><span style="display:flex;"><span>			s <span style="color:#666">+=</span> <span style="color:#a2f">int</span>(b[lb] <span style="color:#666">-</span> <span style="color:#b44">&#39;0&#39;</span>)
+</span></span><span style="display:flex;"><span>			lb<span style="color:#666">--</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		carry = s <span style="color:#666">/</span> <span style="color:#666">2</span>
+</span></span><span style="display:flex;"><span>		result = <span style="color:#a2f">string</span>(s<span style="color:#666">%</span><span style="color:#666">2</span><span style="color:#666">+</span><span style="color:#b44">&#39;0&#39;</span>) <span style="color:#666">+</span> result
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> result
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 69.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">mySqrt</span>(x <span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> x <span style="color:#666">==</span> <span style="color:#666">0</span> <span style="color:#666">||</span> x <span style="color:#666">==</span> <span style="color:#666">1</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> x
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	left <span style="color:#666">:=</span> <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>	right <span style="color:#666">:=</span> x <span style="color:#666">/</span> <span style="color:#666">2</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> pivot <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> left <span style="color:#666">&lt;=</span> right {
+</span></span><span style="display:flex;"><span>		pivot = left <span style="color:#666">+</span> (right<span style="color:#666">-</span>left)<span style="color:#666">/</span><span style="color:#666">2</span>
+</span></span><span style="display:flex;"><span>		pp <span style="color:#666">:=</span> pivot <span style="color:#666">*</span> pivot
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> pp <span style="color:#666">==</span> x <span style="color:#666">||</span> (pp &lt; x <span style="color:#666">&amp;&amp;</span> (pivot<span style="color:#666">+</span><span style="color:#666">1</span>)<span style="color:#666">*</span>(pivot<span style="color:#666">+</span><span style="color:#666">1</span>) &gt; x) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> pivot
+</span></span><span style="display:flex;"><span>		} <span style="color:#a2f;font-weight:bold">else</span> <span style="color:#a2f;font-weight:bold">if</span> pp &gt; x {
+</span></span><span style="display:flex;"><span>			right = pivot <span style="color:#666">-</span> <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>		} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>			left = pivot <span style="color:#666">+</span> <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> pivot
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 70.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">climbStairs</span>(n <span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> n <span style="color:#666">==</span> <span style="color:#666">1</span> <span style="color:#666">||</span> n <span style="color:#666">==</span> <span style="color:#666">2</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> n
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	dp <span style="color:#666">:=</span> <span style="color:#a2f">make</span>([]<span style="color:#0b0;font-weight:bold">int</span>, n<span style="color:#666">+</span><span style="color:#666">1</span>)
+</span></span><span style="display:flex;"><span>	dp[<span style="color:#666">1</span>] = <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>	dp[<span style="color:#666">2</span>] = <span style="color:#666">2</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">3</span>; i <span style="color:#666">&lt;=</span> n; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		dp[i] = dp[i<span style="color:#666">-</span><span style="color:#666">1</span>] <span style="color:#666">+</span> dp[i<span style="color:#666">-</span><span style="color:#666">2</span>]
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> dp[n]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">climbStairs2</span>(n <span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> n <span style="color:#666">==</span> <span style="color:#666">1</span> <span style="color:#666">||</span> n <span style="color:#666">==</span> <span style="color:#666">2</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> n
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	dp <span style="color:#666">:=</span> <span style="color:#a2f">make</span>([]<span style="color:#0b0;font-weight:bold">int</span>, <span style="color:#666">3</span>)
+</span></span><span style="display:flex;"><span>	dp[<span style="color:#666">1</span>] = <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>	dp[<span style="color:#666">2</span>] = <span style="color:#666">2</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">3</span>; i <span style="color:#666">&lt;=</span> n; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		sum <span style="color:#666">:=</span> dp[<span style="color:#666">1</span>] <span style="color:#666">+</span> dp[<span style="color:#666">2</span>]
+</span></span><span style="display:flex;"><span>		dp[<span style="color:#666">1</span>] = dp[<span style="color:#666">2</span>]
+</span></span><span style="display:flex;"><span>		dp[<span style="color:#666">2</span>] = sum
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> dp[<span style="color:#666">2</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 83.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * Definition for singly-linked list.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * type ListNode struct {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Val int
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Next *ListNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">deleteDuplicates</span>(head <span style="color:#666">*</span>ListNode) <span style="color:#666">*</span>ListNode {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> head <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> head
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	list <span style="color:#666">:=</span> head
+</span></span><span style="display:flex;"><span>	listMap <span style="color:#666">:=</span> <span style="color:#a2f">make</span>(<span style="color:#a2f;font-weight:bold">map</span>[<span style="color:#0b0;font-weight:bold">int</span>]<span style="color:#0b0;font-weight:bold">bool</span>)
+</span></span><span style="display:flex;"><span>	listMap[list.Val] = <span style="color:#a2f;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> list.Next <span style="color:#666">!=</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> _, ok <span style="color:#666">:=</span> listMap[list.Next.Val]; ok {
+</span></span><span style="display:flex;"><span>			list.Next = list.Next.Next
+</span></span><span style="display:flex;"><span>		} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>			listMap[list.Next.Val] = <span style="color:#a2f;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>			list = list.Next
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> head
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 88.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">merge</span>(nums1 []<span style="color:#0b0;font-weight:bold">int</span>, m <span style="color:#0b0;font-weight:bold">int</span>, nums2 []<span style="color:#0b0;font-weight:bold">int</span>, n <span style="color:#0b0;font-weight:bold">int</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> n &gt; <span style="color:#666">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> m <span style="color:#666">==</span> <span style="color:#666">0</span> <span style="color:#666">||</span> nums2[n<span style="color:#666">-</span><span style="color:#666">1</span>] &gt; nums1[m<span style="color:#666">-</span><span style="color:#666">1</span>] {
+</span></span><span style="display:flex;"><span>			nums1[m<span style="color:#666">+</span>n<span style="color:#666">-</span><span style="color:#666">1</span>] = nums2[n<span style="color:#666">-</span><span style="color:#666">1</span>]
+</span></span><span style="display:flex;"><span>			n<span style="color:#666">--</span>
+</span></span><span style="display:flex;"><span>		} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>			nums1[m<span style="color:#666">+</span>n<span style="color:#666">-</span><span style="color:#666">1</span>] = nums1[m<span style="color:#666">-</span><span style="color:#666">1</span>]
+</span></span><span style="display:flex;"><span>			m<span style="color:#666">--</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 94.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">//
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Definition for a binary tree node.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">type</span> TreeNode <span style="color:#a2f;font-weight:bold">struct</span> {
+</span></span><span style="display:flex;"><span>	Val   <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>	Left  <span style="color:#666">*</span>TreeNode
+</span></span><span style="display:flex;"><span>	Right <span style="color:#666">*</span>TreeNode
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">inorderTraversal</span>(root <span style="color:#666">*</span>TreeNode) []<span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> root <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> []<span style="color:#0b0;font-weight:bold">int</span>{}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	left <span style="color:#666">:=</span> <span style="color:#00a000">inorderTraversal</span>(root.Left)
+</span></span><span style="display:flex;"><span>	left = <span style="color:#a2f">append</span>(left, root.Val)
+</span></span><span style="display:flex;"><span>	right <span style="color:#666">:=</span> <span style="color:#00a000">inorderTraversal</span>(root.Right)
+</span></span><span style="display:flex;"><span>	left = <span style="color:#a2f">append</span>(left, right<span style="color:#666">...</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> left
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">inorderTraversal2</span>(root <span style="color:#666">*</span>TreeNode) []<span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> root <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> []<span style="color:#0b0;font-weight:bold">int</span>{}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	ans <span style="color:#666">:=</span> []<span style="color:#0b0;font-weight:bold">int</span>{}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> inorder <span style="color:#a2f;font-weight:bold">func</span>(root <span style="color:#666">*</span>TreeNode)
+</span></span><span style="display:flex;"><span>	inorder = <span style="color:#a2f;font-weight:bold">func</span>(root <span style="color:#666">*</span>TreeNode) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> root <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#00a000">inorder</span>(root.Left)
+</span></span><span style="display:flex;"><span>		ans = <span style="color:#a2f">append</span>(ans, root.Val)
+</span></span><span style="display:flex;"><span>		<span style="color:#00a000">inorder</span>(root.Right)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a000">inorder</span>(root)
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> ans
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 100.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * Definition for a binary tree node.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * type TreeNode struct {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Val int
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Left *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Right *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">isSameTree</span>(p <span style="color:#666">*</span>TreeNode, q <span style="color:#666">*</span>TreeNode) <span style="color:#0b0;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> p <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> <span style="color:#666">&amp;&amp;</span> q <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> p <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> <span style="color:#666">||</span> q <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> <span style="color:#666">||</span> p.Val <span style="color:#666">!=</span> q.Val {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#00a000">isSameTree</span>(p.Left, q.Left) <span style="color:#666">&amp;&amp;</span> <span style="color:#00a000">isSameTree</span>(p.Right, q.Right)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 101.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * Definition for a binary tree node.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * type TreeNode struct {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Val int
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Left *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Right *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">isSymmetric</span>(root <span style="color:#666">*</span>TreeNode) <span style="color:#0b0;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> root <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> symmetric <span style="color:#a2f;font-weight:bold">func</span>(node1 <span style="color:#666">*</span>TreeNode, node2 <span style="color:#666">*</span>TreeNode) <span style="color:#0b0;font-weight:bold">bool</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	symmetric = <span style="color:#a2f;font-weight:bold">func</span>(node1 <span style="color:#666">*</span>TreeNode, node2 <span style="color:#666">*</span>TreeNode) <span style="color:#0b0;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> node1 <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> <span style="color:#666">&amp;&amp;</span> node2 <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> node1 <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> <span style="color:#666">||</span> node2 <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> node1.Val <span style="color:#666">!=</span> node2.Val {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#00a000">symmetric</span>(node1.Left, node2.Right) <span style="color:#666">&amp;&amp;</span> <span style="color:#00a000">symmetric</span>(node1.Right, node2.Left)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#00a000">symmetric</span>(root.Left, root.Right)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 104.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * Definition for a binary tree node.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * type TreeNode struct {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Val int
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Left *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Right *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">maxDepth</span>(root <span style="color:#666">*</span>TreeNode) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> root <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> count <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>	leftDepth <span style="color:#666">:=</span> <span style="color:#00a000">maxDepth</span>(root.Left)
+</span></span><span style="display:flex;"><span>	rightDepth <span style="color:#666">:=</span> <span style="color:#00a000">maxDepth</span>(root.Right)
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> leftDepth &gt; rightDepth {
+</span></span><span style="display:flex;"><span>		count = <span style="color:#666">1</span> <span style="color:#666">+</span> leftDepth
+</span></span><span style="display:flex;"><span>	} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>		count = <span style="color:#666">1</span> <span style="color:#666">+</span> rightDepth
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> count
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 108.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * Definition for a binary tree node.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * type TreeNode struct {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Val int
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Left *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Right *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">sortedArrayToBST</span>(nums []<span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#666">*</span>TreeNode {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> <span style="color:#a2f">len</span>(nums) <span style="color:#666">==</span> <span style="color:#666">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">nil</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	median <span style="color:#666">:=</span> <span style="color:#a2f">len</span>(nums) <span style="color:#666">/</span> <span style="color:#666">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">&amp;</span>TreeNode{
+</span></span><span style="display:flex;"><span>		Val:   nums[<span style="color:#a2f">len</span>(nums)<span style="color:#666">/</span><span style="color:#666">2</span>],
+</span></span><span style="display:flex;"><span>		Left:  <span style="color:#00a000">sortedArrayToBST</span>(nums[:median]),
+</span></span><span style="display:flex;"><span>		Right: <span style="color:#00a000">sortedArrayToBST</span>(nums[median<span style="color:#666">+</span><span style="color:#666">1</span>:]),
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 110.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * Definition for a binary tree node.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * type TreeNode struct {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Val int
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Left *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Right *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">isBalanced</span>(root <span style="color:#666">*</span>TreeNode) <span style="color:#0b0;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> helper <span style="color:#a2f;font-weight:bold">func</span>(node <span style="color:#666">*</span>TreeNode) <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> max <span style="color:#a2f;font-weight:bold">func</span>(a, b <span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	helper = <span style="color:#a2f;font-weight:bold">func</span>(node <span style="color:#666">*</span>TreeNode) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> node <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		left <span style="color:#666">:=</span> <span style="color:#00a000">helper</span>(node.Left)
+</span></span><span style="display:flex;"><span>		right <span style="color:#666">:=</span> <span style="color:#00a000">helper</span>(node.Right)
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> left <span style="color:#666">==</span> <span style="color:#666">-</span><span style="color:#666">1</span> <span style="color:#666">||</span> right <span style="color:#666">==</span> <span style="color:#666">-</span><span style="color:#666">1</span> <span style="color:#666">||</span> left<span style="color:#666">-</span>right &gt; <span style="color:#666">1</span> <span style="color:#666">||</span> right<span style="color:#666">-</span>left &gt; <span style="color:#666">1</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">-</span><span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#00a000">max</span>(left, right) <span style="color:#666">+</span> <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	max = <span style="color:#a2f;font-weight:bold">func</span>(a, b <span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> a &gt; b {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> a
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> b
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#00a000">helper</span>(root) <span style="color:#666">!=</span> <span style="color:#666">-</span><span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 111.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * Definition for a binary tree node.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * type TreeNode struct {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Val int
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Left *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Right *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">minDepth</span>(root <span style="color:#666">*</span>TreeNode) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> root <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> root.Left <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> <span style="color:#666">&amp;&amp;</span> root.Right <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> root.Left <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">1</span> <span style="color:#666">+</span> <span style="color:#00a000">minDepth</span>(root.Right)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> root.Right <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">1</span> <span style="color:#666">+</span> <span style="color:#00a000">minDepth</span>(root.Left)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">1</span> <span style="color:#666">+</span> <span style="color:#00a000">min</span>(<span style="color:#00a000">minDepth</span>(root.Left), <span style="color:#00a000">minDepth</span>(root.Right))
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">min</span>(a, b <span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> a &gt; b {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> b
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> a
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 112.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * Definition for a binary tree node.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * type TreeNode struct {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Val int
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Left *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Right *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">hasPathSum</span>(root <span style="color:#666">*</span>TreeNode, targetSum <span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> root <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> root.Left <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> <span style="color:#666">&amp;&amp;</span> root.Right <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> targetSum <span style="color:#666">==</span> root.Val
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#00a000">hasPathSum</span>(root.Left, targetSum<span style="color:#666">-</span>root.Val) <span style="color:#666">||</span> <span style="color:#00a000">hasPathSum</span>(root.Right, targetSum<span style="color:#666">-</span>root.Val)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 118.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">generate</span>(numRows <span style="color:#0b0;font-weight:bold">int</span>) [][]<span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> result [][]<span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">1</span>; i <span style="color:#666">&lt;=</span> numRows; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">var</span> row = <span style="color:#a2f">make</span>([]<span style="color:#0b0;font-weight:bold">int</span>, i)
+</span></span><span style="display:flex;"><span>		row[<span style="color:#666">0</span>], row[<span style="color:#a2f">len</span>(row)<span style="color:#666">-</span><span style="color:#666">1</span>] = <span style="color:#666">1</span>, <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">for</span> j <span style="color:#666">:=</span> <span style="color:#666">1</span>; j &lt; <span style="color:#a2f">len</span>(row)<span style="color:#666">-</span><span style="color:#666">1</span>; j<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>			row[j] = result[i<span style="color:#666">-</span><span style="color:#666">2</span>][j] <span style="color:#666">+</span> result[i<span style="color:#666">-</span><span style="color:#666">2</span>][j<span style="color:#666">-</span><span style="color:#666">1</span>]
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		result = <span style="color:#a2f">append</span>(result, row)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> result
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 119.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">getRow</span>(rowIndex <span style="color:#0b0;font-weight:bold">int</span>) []<span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> arrays [][]<span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">1</span>; i <span style="color:#666">&lt;=</span> rowIndex<span style="color:#666">+</span><span style="color:#666">1</span>; i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">var</span> row = <span style="color:#a2f">make</span>([]<span style="color:#0b0;font-weight:bold">int</span>, i)
+</span></span><span style="display:flex;"><span>		row[<span style="color:#666">0</span>], row[<span style="color:#a2f">len</span>(row)<span style="color:#666">-</span><span style="color:#666">1</span>] = <span style="color:#666">1</span>, <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">for</span> j <span style="color:#666">:=</span> <span style="color:#666">1</span>; j &lt; <span style="color:#a2f">len</span>(row)<span style="color:#666">-</span><span style="color:#666">1</span>; j<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>			row[j] = arrays[i<span style="color:#666">-</span><span style="color:#666">2</span>][j] <span style="color:#666">+</span> arrays[i<span style="color:#666">-</span><span style="color:#666">2</span>][j<span style="color:#666">-</span><span style="color:#666">1</span>]
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> rowIndex <span style="color:#666">==</span> i<span style="color:#666">-</span><span style="color:#666">1</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> row
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		arrays = <span style="color:#a2f">append</span>(arrays, row)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> []<span style="color:#0b0;font-weight:bold">int</span>{}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 121.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">maxProfit</span>(prices []<span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> <span style="color:#a2f">len</span>(prices) <span style="color:#666">==</span> <span style="color:#666">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> max, lowest <span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">1</span>; i &lt; <span style="color:#a2f">len</span>(prices); i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> prices[lowest] &gt; prices[i] {
+</span></span><span style="display:flex;"><span>			lowest = i
+</span></span><span style="display:flex;"><span>		} <span style="color:#a2f;font-weight:bold">else</span> <span style="color:#a2f;font-weight:bold">if</span> cur <span style="color:#666">:=</span> prices[i] <span style="color:#666">-</span> prices[lowest]; cur &gt; max {
+</span></span><span style="display:flex;"><span>			max = cur
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> max
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 125.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">isPalindrome2</span>(s <span style="color:#0b0;font-weight:bold">string</span>) <span style="color:#0b0;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	isValid <span style="color:#666">:=</span> <span style="color:#a2f;font-weight:bold">func</span>(a <span style="color:#0b0;font-weight:bold">byte</span>) <span style="color:#0b0;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> (a <span style="color:#666">&gt;=</span> <span style="color:#b44">&#39;a&#39;</span> <span style="color:#666">&amp;&amp;</span> a <span style="color:#666">&lt;=</span> <span style="color:#b44">&#39;z&#39;</span>) <span style="color:#666">||</span> (a <span style="color:#666">&gt;=</span> <span style="color:#b44">&#39;A&#39;</span> <span style="color:#666">&amp;&amp;</span> a <span style="color:#666">&lt;=</span> <span style="color:#b44">&#39;Z&#39;</span>) <span style="color:#666">||</span> (a <span style="color:#666">&gt;=</span> <span style="color:#b44">&#39;0&#39;</span> <span style="color:#666">&amp;&amp;</span> a <span style="color:#666">&lt;=</span> <span style="color:#b44">&#39;9&#39;</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	i, j <span style="color:#666">:=</span> <span style="color:#666">0</span>, <span style="color:#a2f">len</span>(s)<span style="color:#666">-</span><span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i &lt; j {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> !<span style="color:#00a000">isValid</span>(s[i]) {
+</span></span><span style="display:flex;"><span>			i<span style="color:#666">++</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">continue</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> !<span style="color:#00a000">isValid</span>(s[j]) {
+</span></span><span style="display:flex;"><span>			j<span style="color:#666">--</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">continue</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> !strings.<span style="color:#00a000">EqualFold</span>(<span style="color:#a2f">string</span>(s[i]), <span style="color:#a2f">string</span>(s[j])) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		i<span style="color:#666">++</span>
+</span></span><span style="display:flex;"><span>		j<span style="color:#666">--</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 136.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">singleNumber</span>(nums []<span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> kv = <span style="color:#a2f">make</span>(<span style="color:#a2f;font-weight:bold">map</span>[<span style="color:#0b0;font-weight:bold">int</span>]<span style="color:#0b0;font-weight:bold">bool</span>, <span style="color:#a2f">len</span>(nums))
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">0</span>; i &lt; <span style="color:#a2f">len</span>(nums); i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> _, ok <span style="color:#666">:=</span> kv[nums[i]]; !ok {
+</span></span><span style="display:flex;"><span>			kv[nums[i]] = <span style="color:#a2f;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>		} <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>			kv[nums[i]] = <span style="color:#a2f;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> k, e <span style="color:#666">:=</span> <span style="color:#a2f;font-weight:bold">range</span> kv {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> !e {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> k
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">singleNumber2</span>(nums []<span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> <span style="color:#a2f">len</span>(nums) <span style="color:#666">==</span> <span style="color:#666">1</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> nums[<span style="color:#666">0</span>]
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">1</span>; i &lt; <span style="color:#a2f">len</span>(nums); i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		nums[<span style="color:#666">0</span>] = nums[<span style="color:#666">0</span>] ^ nums[i]
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> nums[<span style="color:#666">0</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 141.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * Definition for singly-linked list.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * type ListNode struct {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Val int
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Next *ListNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">hasCycle</span>(head <span style="color:#666">*</span>ListNode) <span style="color:#0b0;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">if</span> head <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> <span style="color:#666">||</span> head.Next <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	p1, p2 <span style="color:#666">:=</span> head, head.Next
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> p1 <span style="color:#666">!=</span> p2 {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> p2 <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> <span style="color:#666">||</span> p2.Next <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		p1 = p1.Next
+</span></span><span style="display:flex;"><span>		p2 = p2.Next.Next
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">hasCycle2</span>(head <span style="color:#666">*</span>ListNode) <span style="color:#0b0;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#080;font-style:italic">// memory address
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	dict <span style="color:#666">:=</span> <span style="color:#a2f">make</span>(<span style="color:#a2f;font-weight:bold">map</span>[<span style="color:#666">*</span>ListNode]<span style="color:#a2f;font-weight:bold">struct</span>{})
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> head <span style="color:#666">!=</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> _, ok <span style="color:#666">:=</span> dict[head]; ok {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		dict[head] = <span style="color:#a2f;font-weight:bold">struct</span>{}{}
+</span></span><span style="display:flex;"><span>		head = head.Next
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 144.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * Definition for a binary tree node.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * type TreeNode struct {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Val int
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Left *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Right *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">preorderTraversal</span>(root <span style="color:#666">*</span>TreeNode) []<span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> ans []<span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> preorder <span style="color:#a2f;font-weight:bold">func</span>(<span style="color:#666">*</span>TreeNode)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	preorder = <span style="color:#a2f;font-weight:bold">func</span>(root <span style="color:#666">*</span>TreeNode) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> root <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		ans = <span style="color:#a2f">append</span>(ans, root.Val)
+</span></span><span style="display:flex;"><span>		<span style="color:#00a000">preorder</span>(root.Left)
+</span></span><span style="display:flex;"><span>		<span style="color:#00a000">preorder</span>(root.Right)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a000">preorder</span>(root)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> ans
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 145.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * Definition for a binary tree node.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * type TreeNode struct {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Val int
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Left *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *     Right *TreeNode
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">postorderTraversal</span>(root <span style="color:#666">*</span>TreeNode) []<span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> ans []<span style="color:#0b0;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">var</span> postorder <span style="color:#a2f;font-weight:bold">func</span>(<span style="color:#666">*</span>TreeNode)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	postorder = <span style="color:#a2f;font-weight:bold">func</span>(root <span style="color:#666">*</span>TreeNode) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">if</span> root <span style="color:#666">==</span> <span style="color:#a2f;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">return</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#00a000">postorder</span>(root.Left)
+</span></span><span style="display:flex;"><span>		<span style="color:#00a000">postorder</span>(root.Right)
+</span></span><span style="display:flex;"><span>		ans = <span style="color:#a2f">append</span>(ans, root.Val)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a000">postorder</span>(root)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">return</span> ans
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 155.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// type MinStack struct {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// func Constructor() MinStack {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// func (this *MinStack) Push(val int)  {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// func (this *MinStack) Pop()  {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// func (this *MinStack) Top() int {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// func (this *MinStack) GetMin() int {
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * Your MinStack object will be instantiated and called as such:
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * obj := Constructor();
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * obj.Push(val);
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * obj.Pop();
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * param_3 := obj.Top();
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * param_4 := obj.GetMin();
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> */</span>
+</span></span></code></pre></div>
+    </div>
+
+    
+    
+    
+  <div id="comment">
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-dxmvw3ac3t" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/viper-00" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/ZhongMingYang00" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Viper
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

@@ -6,11 +6,110 @@
     <description>Recent content on Viper</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 18 Aug 2022 00:25:33 +0800</lastBuildDate><atom:link href="https://viper00.fun/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 22 Aug 2022 15:19:32 +0800</lastBuildDate><atom:link href="https://viper00.fun/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>比特币闪电网络</title>
+      <link>https://viper00.fun/posts/%E6%AF%94%E7%89%B9%E5%B8%81%E9%97%AA%E7%94%B5%E7%BD%91%E7%BB%9C/</link>
+      <pubDate>Mon, 22 Aug 2022 15:19:32 +0800</pubDate>
+      
+      <guid>https://viper00.fun/posts/%E6%AF%94%E7%89%B9%E5%B8%81%E9%97%AA%E7%94%B5%E7%BD%91%E7%BB%9C/</guid>
+      <description>闪电网络（The Bitcoin Lightning Network） 🔗On-blockchain, Off-blockchain：链上，链下 Micropayments: 微支付 Time-limited cryptographic script：时间限制</description>
+    </item>
+    
+    <item>
+      <title>Hard of Leetcode</title>
+      <link>https://viper00.fun/posts/hard-of-leetcode/</link>
+      <pubDate>Mon, 22 Aug 2022 15:02:58 +0800</pubDate>
+      
+      <guid>https://viper00.fun/posts/hard-of-leetcode/</guid>
+      <description>Hard of Leetcode 🔗</description>
+    </item>
+    
+    <item>
+      <title>Easy of Leetcode</title>
+      <link>https://viper00.fun/posts/easy-of-leetcode/</link>
+      <pubDate>Mon, 22 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://viper00.fun/posts/easy-of-leetcode/</guid>
+      <description>Easy of Leetcode 🔗// 1. func twoSum(nums []int, target int) []int { var items = make(map[int]int, len(nums)) for k, v := range nums { if itemKey, ok := items[target-v]; ok { return []int{itemKey, k} } items[v] = k } return []int{} } // 9. func isPalindrome(x int) bool { var oldNum, newNum, position int oldNum = x for x &amp;gt; 0 { position = x % 10 newNum = newNum*10 + position x = x / 10 } return oldNum == newNum } // 13.</description>
+    </item>
+    
+    <item>
+      <title>Go 实用工具</title>
+      <link>https://viper00.fun/posts/go-%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Mon, 22 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://viper00.fun/posts/go-%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/</guid>
+      <description>Go 实用工具 🔗Go语言生态有很多流行的框架、库和轮子，在我们工作学习中经常用到。 Golang (The Go Programming language) Kubernetes (production-grade Container Scheduling and Management) hugo (The world&amp;rsquo;s fastest framework for building websites) awesome-go (A curated list of awesome Go frameworks, libraries, and software) gin</description>
+    </item>
+    
+    <item>
+      <title>Golang 标准库</title>
+      <link>https://viper00.fun/posts/golang-%E6%A0%87%E5%87%86%E5%BA%93/</link>
+      <pubDate>Mon, 22 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://viper00.fun/posts/golang-%E6%A0%87%E5%87%86%E5%BA%93/</guid>
+      <description>Golang 标准库 🔗Go标准库源代码地址：这里 Package builtin provides documentation for Go&amp;#39;s predeclared identifiers. The items documented here are not actually in package builtin but their descriptions here allow godoc to present documentation for the language&amp;#39;s special identifiers. 标准库 Builtin 提供Go语言预定义的类型和函数。</description>
+    </item>
+    
+    <item>
+      <title>Golang 面试题</title>
+      <link>https://viper00.fun/posts/golang-%E9%9D%A2%E8%AF%95%E9%A2%98/</link>
+      <pubDate>Mon, 22 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://viper00.fun/posts/golang-%E9%9D%A2%E8%AF%95%E9%A2%98/</guid>
+      <description>Golang 面试题 🔗= 和 := 的区别？ 🔗=只有赋值作用，而:=除去赋值外，还包含声明的作用。 因此，在变量第一次声明，可以使用var a = 0，也可以使用a := 0</description>
+    </item>
+    
+    <item>
+      <title>Linux 基础知识</title>
+      <link>https://viper00.fun/posts/linux-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</link>
+      <pubDate>Mon, 22 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://viper00.fun/posts/linux-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</guid>
+      <description>Linux基础 🔗Linux 的常用操作和概念。 快捷键 🔗 Tab：命令和文件名补全。 Ctrl+C：中断正在运行的程序。 Ctrl+D：结束键盘输入（</description>
+    </item>
+    
+    <item>
+      <title>Medium of Leetcode</title>
+      <link>https://viper00.fun/posts/medium-of-leetcode/</link>
+      <pubDate>Mon, 22 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://viper00.fun/posts/medium-of-leetcode/</guid>
+      <description>Medium of Leetcode 🔗</description>
+    </item>
+    
+    <item>
+      <title>计算机操作系统基础</title>
+      <link>https://viper00.fun/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Mon, 22 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://viper00.fun/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/</guid>
+      <description>计算机操作系统 🔗概述。 基本特征 🔗并发/并行 🔗 并发：指宏观上在一段时间内能同时运行多个程序。 并行：同一时刻能运行多个程序。 实现并行需要硬件的支</description>
+    </item>
+    
+    <item>
+      <title>计算机网络基础 - 概述</title>
+      <link>https://viper00.fun/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80-%E6%A6%82%E8%BF%B0/</link>
+      <pubDate>Mon, 22 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://viper00.fun/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80-%E6%A6%82%E8%BF%B0/</guid>
+      <description>计算机网络基础 🔗概述。 ISP 🔗互联网服务提供商 （Internet service provider）从互联网管理机构获得 IP 地址，并通过管理和分发帮助个人和机构接</description>
+    </item>
+    
+    <item>
+      <title>我的简历</title>
+      <link>https://viper00.fun/about/</link>
+      <pubDate>Mon, 22 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://viper00.fun/about/</guid>
+      <description>我的简历 🔗Beta 版本，简历一直在更新。 个人信息 🔗 Viper（钟明扬） | 男 | 2000年10月（21） 深圳技师学院 | 互联网开发/计算机专业 | 大</description>
+    </item>
+    
     <item>
       <title>My First Post</title>
       <link>https://viper00.fun/posts/my-first-post/</link>
-      <pubDate>Thu, 18 Aug 2022 00:25:33 +0800</pubDate>
+      <pubDate>Thu, 18 Aug 2022 00:00:00 +0000</pubDate>
       
       <guid>https://viper00.fun/posts/my-first-post/</guid>
       <description></description>
