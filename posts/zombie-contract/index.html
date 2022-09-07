@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <title>Zombie Contract | Viper</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="僵尸合约代码 🔗链接：https://cryptozombies.io/ Solidity version: 0.4.19 此合约实现的功能类似一种游戏，支持为指定用户创建僵尸、喂养/吃掉">
+<meta name="generator" content="Hugo 0.101.0" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+ 
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-3CPL7G0HYV', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://viper00.fun/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Zombie Contract</h1>
+
+    <div class="tip">
+        <time datetime="2022-09-07 23:50:12 &#43;0800 CST">2022年09月07日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1664字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          4分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#zombiefactorysol">zombiefactory.sol</a></li>
+    <li><a href="#zombiefeedingsol">zombiefeeding.sol</a></li>
+    <li><a href="#zombiehelpersol">zombiehelper.sol</a></li>
+    <li><a href="#zombieattacksol">zombieattack.sol</a></li>
+    <li><a href="#zombieownershipsol">zombieownership.sol</a></li>
+    <li><a href="#ownablesol">ownable.sol</a></li>
+    <li><a href="#safemathsol">safemath.sol</a></li>
+    <li><a href="#erc721sol">erc721.sol</a></li>
+    <li><a href="#indexhtml">index.html</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="僵尸合约代码">僵尸合约代码 <a href="#%e5%83%b5%e5%b0%b8%e5%90%88%e7%ba%a6%e4%bb%a3%e7%a0%81" class="anchor">🔗</a></h1><p>链接：https://cryptozombies.io/</p>
+<p>Solidity version: 0.4.19</p>
+<p>此合约实现的功能类似一种游戏，支持为指定用户创建僵尸、喂养/吃掉僵尸、攻击、升级、变种等多种好玩的特性。</p>
+<p>合约的安全性有保障，实现了只有合约部署者和所有者才能完成指定的操作。</p>
+<p>以及用 web3.js 实现部署合约和调用合约接口，以及metamask和infra等第三方钱包或工具的支持。</p>
+<p>等等。</p>
+<h2 id="zombiefactorysol">zombiefactory.sol <a href="#zombiefactorysol" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">pragma solidity</span> <span style="color:#666">^</span><span style="color:#666">0</span>.<span style="color:#666">4</span>.<span style="color:#666">19</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#b44">&#34;./ownable.sol&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#b44">&#34;./safemath.sol&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">contract</span> <span style="color:#00f">ZombieFactory</span> <span style="color:#a2f;font-weight:bold">is</span> Ownable {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">using</span> SafeMath <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#0b0;font-weight:bold">uint256</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">event</span> <span style="color:#00f">NewZombie</span>(<span style="color:#0b0;font-weight:bold">uint</span> zombieId, <span style="color:#0b0;font-weight:bold">string</span> <span style="color:#a2f">name</span>, <span style="color:#0b0;font-weight:bold">uint</span> dna);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#0b0;font-weight:bold">uint</span> dnaDigits <span style="color:#666">=</span> <span style="color:#666">16</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#0b0;font-weight:bold">uint</span> dnaModulus <span style="color:#666">=</span> <span style="color:#666">10</span> <span style="color:#666">**</span> dnaDigits;
+</span></span><span style="display:flex;"><span>  <span style="color:#0b0;font-weight:bold">uint</span> cooldownTime <span style="color:#666">=</span> <span style="color:#666">1</span> <span style="color:#a2f;font-weight:bold">days</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">struct</span> <span style="color:#00f">Zombie</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">string</span> <span style="color:#a2f">name</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint</span> dna;
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint32</span> level;
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint32</span> readyTime;
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint16</span> winCount;
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint16</span> lossCount;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Zombie[] <span style="color:#a2f;font-weight:bold">public</span> zombies;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">mapping</span> (<span style="color:#0b0;font-weight:bold">uint</span> <span style="color:#666">=&gt;</span> <span style="color:#0b0;font-weight:bold">address</span>) <span style="color:#a2f;font-weight:bold">public</span> zombieToOwner;
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">mapping</span> (<span style="color:#0b0;font-weight:bold">address</span> <span style="color:#666">=&gt;</span> <span style="color:#0b0;font-weight:bold">uint</span>) ownerZombieCount;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">_createZombie</span>(<span style="color:#0b0;font-weight:bold">string</span> _name, <span style="color:#0b0;font-weight:bold">uint</span> _dna) <span style="color:#a2f;font-weight:bold">internal</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint</span> id <span style="color:#666">=</span> zombies.push(Zombie(_name, _dna, <span style="color:#666">1</span>, <span style="color:#0b0;font-weight:bold">uint32</span>(<span style="color:#a2f">now</span> <span style="color:#666">+</span> cooldownTime), <span style="color:#666">0</span>, <span style="color:#666">0</span>)) <span style="color:#666">-</span> <span style="color:#666">1</span>;
+</span></span><span style="display:flex;"><span>    zombieToOwner[id] <span style="color:#666">=</span> <span style="color:#a2f">msg</span>.<span style="color:#a2f">sender</span>;
+</span></span><span style="display:flex;"><span>    ownerZombieCount[<span style="color:#a2f">msg</span>.<span style="color:#a2f">sender</span>]<span style="color:#666">++</span>;
+</span></span><span style="display:flex;"><span>    NewZombie(id, _name, _dna);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">_generateRandomDna</span>(<span style="color:#0b0;font-weight:bold">string</span> _str) <span style="color:#a2f;font-weight:bold">private</span> <span style="color:#a2f;font-weight:bold">view</span> <span style="color:#a2f;font-weight:bold">returns</span> (<span style="color:#0b0;font-weight:bold">uint</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint</span> rand <span style="color:#666">=</span> <span style="color:#0b0;font-weight:bold">uint</span>(<span style="color:#a2f">keccak256</span>(_str));
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> rand <span style="color:#666">%</span> dnaModulus;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">createRandomZombie</span>(<span style="color:#0b0;font-weight:bold">string</span> _name) <span style="color:#a2f;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f">require</span>(ownerZombieCount[<span style="color:#a2f">msg</span>.<span style="color:#a2f">sender</span>] <span style="color:#666">==</span> <span style="color:#666">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint</span> randDna <span style="color:#666">=</span> _generateRandomDna(_name);
+</span></span><span style="display:flex;"><span>    randDna <span style="color:#666">=</span> randDna <span style="color:#666">-</span> randDna <span style="color:#666">%</span> <span style="color:#666">100</span>;
+</span></span><span style="display:flex;"><span>    _createZombie(_name, randDna);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="zombiefeedingsol">zombiefeeding.sol <a href="#zombiefeedingsol" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">pragma solidity</span> <span style="color:#666">^</span><span style="color:#666">0</span>.<span style="color:#666">4</span>.<span style="color:#666">19</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#b44">&#34;./zombiefactory.sol&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">contract</span> <span style="color:#00f">KittyInterface</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">getKitty</span>(<span style="color:#0b0;font-weight:bold">uint256</span> _id) <span style="color:#a2f;font-weight:bold">external</span> <span style="color:#a2f;font-weight:bold">view</span> <span style="color:#a2f;font-weight:bold">returns</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">bool</span> isGestating,
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">bool</span> isReady,
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint256</span> cooldownIndex,
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint256</span> nextActionAt,
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint256</span> siringWithId,
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint256</span> birthTime,
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint256</span> matronId,
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint256</span> sireId,
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint256</span> generation,
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint256</span> genes
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">contract</span> <span style="color:#00f">ZombieFeeding</span> <span style="color:#a2f;font-weight:bold">is</span> ZombieFactory {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  KittyInterface kittyContract;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">modifier</span> <span style="color:#00a000">onlyOwnerOf</span>(<span style="color:#0b0;font-weight:bold">uint</span> _zombieId) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f">require</span>(<span style="color:#a2f">msg</span>.<span style="color:#a2f">sender</span> <span style="color:#666">==</span> zombieToOwner[_zombieId]);
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">_</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">setKittyContractAddress</span>(<span style="color:#0b0;font-weight:bold">address</span> _address) <span style="color:#a2f;font-weight:bold">external</span> onlyOwner {
+</span></span><span style="display:flex;"><span>    kittyContract <span style="color:#666">=</span> KittyInterface(_address);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">_triggerCooldown</span>(Zombie <span style="color:#a2f;font-weight:bold">storage</span> _zombie) <span style="color:#a2f;font-weight:bold">internal</span> {
+</span></span><span style="display:flex;"><span>    _zombie.readyTime <span style="color:#666">=</span> <span style="color:#0b0;font-weight:bold">uint32</span>(<span style="color:#a2f">now</span> <span style="color:#666">+</span> cooldownTime);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">_isReady</span>(Zombie <span style="color:#a2f;font-weight:bold">storage</span> _zombie) <span style="color:#a2f;font-weight:bold">internal</span> <span style="color:#a2f;font-weight:bold">view</span> <span style="color:#a2f;font-weight:bold">returns</span> (<span style="color:#0b0;font-weight:bold">bool</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a2f;font-weight:bold">return</span> (_zombie.readyTime <span style="color:#666">&lt;=</span> <span style="color:#a2f">now</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">feedAndMultiply</span>(<span style="color:#0b0;font-weight:bold">uint</span> _zombieId, <span style="color:#0b0;font-weight:bold">uint</span> _targetDna, <span style="color:#0b0;font-weight:bold">string</span> _species) <span style="color:#a2f;font-weight:bold">internal</span> onlyOwnerOf(_zombieId) {
+</span></span><span style="display:flex;"><span>    Zombie <span style="color:#a2f;font-weight:bold">storage</span> myZombie <span style="color:#666">=</span> zombies[_zombieId];
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f">require</span>(_isReady(myZombie));
+</span></span><span style="display:flex;"><span>    _targetDna <span style="color:#666">=</span> _targetDna <span style="color:#666">%</span> dnaModulus;
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint</span> newDna <span style="color:#666">=</span> (myZombie.dna <span style="color:#666">+</span> _targetDna) <span style="color:#666">/</span> <span style="color:#666">2</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">if</span> (<span style="color:#a2f">keccak256</span>(_species) <span style="color:#666">==</span> <span style="color:#a2f">keccak256</span>(<span style="color:#b44">&#34;kitty&#34;</span>)) {
+</span></span><span style="display:flex;"><span>      newDna <span style="color:#666">=</span> newDna <span style="color:#666">-</span> newDna <span style="color:#666">%</span> <span style="color:#666">100</span> <span style="color:#666">+</span> <span style="color:#666">99</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    _createZombie(<span style="color:#b44">&#34;NoName&#34;</span>, newDna);
+</span></span><span style="display:flex;"><span>    _triggerCooldown(myZombie);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">feedOnKitty</span>(<span style="color:#0b0;font-weight:bold">uint</span> _zombieId, <span style="color:#0b0;font-weight:bold">uint</span> _kittyId) <span style="color:#a2f;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint</span> kittyDna;
+</span></span><span style="display:flex;"><span>    (,,,,,,,,,kittyDna) <span style="color:#666">=</span> kittyContract.getKitty(_kittyId);
+</span></span><span style="display:flex;"><span>    feedAndMultiply(_zombieId, kittyDna, <span style="color:#b44">&#34;kitty&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="zombiehelpersol">zombiehelper.sol <a href="#zombiehelpersol" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">pragma solidity</span> <span style="color:#666">^</span><span style="color:#666">0</span>.<span style="color:#666">4</span>.<span style="color:#666">19</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#b44">&#34;./zombiefeeding.sol&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">contract</span> <span style="color:#00f">ZombieHelper</span> <span style="color:#a2f;font-weight:bold">is</span> ZombieFeeding {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#0b0;font-weight:bold">uint</span> levelUpFee <span style="color:#666">=</span> <span style="color:#666">0</span>.<span style="color:#666">001</span> <span style="color:#a2f;font-weight:bold">ether</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">modifier</span> <span style="color:#00a000">aboveLevel</span>(<span style="color:#0b0;font-weight:bold">uint</span> _level, <span style="color:#0b0;font-weight:bold">uint</span> _zombieId) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f">require</span>(zombies[_zombieId].level <span style="color:#666">&gt;=</span> _level);
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">_</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">withdraw</span>() <span style="color:#a2f;font-weight:bold">external</span> onlyOwner {
+</span></span><span style="display:flex;"><span>    owner.<span style="color:#a2f">transfer</span>(<span style="color:#a2f">this</span>.<span style="color:#a2f">balance</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">setLevelUpFee</span>(<span style="color:#0b0;font-weight:bold">uint</span> _fee) <span style="color:#a2f;font-weight:bold">external</span> onlyOwner {
+</span></span><span style="display:flex;"><span>    levelUpFee <span style="color:#666">=</span> _fee;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">levelUp</span>(<span style="color:#0b0;font-weight:bold">uint</span> _zombieId) <span style="color:#a2f;font-weight:bold">external</span> <span style="color:#a2f;font-weight:bold">payable</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f">require</span>(<span style="color:#a2f">msg</span>.<span style="color:#a2f">value</span> <span style="color:#666">==</span> levelUpFee);
+</span></span><span style="display:flex;"><span>    zombies[_zombieId].level<span style="color:#666">++</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">changeName</span>(<span style="color:#0b0;font-weight:bold">uint</span> _zombieId, <span style="color:#0b0;font-weight:bold">string</span> _newName) <span style="color:#a2f;font-weight:bold">external</span> aboveLevel(<span style="color:#666">2</span>, _zombieId) onlyOwnerOf(_zombieId) {
+</span></span><span style="display:flex;"><span>    zombies[_zombieId].<span style="color:#a2f">name</span> <span style="color:#666">=</span> _newName;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">changeDna</span>(<span style="color:#0b0;font-weight:bold">uint</span> _zombieId, <span style="color:#0b0;font-weight:bold">uint</span> _newDna) <span style="color:#a2f;font-weight:bold">external</span> aboveLevel(<span style="color:#666">20</span>, _zombieId) onlyOwnerOf(_zombieId) {
+</span></span><span style="display:flex;"><span>    zombies[_zombieId].dna <span style="color:#666">=</span> _newDna;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">getZombiesByOwner</span>(<span style="color:#0b0;font-weight:bold">address</span> _owner) <span style="color:#a2f;font-weight:bold">external</span> <span style="color:#a2f;font-weight:bold">view</span> <span style="color:#a2f;font-weight:bold">returns</span>(<span style="color:#0b0;font-weight:bold">uint</span>[]) {
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint</span>[] <span style="color:#a2f;font-weight:bold">memory</span> result <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> <span style="color:#0b0;font-weight:bold">uint</span>[](ownerZombieCount[_owner]);
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint</span> counter <span style="color:#666">=</span> <span style="color:#666">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">for</span> (<span style="color:#0b0;font-weight:bold">uint</span> i <span style="color:#666">=</span> <span style="color:#666">0</span>; i <span style="color:#666">&lt;</span> zombies.length; i<span style="color:#666">++</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a2f;font-weight:bold">if</span> (zombieToOwner[i] <span style="color:#666">==</span> _owner) {
+</span></span><span style="display:flex;"><span>        result[counter] <span style="color:#666">=</span> i;
+</span></span><span style="display:flex;"><span>        counter<span style="color:#666">++</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> result;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="zombieattacksol">zombieattack.sol <a href="#zombieattacksol" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">pragma solidity</span> <span style="color:#666">^</span><span style="color:#666">0</span>.<span style="color:#666">4</span>.<span style="color:#666">19</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#b44">&#34;./zombiehelper.sol&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">contract</span> <span style="color:#00f">ZombieBattle</span> <span style="color:#a2f;font-weight:bold">is</span> ZombieHelper {
+</span></span><span style="display:flex;"><span>  <span style="color:#0b0;font-weight:bold">uint</span> randNonce <span style="color:#666">=</span> <span style="color:#666">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#0b0;font-weight:bold">uint</span> attackVictoryProbability <span style="color:#666">=</span> <span style="color:#666">70</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">randMod</span>(<span style="color:#0b0;font-weight:bold">uint</span> _modulus) <span style="color:#a2f;font-weight:bold">internal</span> <span style="color:#a2f;font-weight:bold">returns</span>(<span style="color:#0b0;font-weight:bold">uint</span>) {
+</span></span><span style="display:flex;"><span>    randNonce<span style="color:#666">++</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#0b0;font-weight:bold">uint</span>(<span style="color:#a2f">keccak256</span>(<span style="color:#a2f">now</span>, <span style="color:#a2f">msg</span>.<span style="color:#a2f">sender</span>, randNonce)) <span style="color:#666">%</span> _modulus;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">attack</span>(<span style="color:#0b0;font-weight:bold">uint</span> _zombieId, <span style="color:#0b0;font-weight:bold">uint</span> _targetId) <span style="color:#a2f;font-weight:bold">external</span> onlyOwnerOf(_zombieId) {
+</span></span><span style="display:flex;"><span>    Zombie <span style="color:#a2f;font-weight:bold">storage</span> myZombie <span style="color:#666">=</span> zombies[_zombieId];
+</span></span><span style="display:flex;"><span>    Zombie <span style="color:#a2f;font-weight:bold">storage</span> enemyZombie <span style="color:#666">=</span> zombies[_targetId];
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint</span> rand <span style="color:#666">=</span> randMod(<span style="color:#666">100</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">if</span> (rand <span style="color:#666">&lt;=</span> attackVictoryProbability) {
+</span></span><span style="display:flex;"><span>      myZombie.winCount<span style="color:#666">++</span>;
+</span></span><span style="display:flex;"><span>      myZombie.level<span style="color:#666">++</span>;
+</span></span><span style="display:flex;"><span>      enemyZombie.lossCount<span style="color:#666">++</span>;
+</span></span><span style="display:flex;"><span>      feedAndMultiply(_zombieId, enemyZombie.dna, <span style="color:#b44">&#34;zombie&#34;</span>);
+</span></span><span style="display:flex;"><span>    } <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>      myZombie.lossCount<span style="color:#666">++</span>;
+</span></span><span style="display:flex;"><span>      enemyZombie.winCount<span style="color:#666">++</span>;
+</span></span><span style="display:flex;"><span>      _triggerCooldown(myZombie);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="zombieownershipsol">zombieownership.sol <a href="#zombieownershipsol" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">pragma solidity</span> <span style="color:#666">^</span><span style="color:#666">0</span>.<span style="color:#666">4</span>.<span style="color:#666">19</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#b44">&#34;./zombieattack.sol&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#b44">&#34;./erc721.sol&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#b44">&#34;./safemath.sol&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">contract</span> <span style="color:#00f">ZombieOwnership</span> <span style="color:#a2f;font-weight:bold">is</span> ZombieAttack, ERC721 {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">using</span> SafeMath <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#0b0;font-weight:bold">uint256</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">mapping</span> (<span style="color:#0b0;font-weight:bold">uint</span> <span style="color:#666">=&gt;</span> <span style="color:#0b0;font-weight:bold">address</span>) zombieApprovals;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">balanceOf</span>(<span style="color:#0b0;font-weight:bold">address</span> _owner) <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">view</span> <span style="color:#a2f;font-weight:bold">returns</span> (<span style="color:#0b0;font-weight:bold">uint256</span> _balance) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> ownerZombieCount[_owner];
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">ownerOf</span>(<span style="color:#0b0;font-weight:bold">uint256</span> _tokenId) <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">view</span> <span style="color:#a2f;font-weight:bold">returns</span> (<span style="color:#0b0;font-weight:bold">address</span> _owner) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> zombieToOwner[_tokenId];
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">_transfer</span>(<span style="color:#0b0;font-weight:bold">address</span> _from, <span style="color:#0b0;font-weight:bold">address</span> _to, <span style="color:#0b0;font-weight:bold">uint256</span> _tokenId) <span style="color:#a2f;font-weight:bold">private</span> {
+</span></span><span style="display:flex;"><span>    ownerZombieCount[_to] <span style="color:#666">=</span> ownerZombieCount[_to].add(<span style="color:#666">1</span>);
+</span></span><span style="display:flex;"><span>    ownerZombieCount[<span style="color:#a2f">msg</span>.<span style="color:#a2f">sender</span>] <span style="color:#666">=</span> ownerZombieCount[<span style="color:#a2f">msg</span>.<span style="color:#a2f">sender</span>].sub(<span style="color:#666">1</span>);
+</span></span><span style="display:flex;"><span>    zombieToOwner[_tokenId] <span style="color:#666">=</span> _to;
+</span></span><span style="display:flex;"><span>    Transfer(_from, _to, _tokenId);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">transfer</span>(<span style="color:#0b0;font-weight:bold">address</span> _to, <span style="color:#0b0;font-weight:bold">uint256</span> _tokenId) <span style="color:#a2f;font-weight:bold">public</span> onlyOwnerOf(_tokenId) {
+</span></span><span style="display:flex;"><span>    _transfer(<span style="color:#a2f">msg</span>.<span style="color:#a2f">sender</span>, _to, _tokenId);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">approve</span>(<span style="color:#0b0;font-weight:bold">address</span> _to, <span style="color:#0b0;font-weight:bold">uint256</span> _tokenId) <span style="color:#a2f;font-weight:bold">public</span> onlyOwnerOf(_tokenId) {
+</span></span><span style="display:flex;"><span>    zombieApprovals[_tokenId] <span style="color:#666">=</span> _to;
+</span></span><span style="display:flex;"><span>    Approval(<span style="color:#a2f">msg</span>.<span style="color:#a2f">sender</span>, _to, _tokenId);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">takeOwnership</span>(<span style="color:#0b0;font-weight:bold">uint256</span> _tokenId) <span style="color:#a2f;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f">require</span>(zombieApprovals[_tokenId] <span style="color:#666">==</span> <span style="color:#a2f">msg</span>.<span style="color:#a2f">sender</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">address</span> owner <span style="color:#666">=</span> ownerOf(_tokenId);
+</span></span><span style="display:flex;"><span>    _transfer(owner, <span style="color:#a2f">msg</span>.<span style="color:#a2f">sender</span>, _tokenId);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="ownablesol">ownable.sol <a href="#ownablesol" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">pragma solidity</span> <span style="color:#666">^</span><span style="color:#666">0</span>.<span style="color:#666">4</span>.<span style="color:#666">19</span>;
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * @title Ownable
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * @dev The Ownable contract has an owner address, and provides basic authorization control
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * functions, this simplifies the implementation of &#34;user permissions&#34;.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">contract</span> <span style="color:#00f">Ownable</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#0b0;font-weight:bold">address</span> <span style="color:#a2f;font-weight:bold">public</span> owner;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">event</span> <span style="color:#00f">OwnershipTransferred</span>(<span style="color:#0b0;font-weight:bold">address</span> <span style="color:#a2f;font-weight:bold">indexed</span> previousOwner, <span style="color:#0b0;font-weight:bold">address</span> <span style="color:#a2f;font-weight:bold">indexed</span> newOwner);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">   * @dev The Ownable constructor sets the original `owner` of the contract to the sender
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">   * account.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">   */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">Ownable</span>() <span style="color:#a2f;font-weight:bold">public</span> {
+</span></span><span style="display:flex;"><span>    owner <span style="color:#666">=</span> <span style="color:#a2f">msg</span>.<span style="color:#a2f">sender</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">   * @dev Throws if called by any account other than the owner.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">   */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">modifier</span> <span style="color:#00a000">onlyOwner</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f">require</span>(<span style="color:#a2f">msg</span>.<span style="color:#a2f">sender</span> <span style="color:#666">==</span> owner);
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">_</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">   * @dev Allows the current owner to transfer control of the contract to a newOwner.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">   * @param newOwner The address to transfer ownership to.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">   */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">transferOwnership</span>(<span style="color:#0b0;font-weight:bold">address</span> newOwner) <span style="color:#a2f;font-weight:bold">public</span> onlyOwner {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f">require</span>(newOwner <span style="color:#666">!=</span> <span style="color:#0b0;font-weight:bold">address</span>(<span style="color:#666">0</span>));
+</span></span><span style="display:flex;"><span>    OwnershipTransferred(owner, newOwner);
+</span></span><span style="display:flex;"><span>    owner <span style="color:#666">=</span> newOwner;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="safemathsol">safemath.sol <a href="#safemathsol" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">pragma solidity</span> <span style="color:#666">^</span><span style="color:#666">0</span>.<span style="color:#666">4</span>.<span style="color:#666">18</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * @title SafeMath
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> * @dev Math operations with safety checks that throw on error
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">library</span> SafeMath {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">  * @dev Multiplies two numbers, throws on overflow.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">  */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">mul</span>(<span style="color:#0b0;font-weight:bold">uint256</span> a, <span style="color:#0b0;font-weight:bold">uint256</span> b) <span style="color:#a2f;font-weight:bold">internal</span> <span style="color:#a2f;font-weight:bold">pure</span> <span style="color:#a2f;font-weight:bold">returns</span> (<span style="color:#0b0;font-weight:bold">uint256</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">if</span> (a <span style="color:#666">==</span> <span style="color:#666">0</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">0</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint256</span> c <span style="color:#666">=</span> a <span style="color:#666">*</span> b;
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f">assert</span>(c <span style="color:#666">/</span> a <span style="color:#666">==</span> b);
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> c;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">  * @dev Integer division of two numbers, truncating the quotient.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">  */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">div</span>(<span style="color:#0b0;font-weight:bold">uint256</span> a, <span style="color:#0b0;font-weight:bold">uint256</span> b) <span style="color:#a2f;font-weight:bold">internal</span> <span style="color:#a2f;font-weight:bold">pure</span> <span style="color:#a2f;font-weight:bold">returns</span> (<span style="color:#0b0;font-weight:bold">uint256</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-style:italic">// assert(b &gt; 0); // Solidity automatically throws when dividing by 0
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>    <span style="color:#0b0;font-weight:bold">uint256</span> c <span style="color:#666">=</span> a <span style="color:#666">/</span> b;
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-style:italic">// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>    <span style="color:#a2f;font-weight:bold">return</span> c;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">  * @dev Substracts two numbers, throws on overflow (i.e. if subtrahend is greater than minuend).
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">  */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">sub</span>(<span style="color:#0b0;font-weight:bold">uint256</span> a, <span style="color:#0b0;font-weight:bold">uint256</span> b) <span style="color:#a2f;font-weight:bold">internal</span> <span style="color:#a2f;font-weight:bold">pure</span> <span style="color:#a2f;font-weight:bold">returns</span> (<span style="color:#0b0;font-weight:bold">uint256</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f">assert</span>(b <span style="color:#666">&lt;=</span> a);
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> a <span style="color:#666">-</span> b;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">  * @dev Adds two numbers, throws on overflow.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">  */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">add</span>(<span style="color:#0b0;font-weight:bold">uint256</span> a, <span style="color:#0b0;font-weight:bold">uint256</span> b) <span style="color:#a2f;font-weight:bold">internal</span> <span style="color:#a2f;font-weight:bold">pure</span> <span style="color:#a2f;font-weight:bold">returns</span> (<span style="color:#0b0;font-weight:bold">uint256</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#0b0;font-weight:bold">uint256</span> c <span style="color:#666">=</span> a <span style="color:#666">+</span> b;
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f">assert</span>(c <span style="color:#666">&gt;=</span> a);
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> c;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="erc721sol">erc721.sol <a href="#erc721sol" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">pragma solidity</span> <span style="color:#666">^</span><span style="color:#666">0</span>.<span style="color:#666">4</span>.<span style="color:#666">19</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">contract</span> <span style="color:#00f">ERC721</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">event</span> <span style="color:#00f">Transfer</span>(<span style="color:#0b0;font-weight:bold">address</span> <span style="color:#a2f;font-weight:bold">indexed</span> _from, <span style="color:#0b0;font-weight:bold">address</span> <span style="color:#a2f;font-weight:bold">indexed</span> _to, <span style="color:#0b0;font-weight:bold">uint256</span> _tokenId);
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">event</span> <span style="color:#00f">Approval</span>(<span style="color:#0b0;font-weight:bold">address</span> <span style="color:#a2f;font-weight:bold">indexed</span> _owner, <span style="color:#0b0;font-weight:bold">address</span> <span style="color:#a2f;font-weight:bold">indexed</span> _approved, <span style="color:#0b0;font-weight:bold">uint256</span> _tokenId);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">balanceOf</span>(<span style="color:#0b0;font-weight:bold">address</span> _owner) <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">view</span> <span style="color:#a2f;font-weight:bold">returns</span> (<span style="color:#0b0;font-weight:bold">uint256</span> _balance);
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">ownerOf</span>(<span style="color:#0b0;font-weight:bold">uint256</span> _tokenId) <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">view</span> <span style="color:#a2f;font-weight:bold">returns</span> (<span style="color:#0b0;font-weight:bold">address</span> _owner);
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">transfer</span>(<span style="color:#0b0;font-weight:bold">address</span> _to, <span style="color:#0b0;font-weight:bold">uint256</span> _tokenId) <span style="color:#a2f;font-weight:bold">public</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">approve</span>(<span style="color:#0b0;font-weight:bold">address</span> _to, <span style="color:#0b0;font-weight:bold">uint256</span> _tokenId) <span style="color:#a2f;font-weight:bold">public</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a2f;font-weight:bold">function</span> <span style="color:#00a000">takeOwnership</span>(<span style="color:#0b0;font-weight:bold">uint256</span> _tokenId) <span style="color:#a2f;font-weight:bold">public</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="indexhtml">index.html <a href="#indexhtml" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#080">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#008000;font-weight:bold">html</span> <span style="color:#b44">lang</span><span style="color:#666">=</span><span style="color:#b44">&#34;en&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#008000;font-weight:bold">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#008000;font-weight:bold">meta</span> <span style="color:#b44">charset</span><span style="color:#666">=</span><span style="color:#b44">&#34;UTF-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#008000;font-weight:bold">title</span>&gt;CryptoZombies front-end&lt;/<span style="color:#008000;font-weight:bold">title</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#008000;font-weight:bold">script</span> <span style="color:#b44">language</span><span style="color:#666">=</span><span style="color:#b44">&#34;javascript&#34;</span> <span style="color:#b44">type</span><span style="color:#666">=</span><span style="color:#b44">&#34;text/javascript&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js&#34;</span>&gt;&lt;/<span style="color:#008000;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#008000;font-weight:bold">script</span> <span style="color:#b44">language</span><span style="color:#666">=</span><span style="color:#b44">&#34;javascript&#34;</span> <span style="color:#b44">type</span><span style="color:#666">=</span><span style="color:#b44">&#34;text/javascript&#34;</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;./web3.min.js&#34;</span>&gt;&lt;/<span style="color:#008000;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#008000;font-weight:bold">script</span> <span style="color:#b44">language</span><span style="color:#666">=</span><span style="color:#b44">&#34;javascript&#34;</span> <span style="color:#b44">type</span><span style="color:#666">=</span><span style="color:#b44">&#34;text/javascript&#34;</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;./cryptozombies_abi.js&#34;</span>&gt;&lt;/<span style="color:#008000;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#008000;font-weight:bold">head</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#008000;font-weight:bold">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#008000;font-weight:bold">div</span> <span style="color:#b44">id</span><span style="color:#666">=</span><span style="color:#b44">&#34;txStatus&#34;</span>&gt;&lt;/<span style="color:#008000;font-weight:bold">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#008000;font-weight:bold">div</span> <span style="color:#b44">id</span><span style="color:#666">=</span><span style="color:#b44">&#34;zombies&#34;</span>&gt;&lt;/<span style="color:#008000;font-weight:bold">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#008000;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">var</span> cryptoZombies;
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">var</span> userAccount;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">function</span> startApp() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a2f;font-weight:bold">var</span> cryptoZombiesAddress <span style="color:#666">=</span> <span style="color:#b44">&#34;YOUR_CONTRACT_ADDRESS&#34;</span>;
+</span></span><span style="display:flex;"><span>            cryptoZombies <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> web3js.eth.Contract(cryptoZombiesABI, cryptoZombiesAddress);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a2f;font-weight:bold">var</span> accountInterval <span style="color:#666">=</span> setInterval(<span style="color:#a2f;font-weight:bold">function</span> () {
+</span></span><span style="display:flex;"><span>                <span style="color:#080;font-style:italic">// Check if account has changed
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>                <span style="color:#a2f;font-weight:bold">if</span> (web3.eth.accounts[<span style="color:#666">0</span>] <span style="color:#666">!==</span> userAccount) {
+</span></span><span style="display:flex;"><span>                    userAccount <span style="color:#666">=</span> web3.eth.accounts[<span style="color:#666">0</span>];
+</span></span><span style="display:flex;"><span>                    <span style="color:#080;font-style:italic">// Call a function to update the UI with the new account
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>                    getZombiesByOwner(userAccount)
+</span></span><span style="display:flex;"><span>                        .then(displayZombies);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }, <span style="color:#666">100</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a2f;font-weight:bold">var</span> web3Infura <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Web3(<span style="color:#a2f;font-weight:bold">new</span> Web3.providers.WebsocketProvider(<span style="color:#b44">&#34;wss://mainnet.infura.io/ws&#34;</span>));
+</span></span><span style="display:flex;"><span>            <span style="color:#a2f;font-weight:bold">var</span> czEvents <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> web3Infura.eth.Contract(cryptoZombiesABI, cryptoZombiesAddress);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            czEvents.events.Transfer({ filter<span style="color:#666">:</span> { _to<span style="color:#666">:</span> userAccount } })
+</span></span><span style="display:flex;"><span>                .on(<span style="color:#b44">&#34;data&#34;</span>, <span style="color:#a2f;font-weight:bold">function</span> (event) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a2f;font-weight:bold">let</span> data <span style="color:#666">=</span> event.returnValues;
+</span></span><span style="display:flex;"><span>                    getZombiesByOwner(userAccount).then(displayZombies);
+</span></span><span style="display:flex;"><span>                }).on(<span style="color:#b44">&#39;error&#39;</span>, console.error);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">function</span> displayZombies(ids) {
+</span></span><span style="display:flex;"><span>            $(<span style="color:#b44">&#34;#zombies&#34;</span>).empty();
+</span></span><span style="display:flex;"><span>            <span style="color:#a2f;font-weight:bold">for</span> (id <span style="color:#a2f;font-weight:bold">of</span> ids) {
+</span></span><span style="display:flex;"><span>                <span style="color:#080;font-style:italic">// Look up zombie details from our contract. Returns a `zombie` object
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>                getZombieDetails(id)
+</span></span><span style="display:flex;"><span>                    .then(<span style="color:#a2f;font-weight:bold">function</span> (zombie) {
+</span></span><span style="display:flex;"><span>                        <span style="color:#080;font-style:italic">// Using ES6&#39;s &#34;template literals&#34; to inject variables into the HTML.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>                        <span style="color:#080;font-style:italic">// Append each one to our #zombies div
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>                        $(<span style="color:#b44">&#34;#zombies&#34;</span>).append(<span style="color:#b44">`&lt;div class=&#34;zombie&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#b44">              &lt;ul&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#b44">                &lt;li&gt;Name: </span><span style="color:#b68;font-weight:bold">${</span>zombie.name<span style="color:#b68;font-weight:bold">}</span><span style="color:#b44">&lt;/li&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#b44">                &lt;li&gt;DNA: </span><span style="color:#b68;font-weight:bold">${</span>zombie.dna<span style="color:#b68;font-weight:bold">}</span><span style="color:#b44">&lt;/li&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#b44">                &lt;li&gt;Level: </span><span style="color:#b68;font-weight:bold">${</span>zombie.level<span style="color:#b68;font-weight:bold">}</span><span style="color:#b44">&lt;/li&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#b44">                &lt;li&gt;Wins: </span><span style="color:#b68;font-weight:bold">${</span>zombie.winCount<span style="color:#b68;font-weight:bold">}</span><span style="color:#b44">&lt;/li&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#b44">                &lt;li&gt;Losses: </span><span style="color:#b68;font-weight:bold">${</span>zombie.lossCount<span style="color:#b68;font-weight:bold">}</span><span style="color:#b44">&lt;/li&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#b44">                &lt;li&gt;Ready Time: </span><span style="color:#b68;font-weight:bold">${</span>zombie.readyTime<span style="color:#b68;font-weight:bold">}</span><span style="color:#b44">&lt;/li&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#b44">              &lt;/ul&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#b44">            &lt;/div&gt;`</span>);
+</span></span><span style="display:flex;"><span>                    });
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">function</span> createRandomZombie(name) {
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">// This is going to take a while, so update the UI to let the user know
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>            <span style="color:#080;font-style:italic">// the transaction has been sent
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>            $(<span style="color:#b44">&#34;#txStatus&#34;</span>).text(<span style="color:#b44">&#34;Creating new zombie on the blockchain. This may take a while...&#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">// Send the tx to our contract:
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>            <span style="color:#a2f;font-weight:bold">return</span> cryptoZombies.methods.createRandomZombie(name)
+</span></span><span style="display:flex;"><span>                .send({ from<span style="color:#666">:</span> userAccount })
+</span></span><span style="display:flex;"><span>                .on(<span style="color:#b44">&#34;receipt&#34;</span>, <span style="color:#a2f;font-weight:bold">function</span> (receipt) {
+</span></span><span style="display:flex;"><span>                    $(<span style="color:#b44">&#34;#txStatus&#34;</span>).text(<span style="color:#b44">&#34;Successfully created &#34;</span> <span style="color:#666">+</span> name <span style="color:#666">+</span> <span style="color:#b44">&#34;!&#34;</span>);
+</span></span><span style="display:flex;"><span>                    <span style="color:#080;font-style:italic">// Transaction was accepted into the blockchain, let&#39;s redraw the UI
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>                    getZombiesByOwner(userAccount).then(displayZombies);
+</span></span><span style="display:flex;"><span>                })
+</span></span><span style="display:flex;"><span>                .on(<span style="color:#b44">&#34;error&#34;</span>, <span style="color:#a2f;font-weight:bold">function</span> (error) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#080;font-style:italic">// Do something to alert the user their transaction has failed
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>                    $(<span style="color:#b44">&#34;#txStatus&#34;</span>).text(error);
+</span></span><span style="display:flex;"><span>                });
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">function</span> feedOnKitty(zombieId, kittyId) {
+</span></span><span style="display:flex;"><span>            $(<span style="color:#b44">&#34;#txStatus&#34;</span>).text(<span style="color:#b44">&#34;Eating a kitty. This may take a while...&#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a2f;font-weight:bold">return</span> cryptoZombies.methods.feedOnKitty(zombieId, kittyId)
+</span></span><span style="display:flex;"><span>                .send({ from<span style="color:#666">:</span> userAccount })
+</span></span><span style="display:flex;"><span>                .on(<span style="color:#b44">&#34;receipt&#34;</span>, <span style="color:#a2f;font-weight:bold">function</span> (receipt) {
+</span></span><span style="display:flex;"><span>                    $(<span style="color:#b44">&#34;#txStatus&#34;</span>).text(<span style="color:#b44">&#34;Ate a kitty and spawned a new Zombie!&#34;</span>);
+</span></span><span style="display:flex;"><span>                    getZombiesByOwner(userAccount).then(displayZombies);
+</span></span><span style="display:flex;"><span>                })
+</span></span><span style="display:flex;"><span>                .on(<span style="color:#b44">&#34;error&#34;</span>, <span style="color:#a2f;font-weight:bold">function</span> (error) {
+</span></span><span style="display:flex;"><span>                    $(<span style="color:#b44">&#34;#txStatus&#34;</span>).text(error);
+</span></span><span style="display:flex;"><span>                });
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">function</span> levelUp(zombieId) {
+</span></span><span style="display:flex;"><span>            $(<span style="color:#b44">&#34;#txStatus&#34;</span>).text(<span style="color:#b44">&#34;Leveling up your zombie...&#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a2f;font-weight:bold">return</span> cryptoZombies.methods.levelUp(zombieId)
+</span></span><span style="display:flex;"><span>                .send({ from<span style="color:#666">:</span> userAccount, value<span style="color:#666">:</span> web3.utils.toWei(<span style="color:#b44">&#34;0.001&#34;</span>, <span style="color:#b44">&#34;ether&#34;</span>) })
+</span></span><span style="display:flex;"><span>                .on(<span style="color:#b44">&#34;receipt&#34;</span>, <span style="color:#a2f;font-weight:bold">function</span> (receipt) {
+</span></span><span style="display:flex;"><span>                    $(<span style="color:#b44">&#34;#txStatus&#34;</span>).text(<span style="color:#b44">&#34;Power overwhelming! Zombie successfully leveled up&#34;</span>);
+</span></span><span style="display:flex;"><span>                })
+</span></span><span style="display:flex;"><span>                .on(<span style="color:#b44">&#34;error&#34;</span>, <span style="color:#a2f;font-weight:bold">function</span> (error) {
+</span></span><span style="display:flex;"><span>                    $(<span style="color:#b44">&#34;#txStatus&#34;</span>).text(error);
+</span></span><span style="display:flex;"><span>                });
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">function</span> getZombieDetails(id) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a2f;font-weight:bold">return</span> cryptoZombies.methods.zombies(id).call()
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">function</span> zombieToOwner(id) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a2f;font-weight:bold">return</span> cryptoZombies.methods.zombieToOwner(id).call()
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">function</span> getZombiesByOwner(owner) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a2f;font-weight:bold">return</span> cryptoZombies.methods.getZombiesByOwner(owner).call()
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f">window</span>.addEventListener(<span style="color:#b44">&#39;load&#39;</span>, <span style="color:#a2f;font-weight:bold">function</span> () {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">// Checking if Web3 has been injected by the browser (Mist/MetaMask)
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>            <span style="color:#a2f;font-weight:bold">if</span> (<span style="color:#a2f;font-weight:bold">typeof</span> web3 <span style="color:#666">!==</span> <span style="color:#b44">&#39;undefined&#39;</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#080;font-style:italic">// Use Mist/MetaMask&#39;s provider
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>                web3js <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Web3(web3.currentProvider);
+</span></span><span style="display:flex;"><span>            } <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#080;font-style:italic">// Handle the case where the user doesn&#39;t have Metamask installed
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>                <span style="color:#080;font-style:italic">// Probably show them a message prompting them to install Metamask
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">// Now you can start your app &amp; access web3 freely:
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>            startApp()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#008000;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#008000;font-weight:bold">body</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#008000;font-weight:bold">html</span>&gt;
+</span></span></code></pre></div>
+    </div>
+
+    
+    
+    
+  <div id="comment">
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-dxmvw3ac3t" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/viper-00" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/ZhongMingYang00" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Viper
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>
