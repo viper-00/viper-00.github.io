@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <title>区块链学习指南（英文） | Viper</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="Blockchain roadmap 🔗 Basic Blockchain Knowledge 🔗What is Blockchain? 🔗A blockchain is a decentralized, distributed, and oftentimes public, digital ledger consisting of records called blocks that is used to record transactions across many computers so that any involved block cannot be altered retroactively, without the alteration of all subsequent blocks. Blockchain Explained What is decentralization? How does a blockchain work? What Is a Blockchain? |">
+<meta name="generator" content="Hugo 0.101.0" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+ 
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-3CPL7G0HYV', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://viper00.fun/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">区块链学习指南（英文）</h1>
+
+    <div class="tip">
+        <time datetime="2022-09-12 23:50:28 &#43;0800 CST">2022年09月12日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          6595字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          14分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#basic-blockchain-knowledge">Basic Blockchain Knowledge</a>
+      <ul>
+        <li><a href="#what-is-blockchain">What is Blockchain?</a></li>
+        <li><a href="#decentralization">Decentralization</a></li>
+        <li><a href="#why-it-matters">Why it matters</a></li>
+        <li><a href="#blockchain-structure">Blockchain Structure</a></li>
+        <li><a href="#basic-blockchain-operations">Basic Blockchain Operations</a></li>
+        <li><a href="#application-and-uses-of-blockchain-technology">Application and uses of Blockchain technology</a></li>
+      </ul>
+    </li>
+    <li><a href="#general-blockchain-knowledge">General Blockchain Knowledge</a>
+      <ul>
+        <li><a href="#mining-and-incentive-models">Mining and incentive models</a></li>
+        <li><a href="#decentralization-vs-trust">Decentralization vs trust</a></li>
+        <li><a href="#blockchain-forking">Blockchain forking</a></li>
+        <li><a href="#cryptocurrencies">Cryptocurrencies</a></li>
+        <li><a href="#cryptowallets">Cryptowallets</a></li>
+        <li><a href="#storage">Storage</a></li>
+        <li><a href="#cryptography">Cryptography</a></li>
+        <li><a href="#consensus-protocols">Consensus protocols</a></li>
+        <li><a href="#blockchain-interoperability">Blockchain interoperability</a></li>
+      </ul>
+    </li>
+    <li><a href="#blockchains">Blockchains</a>
+      <ul>
+        <li><a href="#solana">Solana</a></li>
+        <li><a href="#l2-blockchains">L2 blockchains</a></li>
+        <li><a href="#evm-based">EVM based</a></li>
+      </ul>
+    </li>
+    <li><a href="#oracles">Oracles</a>
+      <ul>
+        <li><a href="#hybrid-smart-contracts">Hybrid Smart Contracts</a></li>
+        <li><a href="#chainlink">Chainlink</a></li>
+        <li><a href="#oracle-networks">Oracle Networks</a></li>
+      </ul>
+    </li>
+    <li><a href="#smart-contracts">Smart Contracts</a>
+      <ul>
+        <li><a href="#erc-tokens">ERC Tokens</a></li>
+        <li><a href="#crypto-wallets">Crypto Wallets</a></li>
+        <li><a href="#ides">IDEs</a></li>
+        <li><a href="#crypto-faucets">Crypto Faucets</a></li>
+        <li><a href="#decentralized-storage">Decentralized Storage</a></li>
+        <li><a href="#programming-languages">Programming Languages</a></li>
+        <li><a href="#testing">Testing</a></li>
+        <li><a href="#deployment">Deployment</a></li>
+        <li><a href="#monitoring">Monitoring</a></li>
+        <li><a href="#upgrades">Upgrades</a></li>
+      </ul>
+    </li>
+    <li><a href="#smart-contract-frameworks">Smart Contract Frameworks</a>
+      <ul>
+        <li><a href="#hardhat">Hardhat</a></li>
+        <li><a href="#brownie">Brownie</a></li>
+        <li><a href="#truffle">Truffle</a></li>
+        <li><a href="#foundry">Foundry</a></li>
+      </ul>
+    </li>
+    <li><a href="#security">Security</a>
+      <ul>
+        <li><a href="#practices">Practices</a></li>
+        <li><a href="#tools">Tools</a></li>
+      </ul>
+    </li>
+    <li><a href="#management-platforms">Management Platforms</a>
+      <ul>
+        <li><a href="#openzeppelin">OpenZeppelin</a></li>
+      </ul>
+    </li>
+    <li><a href="#version-control-systems">Version Control Systems</a>
+      <ul>
+        <li><a href="#git">Git</a></li>
+      </ul>
+    </li>
+    <li><a href="#repo-hosting-services">Repo Hosting Services</a>
+      <ul>
+        <li><a href="#github">GitHub</a></li>
+        <li><a href="#gitlab">GitLab</a></li>
+        <li><a href="#bitbucket">Bitbucket</a></li>
+      </ul>
+    </li>
+    <li><a href="#dapps---decentralized-applications">dApps - Decentralized Applications</a>
+      <ul>
+        <li><a href="#frontend-frameworks">Frontend Frameworks</a></li>
+        <li><a href="#testing-1">Testing</a></li>
+        <li><a href="#deployment-1">Deployment</a></li>
+        <li><a href="#maintenance">Maintenance</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#security-1">Security</a></li>
+        <li><a href="#applicability">Applicability</a></li>
+        <li><a href="#client-libraries">Client libraries</a></li>
+        <li><a href="#client-nodes">Client Nodes</a></li>
+        <li><a href="#node-as-a-service-naas">Node as a Service (NaaS)</a></li>
+        <li><a href="#supporting-languages">Supporting Languages</a></li>
+      </ul>
+    </li>
+    <li><a href="#building-for-scale">Building for Scale</a>
+      <ul>
+        <li><a href="#state-and-payment-channels">State and Payment Channels</a></li>
+        <li><a href="#optimistic-rollups-and-fraud-proofs">Optimistic Rollups and Fraud Proofs</a></li>
+        <li><a href="#zero-knowledge-rollups-and-zero-knowledge-proof">Zero Knowledge Rollups and Zero Knowledge Proof</a></li>
+        <li><a href="#validium">Validium</a></li>
+        <li><a href="#sidechains">Sidechains</a></li>
+        <li><a href="#plasma">Plasma</a></li>
+        <li><a href="#ethereum-2">Ethereum 2</a></li>
+        <li><a href="#on-chain-scaling">On-Chain Scaling</a></li>
+      </ul>
+    </li>
+    <li><a href="#summary">Summary</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="blockchain-roadmap">Blockchain roadmap <a href="#blockchain-roadmap" class="anchor">🔗</a></h1><p><p class="markdown-image">
+  <img src="https://cdn.jsdelivr.net/gh/viper-00/blockchain-roadmap@master/images/blockchain.png" alt="roadmap"  />
+</p></p>
+<h2 id="basic-blockchain-knowledge">Basic Blockchain Knowledge <a href="#basic-blockchain-knowledge" class="anchor">🔗</a></h2><h3 id="what-is-blockchain">What is Blockchain? <a href="#what-is-blockchain" class="anchor">🔗</a></h3><p>A blockchain is a decentralized, distributed, and oftentimes public, digital ledger consisting of records called blocks that is used to record transactions across many computers so that any involved block cannot be altered retroactively, without the alteration of all subsequent blocks.</p>
+<ul>
+<li><a href="https://www.investopedia.com/terms/b/blockchain.asp" target="_blank" rel="noopener">Blockchain Explained</a></li>
+<li><a href="https://aws.amazon.com/blockchain/decentralization-in-blockchain/" target="_blank" rel="noopener">What is decentralization?</a></li>
+<li><a href="https://youtu.be/SSo_EIwHSd4" target="_blank" rel="noopener">How does a blockchain work?</a></li>
+<li><a href="https://youtu.be/4ff9esY_4aU" target="_blank" rel="noopener">What Is a Blockchain? | Blockchain Basics for Developers</a></li>
+</ul>
+<h3 id="decentralization">Decentralization <a href="#decentralization" class="anchor">🔗</a></h3><p>In blockchain, decentralization refers to the transfer of control and decision-making from a centralized entity (individual, organization, or group thereof) to a distributed network. Decentralized networks strive to reduce the level of trust that participants must place in one another, and deter their ability to exert authority or control over one another in ways that degrade the functionality of the network.</p>
+<ul>
+<li><a href="https://aws.amazon.com/blockchain/decentralization-in-blockchain/" target="_blank" rel="noopener">What is decentralization?</a></li>
+<li><a href="https://www.blockchain-council.org/blockchain/what-is-decentralization-in-blockchain/" target="_blank" rel="noopener">What is Decentralization in Blockchain?</a></li>
+</ul>
+<h3 id="why-it-matters">Why it matters <a href="#why-it-matters" class="anchor">🔗</a></h3><p>The nature of blockchain allows for trustless systems to be built on top of it. Users don’t rely on a centralized group of people, such as a bank, to make decisions and allow transactions to flow through. Because the system is decentralized, users know that transactions will never be denied for non-custodial reasons.</p>
+<p>This decentralization enables use-cases that were previously impossible, such as parametric insurance, decentralized finance, and decentralized organizations (DAOs), among a few. This allows developers to build products that provide immediate value without having to go through a bureaucratic process of applications, approvals, and general red tape.</p>
+<ul>
+<li><a href="https://www.blockchain.education/blockchain101/blockchain" target="_blank" rel="noopener">Why Blockchain?</a></li>
+<li><a href="https://www.forbes.com/sites/theyec/2020/05/18/what-is-the-blockchain-and-why-does-it-matter/" target="_blank" rel="noopener">What Is The Blockchain And Why Does It Matter?</a></li>
+<li><a href="https://continuations.com/post/671863718643105792/web3crypto-why-bother" target="_blank" rel="noopener">Web3/Crypto: Why Bother?</a></li>
+<li><a href="https://www.simplilearn.com/tutorials/blockchain-tutorial/why-is-blockchain-important" target="_blank" rel="noopener">Why is Blockchain Important and Why Does it Matter</a></li>
+</ul>
+<h3 id="blockchain-structure">Blockchain Structure <a href="#blockchain-structure" class="anchor">🔗</a></h3><p>The blockchain gets its name from its underlying structure. The blockchain is organized as a series of “blocks” that are “chained” together.</p>
+<p>Understanding blockchain security requires understanding how the blockchain is put together. This requires knowing what the blocks and chains of blockchain are and why they are designed the way that they are.</p>
+<ul>
+<li><a href="https://mlsdev.com/blog/156-how-to-build-your-own-blockchain-architecture" target="_blank" rel="noopener">Blockchain Architecture Basics: Components, Structure, Benefits &amp; Creation</a></li>
+<li><a href="https://komodoplatform.com/en/academy/blockchain-architecture-101/" target="_blank" rel="noopener">Blockchain Architecture 101: Components, Structure, and Benefits</a></li>
+<li><a href="https://resources.infosecinstitute.com/topic/blockchain-structure/" target="_blank" rel="noopener">Blockchain structure</a></li>
+<li><a href="https://www.coursera.org/lecture/blockchain-basics/blockchain-structure-5rj9Z" target="_blank" rel="noopener">Blockchain Basics | Coursera</a></li>
+</ul>
+<h3 id="basic-blockchain-operations">Basic Blockchain Operations <a href="#basic-blockchain-operations" class="anchor">🔗</a></h3><p>Operations in a decentralized networks are the responsibility of the peer participants and their respective computational nodes. These are specific for each type of blockchain.</p>
+<ul>
+<li><a href="https://www.mlq.ai/blockchain-basics/" target="_blank" rel="noopener">Blockchain Basics: Structure, Operations, and the Bitcoin Blockchain</a></li>
+<li><a href="https://developer.bitcoin.org/reference/transactions.html" target="_blank" rel="noopener">Bitcoin blockchain transactions | Bitcoin Developer</a></li>
+<li><a href="https://ethereum.org/en/developers/docs/transactions/" target="_blank" rel="noopener">Ethereum blockchain transactions | ethereum.org</a></li>
+<li><a href="https://www.coursera.org/lecture/blockchain-basics/basic-operations-OxILB" target="_blank" rel="noopener">Blockchain Basics | Coursera</a></li>
+</ul>
+<h3 id="application-and-uses-of-blockchain-technology">Application and uses of Blockchain technology <a href="#application-and-uses-of-blockchain-technology" class="anchor">🔗</a></h3><p>Blockchain applications go far beyond cryptocurrency and bitcoin. With its ability to create more transparency and fairness while also saving businesses time and money, the technology is impacting a variety of sectors in ways that range from how contracts are enforced to making government work more efficiently.</p>
+<ul>
+<li><a href="https://consensys.net/blockchain-use-cases/" target="_blank" rel="noopener">Blockchain Use Cases and Applications by Industry</a></li>
+<li><a href="https://www.blockchain-council.org/blockchain/top-10-real-world-applications-of-blockchain-technology/" target="_blank" rel="noopener">Top 10 Real-World Applications Of Blockchain Technology</a></li>
+<li><a href="https://ethereum.org/en/developers/docs/transactions/" target="_blank" rel="noopener">Ethereum blockchain transactions | ethereum.org</a></li>
+<li><a href="https://builtin.com/blockchain/blockchain-applications" target="_blank" rel="noopener">E34 Blockchain Applications and Real-World Use Cases Disrupting the Status Quo</a></li>
+</ul>
+<h2 id="general-blockchain-knowledge">General Blockchain Knowledge <a href="#general-blockchain-knowledge" class="anchor">🔗</a></h2><ul>
+<li><a href="https://www.udemy.com/course/understanding-blockchain-technology/" target="_blank" rel="noopener">The Complete Course On Understanding Blockchain Technology</a></li>
+<li><a href="https://youtu.be/qOVAbKKSH10" target="_blank" rel="noopener">Blockchain Technology Explained</a></li>
+</ul>
+<h3 id="mining-and-incentive-models">Mining and incentive models <a href="#mining-and-incentive-models" class="anchor">🔗</a></h3><p>Mining is the process of adding transaction details to the Blockchain, like sender address, hash value, etc. The Blockchain contains all the history of the transactions that have taken place in the past for record purposes and it is stored in such a manner that, it can’t be manipulated.</p>
+<p>An Incentive is basically a reward given to a Blockchain Miner for speeding up the transactions and making correct decisions while processing the complete transaction securely.</p>
+<ul>
+<li><a href="https://www.geeksforgeeks.org/blockchain-incentives-to-miners/" target="_blank" rel="noopener">Blockchain Incentives to Miners</a></li>
+<li><a href="https://ethereum.org/en/developers/docs/consensus-mechanisms/" target="_blank" rel="noopener">Ethereum Consensus Mechanisms</a></li>
+<li><a href="https://docs.solana.com/implemented-proposals/staking-rewards" target="_blank" rel="noopener">Solana Staking Rewards</a></li>
+</ul>
+<h3 id="decentralization-vs-trust">Decentralization vs trust <a href="#decentralization-vs-trust" class="anchor">🔗</a></h3><p>Blockchains, cryptocurrency, smart contracts, and oracles have emerged as new technologies for coordinating social and economic activities in a more secure, transparent, and accessible manner. Most importantly, these technologies are revealing the power of cryptographic guarantees—what we often call cryptographic truth—in restoring users’ trust in everyday interactions.</p>
+<ul>
+<li><a href="https://blog.chain.link/what-crypto-is-really-about/" target="_blank" rel="noopener">What Crypto Is Really About</a></li>
+<li><a href="https://ethereum.org/en/developers/docs/consensus-mechanisms/" target="_blank" rel="noopener">Ethereum Consensus Mechanisms</a></li>
+<li><a href="https://youtu.be/AEtBPbmIRKQ" target="_blank" rel="noopener">The Superiority of Cryptographic Truth</a></li>
+</ul>
+<h3 id="blockchain-forking">Blockchain forking <a href="#blockchain-forking" class="anchor">🔗</a></h3><p>A fork happens whenever a community makes a change to the blockchain’s protocol, or basic set of rules.</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Fork_%28blockchain%29" target="_blank" rel="noopener">Blockchain Fork</a></li>
+<li><a href="https://www.coinbase.com/learn/crypto-basics/what-is-a-fork" target="_blank" rel="noopener">What is a fork?</a></li>
+<li><a href="https://www.investopedia.com/terms/h/hard-fork.asp" target="_blank" rel="noopener">What Is a Hard Fork?</a></li>
+</ul>
+<h3 id="cryptocurrencies">Cryptocurrencies <a href="#cryptocurrencies" class="anchor">🔗</a></h3><p>A cryptocurrency, crypto-currency, or crypto is a digital currency designed to work as a medium of exchange through a blockchain, which is not reliant on any central authority, such as a government or bank, to uphold or maintain it.</p>
+<ul>
+<li><a href="https://www.investopedia.com/terms/c/cryptocurrency.asp" target="_blank" rel="noopener">What Is Cryptocurrency?</a></li>
+<li><a href="https://www.nerdwallet.com/article/investing/cryptocurrency" target="_blank" rel="noopener">Cryptocurrency: What It Is and How It Works</a></li>
+<li><a href="https://youtu.be/rYQgy8QDEBI" target="_blank" rel="noopener">How Cryptocurrency actually works.</a></li>
+</ul>
+<h3 id="cryptowallets">Cryptowallets <a href="#cryptowallets" class="anchor">🔗</a></h3><p>A cryptocurrency wallet is an application that functions as a wallet for your cryptocurrency.</p>
+<ul>
+<li><a href="https://www.investopedia.com/terms/b/bitcoin-wallet.asp" target="_blank" rel="noopener">What is a Cryptocurrency Wallet?</a></li>
+<li><a href="https://crypto.com/university/crypto-wallets" target="_blank" rel="noopener">What is a Crypto Wallet? A Beginner’s Guide</a></li>
+</ul>
+<h3 id="storage">Storage <a href="#storage" class="anchor">🔗</a></h3><p>Unlike a centralized server operated by a single company or organization, decentralized storage systems consist of a peer-to-peer network of user-operators who hold a portion of the overall data, creating a resilient file storage sharing system.</p>
+<ul>
+<li><a href="https://www.techtarget.com/searchstorage/definition/blockchain-storage" target="_blank" rel="noopener">Blockchain Storage</a></li>
+<li><a href="https://ethereum.org/en/developers/docs/storage/" target="_blank" rel="noopener">Decentralized Storage</a></li>
+<li><a href="https://docs.ipfs.tech/concepts/how-ipfs-works/" target="_blank" rel="noopener">How IPFS works</a></li>
+</ul>
+<h3 id="cryptography">Cryptography <a href="#cryptography" class="anchor">🔗</a></h3><p>Cryptography, or cryptology, is the practice and study of techniques for secure communication in the presence of adversarial behavior.</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Cryptography" target="_blank" rel="noopener">Cryptography</a></li>
+<li><a href="https://www.synopsys.com/glossary/what-is-cryptography.html" target="_blank" rel="noopener">What is Cryptography</a></li>
+<li><a href="https://youtu.be/AQDCe585Lnc" target="_blank" rel="noopener">Asymmetric Encryption - Simply explained</a></li>
+</ul>
+<h3 id="consensus-protocols">Consensus protocols <a href="#consensus-protocols" class="anchor">🔗</a></h3><p>Consensus for blockchain is a procedure in which the peers of a Blockchain network reach agreement about the present state of the data in the network. Through this, consensus algorithms establish reliability and trust in the Blockchain network.</p>
+<ul>
+<li><a href="https://crypto.com/university/consensus-mechanisms-in-blockchain" target="_blank" rel="noopener">Consensus Mechanisms in Blockchain: A Beginner’s Guide</a></li>
+<li><a href="https://ethereum.org/en/developers/docs/consensus-mechanisms/" target="_blank" rel="noopener">Consensus Mechanisms</a></li>
+<li><a href="https://www.coindesk.com/learn/what-is-a-consensus-mechanism/" target="_blank" rel="noopener">What Is a Consensus Mechanism?</a></li>
+</ul>
+<h3 id="blockchain-interoperability">Blockchain interoperability <a href="#blockchain-interoperability" class="anchor">🔗</a></h3><p>The concept of “blockchain interoperability” refers to the ability of different blockchain networks to exchange and leverage data between one another and to move unique types of digital assets between the networks’ respective blockchains.</p>
+<ul>
+<li><a href="https://www.gemini.com/cryptopedia/why-is-interoperability-important-for-blockchain" target="_blank" rel="noopener">Cross-Chain Interoperability: What it Means for Blockchain</a></li>
+<li><a href="https://101blockchains.com/blockchain-interoperability/" target="_blank" rel="noopener">Blockchain Interoperability : Why Is Cross Chain Technology Important?</a></li>
+<li><a href="https://www.blockchain-council.org/blockchain/blockchain-interoperability/" target="_blank" rel="noopener">Blockchain Interoperability – Understanding Cross-Chain Technology</a></li>
+</ul>
+<h2 id="blockchains">Blockchains <a href="#blockchains" class="anchor">🔗</a></h2><p>Blockchain systems vary considerably in their design, particularly with regard to the consensus mechanisms used to perform the essential task of verifying network data.</p>
+<ul>
+<li><a href="https://www.gemini.com/cryptopedia/blockchain-types-pow-pos-private" target="_blank" rel="noopener">Types of Blockchains: PoW, PoS, and Private</a></li>
+<li><a href="https://www.geeksforgeeks.org/types-of-blockchain/" target="_blank" rel="noopener">Types of Blockchain</a></li>
+</ul>
+<h3 id="solana">Solana <a href="#solana" class="anchor">🔗</a></h3><p>Solana is a public blockchain platform with smart contract functionality. Its native cryptocurrency is SOL.</p>
+<ul>
+<li><a href="https://cointelegraph.com/news/what-is-solana-and-how-does-it-work" target="_blank" rel="noopener">What is Solana, and how does it work?</a></li>
+<li><a href="https://docs.solana.com/introduction" target="_blank" rel="noopener">Solana Introduction</a></li>
+</ul>
+<h3 id="l2-blockchains">L2 blockchains <a href="#l2-blockchains" class="anchor">🔗</a></h3><p>Layer-2 refers to a network or technology that operates on top of an underlying blockchain protocol to improve its scalability and efficiency.</p>
+<p>This category of scaling solutions entails shifting a portion of Ethereum&rsquo;s transactional burden to an adjacent system architecture, which then handles the brunt of the network’s processing and only subsequently reports back to Ethereum to finalize its results.</p>
+<ul>
+<li><a href="https://www.gemini.com/cryptopedia/blockchain-layer-2-network-layer-1-network" target="_blank" rel="noopener">Layer-1 and Layer-2 Blockchain Scaling Solutions</a></li>
+<li><a href="https://academy.binance.com/en/glossary/layer-2" target="_blank" rel="noopener">Layer 2 - Binance Academy</a></li>
+</ul>
+<h4 id="arbitrum">Arbitrum <a href="#arbitrum" class="anchor">🔗</a></h4><p>Arbitrum aims to reduce transaction fees and congestion by moving as much computation and data storage off of Ethereum&rsquo;s main blockchain (layer 1) as it can. Storing data off of Ethereum&rsquo;s blockchain is known as Layer 2 scaling solutions.</p>
+<ul>
+<li><a href="https://www.usenix.org/system/files/conference/usenixsecurity18/sec18-kalodner.pdf" target="_blank" rel="noopener">Arbitrum whitepaper</a></li>
+<li><a href="https://developer.offchainlabs.com/docs/Inside_Arbitrum" target="_blank" rel="noopener">Inside Arbitrum</a></li>
+</ul>
+<h4 id="moonbeam-moonriver">Moonbeam Moonriver <a href="#moonbeam-moonriver" class="anchor">🔗</a></h4><p>Moonbeam is a Polkadot network parachain that promises cross-chain interoperability between the Ethereum and Polkadot . More specifically, Moonbeam is a smart contract platform that enables developers to move dApps between the two networks without having to rewrite code or redeploy infrastructure.</p>
+<p>Moonriver is an incentivized testnet. It enables developers to create, test, and adjust their protocols prior to launching on Moonbeam. Moonbeam is the mainnet of the ecosystem.</p>
+<ul>
+<li><a href="https://docs.moonbeam.network/learn/platform/networks/moonbeam/" target="_blank" rel="noopener">About Moonbream</a></li>
+<li><a href="https://docs.moonbeam.network/learn/platform/vision/" target="_blank" rel="noopener">Moonbeam Vision</a></li>
+</ul>
+<h3 id="evm-based">EVM based <a href="#evm-based" class="anchor">🔗</a></h3><p>The Ethereum Virtual Machine (EVM) is a dedicated software virtual stack that executes smart contract bytecode and is integrated into each Ethereum node. Simply said, EVM is a software framework that allows developers to construct Ethereum-based decentralized applications (DApps). All Ethereum accounts and smart contracts are stored on this virtual computer.</p>
+<p>Many blockchains have forked the Ethereum blockchain and added functionality on top, these blockchains are referred to as EVM-based blockchains.</p>
+<ul>
+<li><a href="https://moralis.io/evm-explained-what-is-ethereum-virtual-machine/" target="_blank" rel="noopener">What is Ethereum Virtual Machine?</a></li>
+</ul>
+<h4 id="ethereum">Ethereum <a href="#ethereum" class="anchor">🔗</a></h4><p>Ethereum is a programmable blockchain platform with the capacity to support smart contracts, dapps (decentralized apps), and other DeFi projects. The Ethereum native token is the Ether (ETH), and it’s used to fuel operations on the blockchain.</p>
+<p>The Ethereum platform launched in 2015, and it’s now the second largest form of crypto next to Bitcoin (BTC).</p>
+<ul>
+<li><a href="https://ethereum.org/en/whitepaper/" target="_blank" rel="noopener">Ethereum whitepaper</a></li>
+<li><a href="https://ethereum.org/en/developers/docs/intro-to-ethereum/" target="_blank" rel="noopener">Intro to Ethereum</a></li>
+</ul>
+<h4 id="polygon">Polygon <a href="#polygon" class="anchor">🔗</a></h4><p>Polygon, formerly known as the Matic Network, is a scaling solution that aims to provide multiple tools to improve the speed and reduce the cost and complexities of transactions on the Ethereum blockchain.</p>
+<ul>
+<li><a href="https://polygon.technology/lightpaper-polygon.pdf" target="_blank" rel="noopener">Polygon whitepaper</a></li>
+<li><a href="https://wiki.polygon.technology/docs/develop/getting-started" target="_blank" rel="noopener">Introduction to Polygon</a></li>
+</ul>
+<h4 id="binance-smart-chain">Binance Smart Chain <a href="#binance-smart-chain" class="anchor">🔗</a></h4><p>Binance Smart Chain (also known as BNB Chain) is a blockchain project initiated by Binance as a central piece of their cryptocurrency exchange, which is the largest exchange in the world in terms of daily trading volume of cryptocurrencies.</p>
+<ul>
+<li><a href="https://www.exodus.com/assets/docs/binance-coin-whitepaper.pdf" target="_blank" rel="noopener">Binance whitepaper</a></li>
+<li><a href="https://www.binance.com/en/blog/all/bnb-chain-blockchain-for-exchanging-the-world-304219301536473088" target="_blank" rel="noopener">BNB Chain overview</a></li>
+</ul>
+<h4 id="gnosis-chain">Gnosis Chain <a href="#gnosis-chain" class="anchor">🔗</a></h4><p>Gnosis is a blockchain based on Ethereum, which changed the consensus model to PoS to solve major issues on the Ethereum mainnet. While the platform solves problems surrounding transaction fees and speed, it also means that the Gnosis chain is less decentralized, as it is somewhat reliant on the Ethereum chain.</p>
+<ul>
+<li><a href="https://blockchainlab.com/pdf/gnosis_whitepaper.pdf" target="_blank" rel="noopener">Gnosis whitepaper</a></li>
+<li><a href="https://developers.gnosischain.com/#gnosis-chain" target="_blank" rel="noopener">Gnosis overview</a></li>
+</ul>
+<h4 id="huobi-eco-chain">Huobi Eco Chain <a href="#huobi-eco-chain" class="anchor">🔗</a></h4><p>Huobi&rsquo;s ECO Chain (also known as HECO) is a public blockchain that provides developers with a low-cost onchain environment for running decentralized apps (dApps) of smart contracts and storing digital assets.</p>
+<ul>
+<li><a href="https://www.hecochain.com/developer.133bd45.pdf" target="_blank" rel="noopener">Huobi Eco Chain whitepaper</a></li>
+<li><a href="https://docs.hecochain.com/#/" target="_blank" rel="noopener">Introduction to HECO Chain</a></li>
+</ul>
+<h4 id="avalanche">Avalanche <a href="#avalanche" class="anchor">🔗</a></h4><p>Avalanche describes itself as an “open, programmable smart contracts platform for decentralized applications.” What does that mean? Like many other decentralized protocols, Avalanche has its own token called AVAX, which is used to pay transaction fees and can be staked to secure the network.</p>
+<ul>
+<li><a href="https://assets.website-files.com/5d80307810123f5ffbb34d6e/6008d7bbf8b10d1eb01e7e16_Avalanche%20Platform%20Whitepaper.pdf" target="_blank" rel="noopener">Avalanche whitepaper</a></li>
+<li><a href="https://www.avax.network/" target="_blank" rel="noopener">Avalanche official website</a></li>
+</ul>
+<h4 id="fantom">Fantom <a href="#fantom" class="anchor">🔗</a></h4><p>Fantom is a decentralized, open-source smart contract platform that supports decentralized applications (dApps) and digital assets. It&rsquo;s one of many blockchain networks built as a faster, more efficient alternative to Ethereum, it uses the proof-of-stake consensus mechanism.</p>
+<ul>
+<li><a href="https://arxiv.org/pdf/1810.10360.pdf" target="_blank" rel="noopener">Fantom whitepaper</a></li>
+<li><a href="https://docs.fantom.foundation/" target="_blank" rel="noopener">Fantom overview</a></li>
+</ul>
+<h4 id="moonbeam-moonriver-1">Moonbeam Moonriver <a href="#moonbeam-moonriver-1" class="anchor">🔗</a></h4><p>Moonbeam is a Polkadot network parachain that promises cross-chain interoperability between the Ethereum and Polkadot . More specifically, Moonbeam is a smart contract platform that enables developers to move dApps between the two networks without having to rewrite code or redeploy infrastructure.</p>
+<p>Moonriver is an incentivized testnet. It enables developers to create, test, and adjust their protocols prior to launching on Moonbeam. Moonbeam is the mainnet of the ecosystem.</p>
+<ul>
+<li><a href="https://docs.moonbeam.network/learn/platform/networks/moonbeam/" target="_blank" rel="noopener">About Moonbream</a></li>
+<li><a href="https://docs.moonbeam.network/learn/platform/vision/" target="_blank" rel="noopener">Moonbeam Vision</a></li>
+</ul>
+<h2 id="oracles">Oracles <a href="#oracles" class="anchor">🔗</a></h2><p>A blockchain oracle is a third-party service that connects smart contracts with the outside world, primarily to feed information in from the world, but also the reverse. Information from the world encapsulates multiple sources so that decentralised knowledge is obtained.</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Blockchain_oracle" target="_blank" rel="noopener">Blockchain Oracle</a></li>
+<li><a href="https://chain.link/education/blockchain-oracles" target="_blank" rel="noopener">What Is a Blockchain Oracle?</a></li>
+</ul>
+<h3 id="hybrid-smart-contracts">Hybrid Smart Contracts <a href="#hybrid-smart-contracts" class="anchor">🔗</a></h3><p>Hybrid smart contracts combine code running on the blockchain (on-chain) with data and computation from outside the blockchain (off-chain) provided by Decentralized Oracle Networks.</p>
+<ul>
+<li><a href="https://blog.chain.link/hybrid-smart-contracts-explained/" target="_blank" rel="noopener">Hybrid Smart Contracts Explained</a></li>
+<li><a href="https://www.leewayhertz.com/hybrid-smart-contracts/" target="_blank" rel="noopener">A complete guide to understand hybrid smart contracts</a></li>
+</ul>
+<h3 id="chainlink">Chainlink <a href="#chainlink" class="anchor">🔗</a></h3><p>Chainlink is a decentralized network of oracles that enables smart contracts to securely interact with real-world data and services that exist outside of blockchain networks.</p>
+<ul>
+<li><a href="https://blog.chain.link/what-is-chainlink/" target="_blank" rel="noopener">What Is Chainlink? A Beginner’s Guide</a></li>
+<li><a href="https://www.gemini.com/cryptopedia/what-is-chainlink-and-how-does-it-work" target="_blank" rel="noopener">What Is Chainlink in 5 Minutes</a></li>
+</ul>
+<h3 id="oracle-networks">Oracle Networks <a href="#oracle-networks" class="anchor">🔗</a></h3><p>By leveraging many different data sources, and implementing an oracle system that isn’t controlled by a single entity, decentralized oracle networks provide an increased level of security and fairness to smart contracts.</p>
+<ul>
+<li><a href="https://medium.com/coinmonks/decentralized-oracle-networks-9fead28f5fe5" target="_blank" rel="noopener">Decentralized Oracle Networks</a></li>
+<li><a href="https://chainlinktoday.com/a-beginners-guide-to-the-evolution-of-decentralized-oracle-networks/" target="_blank" rel="noopener">A Beginner’s Guide To The Evolution Of Decentralized Oracle Networks</a></li>
+<li><a href="https://coinmetro.com/blog/understanding-oracle-networks/" target="_blank" rel="noopener">Understanding Oracle Networks</a></li>
+</ul>
+<h2 id="smart-contracts">Smart Contracts <a href="#smart-contracts" class="anchor">🔗</a></h2><p>A smart contract is a computer program or a transaction protocol that is intended to automatically execute, control or document legally relevant events and actions according to the terms of a contract or an agreement.</p>
+<ul>
+<li><a href="https://www.blockchain.education/blockchain101/smart-contracts" target="_blank" rel="noopener">Smart Contracts Introduction</a></li>
+<li><a href="https://chain.link/education/smart-contracts" target="_blank" rel="noopener">What Is a Smart Contract?</a></li>
+<li><a href="https://youtu.be/ZE2HxTmxfrI" target="_blank" rel="noopener">Smart contracts - Simply Explained</a></li>
+</ul>
+<h3 id="erc-tokens">ERC Tokens <a href="#erc-tokens" class="anchor">🔗</a></h3><p>An ‘Ethereum Request for Comments’ (ERC) is a document that programmers use to write smart contracts on Ethereum Blockchain. They describe rules in these documents that Ethereum-based tokens must comply with.</p>
+<p>While there are several Ethereum standards. These ERC Ethereum standards are the most well-known and popular: ERC-20, ERC-721, ERC-1155, and ERC-777.</p>
+<ul>
+<li><a href="https://dev.to/envoy_/ks-what-are-ethereum-request-for-comments-erc-standards-5f80" target="_blank" rel="noopener">What are Ethereum request for comments (ERC) Standards</a></li>
+<li><a href="https://ethereum.org/en/developers/docs/standards/tokens/erc-20/" target="_blank" rel="noopener">ERC-20 Token Standard</a></li>
+</ul>
+<h3 id="crypto-wallets">Crypto Wallets <a href="#crypto-wallets" class="anchor">🔗</a></h3><p>A cryptocurrency wallet is a device, physical medium, program, or service which stores the public and/or private keys for cryptocurrency transactions. In addition to this basic function of storing the keys, a cryptocurrency wallet more often also offers the functionality of encrypting and/or signing information.</p>
+<ul>
+<li><a href="https://www.coinbase.com/learn/crypto-basics/what-is-a-crypto-wallet" target="_blank" rel="noopener">What is a crypto wallet?</a></li>
+<li><a href="https://crypto.com/university/crypto-wallets" target="_blank" rel="noopener">What is a Crypto Wallet? A Beginner’s Guide</a></li>
+</ul>
+<h3 id="ides">IDEs <a href="#ides" class="anchor">🔗</a></h3><p>An integrated development environment is a software application that provides comprehensive facilities to computer programmers for software development. An IDE normally consists of at least a source code editor, build automation tools and a debugger.</p>
+<ul>
+<li><a href="https://ethereum.org/en/developers/docs/ides/" target="_blank" rel="noopener">Integrated Development Environments</a></li>
+<li><a href="https://remix-project.org/" target="_blank" rel="noopener">Remix - Ethereum IDE &amp; community</a></li>
+</ul>
+<h3 id="crypto-faucets">Crypto Faucets <a href="#crypto-faucets" class="anchor">🔗</a></h3><p>A crypto faucet lets users earn small crypto rewards by completing simple tasks. The metaphor is based on how even one drop of water from a leaky faucet could eventually fill up a cup. There are various kinds of crypto faucets, including bitcoin (BTC), Ethereum (ETH), and BNB faucets.</p>
+<p>Faucets are common in development environments where developers obtain testnet crypto in order develop and test their application prior to mainnet deployment.</p>
+<ul>
+<li><a href="https://academy.binance.com/en/articles/what-is-a-crypto-faucet" target="_blank" rel="noopener">What Is A Crypto Faucet?</a></li>
+<li><a href="https://cointelegraph.com/news/what-are-crypto-faucets-and-how-do-they-work" target="_blank" rel="noopener">What are crypto faucets and how do they work?</a></li>
+</ul>
+<h3 id="decentralized-storage">Decentralized Storage <a href="#decentralized-storage" class="anchor">🔗</a></h3><p>Decentralized storage is where data is stored on a decentralized network across multiple locations by users or groups who are incentivized to join, store, and keep data accessible. The servers used are hosted by people, rather than a single company. Anyone is free to join, they are kept honest due to smart contracts, and they are incentivized to participate via tokens.</p>
+<ul>
+<li><a href="https://medium.com/@ppio/what-is-decentralized-storage-9c4b761942e2" target="_blank" rel="noopener">What Is Decentralized Storage?</a></li>
+<li><a href="https://ethereum.org/en/developers/docs/storage/" target="_blank" rel="noopener">Decentralized Storage</a></li>
+</ul>
+<h3 id="programming-languages">Programming Languages <a href="#programming-languages" class="anchor">🔗</a></h3><p>Smart contracts can be programmed using relatively developer-friendly languages. If you&rsquo;re experienced with Python or any curly-bracket language, you can find a language with familiar syntax.</p>
+<ul>
+<li><a href="https://ethereum.org/en/developers/docs/smart-contracts/languages/" target="_blank" rel="noopener">Smart Contract Languages</a></li>
+</ul>
+<h4 id="solidity">Solidity <a href="#solidity" class="anchor">🔗</a></h4><p>Solidity is an object-oriented programming language for implementing smart contracts on various blockchain platforms, most notably, Ethereum.</p>
+<ul>
+<li><a href="https://soliditylang.org/" target="_blank" rel="noopener">Solidity Programming Language</a></li>
+<li><a href="https://www.tutorialspoint.com/solidity/index.htm" target="_blank" rel="noopener">Solidity Tutorial</a></li>
+</ul>
+<h4 id="vyper">Vyper <a href="#vyper" class="anchor">🔗</a></h4><p>Vyper is a contract-oriented, pythonic programming language that targets the Ethereum Virtual Machine (EVM).</p>
+<ul>
+<li><a href="https://vyper.readthedocs.io/en/stable/" target="_blank" rel="noopener">Vyper Programming Language</a></li>
+<li><a href="https://learnxinyminutes.com/docs/vyper/" target="_blank" rel="noopener">Learn Vyper in Y Minutes</a></li>
+</ul>
+<h4 id="rust">Rust <a href="#rust" class="anchor">🔗</a></h4><p>Rust is a multi-paradigm, general-purpose programming language. Rust emphasizes performance, type safety, and concurrency. It is popular on smart contract chains Solana and Polkadot.</p>
+<ul>
+<li><a href="https://www.rust-lang.org/" target="_blank" rel="noopener">Rust Programming Language</a></li>
+<li><a href="https://learn.figment.io/tutorials/write-and-deploy-a-smart-contract-on-near" target="_blank" rel="noopener">How to write and deploy a smart contract in Rust</a></li>
+</ul>
+<h3 id="testing">Testing <a href="#testing" class="anchor">🔗</a></h3><p>Testing smart contracts is one of the most important measures for improving smart contract security. Unlike traditional software, smart contracts cannot typically be updated after launching, making it imperative to test rigorously before deploying contracts onto mainnet.</p>
+<ul>
+<li><a href="https://ethereum.org/en/developers/docs/smart-contracts/testing/" target="_blank" rel="noopener">Testing Smart Contracts</a></li>
+<li><a href="https://betterprogramming.pub/how-to-test-ethereum-smart-contracts-35abc8fa199d" target="_blank" rel="noopener">How to Test Ethereum Smart Contracts</a></li>
+<li><a href="https://docs.openzeppelin.com/learn/writing-automated-tests" target="_blank" rel="noopener">Writing automated smart contract tests</a></li>
+</ul>
+<h4 id="unit-tests">Unit Tests <a href="#unit-tests" class="anchor">🔗</a></h4><p>Unit testing involves testing individual components in a smart contract for correctness. A unit test is simple, quick to run, and provides a clear idea of what went wrong if the test fails.</p>
+<ul>
+<li><a href="https://ethereum.org/en/developers/docs/smart-contracts/testing/#unit-testing" target="_blank" rel="noopener">Smart Contracts Unit Testing</a></li>
+<li><a href="https://betterprogramming.pub/a-few-tips-for-unit-testing-ethereum-smart-contract-in-solidity-d804062068fb" target="_blank" rel="noopener">Tips for Unit Testing Ethereum Smart Contracts in Solidity</a></li>
+</ul>
+<h4 id="integration-tests">Integration Tests <a href="#integration-tests" class="anchor">🔗</a></h4><p>Integration tests validate interactions between multiple components. For smart contract testing this can mean interactions between different components of a single contract, or across multiple contracts.</p>
+<ul>
+<li><a href="https://youtu.be/GxnX9k8i0zM" target="_blank" rel="noopener">Unit tests vs integration tests | Smart contract testing course</a></li>
+</ul>
+<h4 id="code-coverage">Code Coverage <a href="#code-coverage" class="anchor">🔗</a></h4><p>Code coverage is a metric that can help you understand how much of your source is tested. It&rsquo;s a very useful metric that can help you assess the quality of your test suite.</p>
+<ul>
+<li><a href="https://ethereum.org/en/developers/docs/smart-contracts/testing/" target="_blank" rel="noopener">Testing Smart Contracts</a></li>
+<li><a href="https://medium.com/coinmonks/smart-contract-code-coverage-in-hardhat-d4a5ff6c9ba6" target="_blank" rel="noopener">Smart Contract Code Coverage In Hardhat</a></li>
+</ul>
+<h3 id="deployment">Deployment <a href="#deployment" class="anchor">🔗</a></h3><p>Unlike other software, smart contracts don’t run on a local computer or a remote server: they live on the blockchain. Thus, interacting with them is different from more traditional applications.</p>
+<ul>
+<li><a href="https://ethereum.org/en/developers/docs/smart-contracts/deploying/" target="_blank" rel="noopener">Deploying Smart Contracts</a></li>
+<li><a href="https://docs.openzeppelin.com/learn/deploying-and-interacting" target="_blank" rel="noopener">Deploying and interacting with smart contracts</a></li>
+</ul>
+<h3 id="monitoring">Monitoring <a href="#monitoring" class="anchor">🔗</a></h3><p>Monitoring smart contracts allow their authors to view its activity and interactions based on generated transactions and events, allowing verification of the contract&rsquo;s intended purpose and functionality.</p>
+<ul>
+<li><a href="https://consensys.github.io/smart-contract-best-practices/development-recommendations/solidity-specific/event-monitoring/" target="_blank" rel="noopener">Monitoring Smart Contracts</a></li>
+</ul>
+<h3 id="upgrades">Upgrades <a href="#upgrades" class="anchor">🔗</a></h3><p>Smart contracts are immutable by default. Once they are created there is no way to alter them, effectively acting as an unbreakable contract among participants. However, for some scenarios, it is desirable to be able to modify them.</p>
+<ul>
+<li><a href="https://ethereum.org/en/developers/docs/smart-contracts/upgrading/" target="_blank" rel="noopener">Upgrading Ethereum contracts</a></li>
+<li><a href="https://docs.openzeppelin.com/learn/upgrading-smart-contracts" target="_blank" rel="noopener">Upgrading smart contracts</a></li>
+<li><a href="https://moralis.io/what-are-upgradable-smart-contracts-full-guide/" target="_blank" rel="noopener">What are Upgradable Smart Contracts? Full Guide</a></li>
+<li><a href="https://youtu.be/bdXJmWajZRY" target="_blank" rel="noopener">Upgrading your Smart Contracts | A Tutorial &amp; Introduction</a></li>
+</ul>
+<h2 id="smart-contract-frameworks">Smart Contract Frameworks <a href="#smart-contract-frameworks" class="anchor">🔗</a></h2><p>Building a full-fledged dapp requires different pieces of technology. Software frameworks include many of the needed features or provide easy plugin systems to pick the tools you desire.</p>
+<ul>
+<li><a href="https://ethereum.org/en/developers/docs/frameworks/" target="_blank" rel="noopener">dApp Development Frameworks</a></li>
+<li><a href="https://media.consensys.net/an-definitive-list-of-ethereum-developer-tools-2159ce865974#frameworks" target="_blank" rel="noopener">A Definitive List of Ethereum Developer Tools - Frameworks</a></li>
+<li><a href="https://medium.com/better-programming/top-10-smart-contract-developer-tools-you-need-for-2022-b763f5df689a" target="_blank" rel="noopener">Top 10 Smart Contract Developer Tools You Need for 2022</a></li>
+</ul>
+<h3 id="hardhat">Hardhat <a href="#hardhat" class="anchor">🔗</a></h3><p>Hardhat is an Ethereum development environment. It allows users to compile contracts and run them on a development network. Get Solidity stack traces, console.log and more.</p>
+<ul>
+<li><a href="https://hardhat.org/hardhat-runner/docs/getting-started#overview" target="_blank" rel="noopener">Hardhat Overview</a></li>
+<li><a href="https://youtu.be/GBc3lBrXEBo" target="_blank" rel="noopener">Build and Deploy Smart Contracts using Hardhat</a></li>
+</ul>
+<h3 id="brownie">Brownie <a href="#brownie" class="anchor">🔗</a></h3><p>Brownie is a Python-based development and testing framework for smart contracts targeting the Ethereum Virtual Machine.</p>
+<ul>
+<li><a href="https://eth-brownie.readthedocs.io/" target="_blank" rel="noopener">Brownie Overview</a></li>
+<li><a href="https://youtu.be/QfFO22lwSw4" target="_blank" rel="noopener">Python and Blockchain: Deploy Smart Contracts using Brownie</a></li>
+</ul>
+<h3 id="truffle">Truffle <a href="#truffle" class="anchor">🔗</a></h3><p>A development environment, testing framework, and asset pipeline for blockchains using the Ethereum Virtual Machine (EVM), aiming to make life as a developer easier.</p>
+<ul>
+<li><a href="https://trufflesuite.com/docs/truffle/" target="_blank" rel="noopener">Truffle Overview</a></li>
+<li><a href="https://youtu.be/62f757RVEvU" target="_blank" rel="noopener">Truffle Tutorial for Beginners | Compile, Test &amp; Deploy Smart contracts to any EVM Blockchain</a></li>
+</ul>
+<h3 id="foundry">Foundry <a href="#foundry" class="anchor">🔗</a></h3><p>Foundry is a smart contract development toolchain. Foundry manages your dependencies, compiles your project, runs tests, deploys, and lets you interact with the chain from the command-line and via Solidity scripts.</p>
+<ul>
+<li><a href="https://book.getfoundry.sh/" target="_blank" rel="noopener">Foundry Overview</a></li>
+<li><a href="https://youtu.be/fNMfMxGxeag" target="_blank" rel="noopener">Intro to Foundry</a></li>
+</ul>
+<h2 id="security">Security <a href="#security" class="anchor">🔗</a></h2><p>Smart contracts are extremely flexible, capable of both holding large quantities of tokens (often in excess of $1B) and running immutable logic based on previously deployed smart contract code. While this has created a vibrant and creative ecosystem of trustless, interconnected smart contracts, it is also the perfect ecosystem to attract attackers looking to profit by exploiting vulnerabilities</p>
+<ul>
+<li><a href="https://ethereum.org/en/developers/docs/smart-contracts/security/" target="_blank" rel="noopener">Smart Contract Security</a></li>
+<li><a href="https://consensys.net/blog/developers/ethereum-smart-contract-security-recommendations/" target="_blank" rel="noopener">Ethereum Smart Contract Security Recommendations</a></li>
+</ul>
+<h3 id="practices">Practices <a href="#practices" class="anchor">🔗</a></h3><p>Smart contract programming requires a different engineering mindset. The cost of failure can be high, and change can be difficult.</p>
+<ul>
+<li><a href="https://consensys.github.io/smart-contract-best-practices/" target="_blank" rel="noopener">Ethereum Smart Contract Security Best Practices</a></li>
+<li><a href="https://youtu.be/0aJfCug1zTM" target="_blank" rel="noopener">Smart Contract Security and Auditing 101</a></li>
+</ul>
+<h4 id="fuzz-testing-and-static-analysis">Fuzz Testing and Static Analysis <a href="#fuzz-testing-and-static-analysis" class="anchor">🔗</a></h4><p>Fuzzing or fuzz testing is an automated software testing technique that involves providing invalid, unexpected, or random data as inputs to a smart contract.</p>
+<p>Static analysis is the analysis of smart contracts performed without executing them.</p>
+<ul>
+<li><a href="https://www.immunebytes.com/blog/getting-started-with-smart-contract-fuzzing/" target="_blank" rel="noopener">Getting Started with Smart Contract Fuzzing</a></li>
+<li><a href="https://lightrains.com/blogs/solidity-static-analysis-tools/#static-code-analysis" target="_blank" rel="noopener">Solidity smart contract Static Code Analysis</a></li>
+<li><a href="https://youtu.be/LRyyNzrqgOc" target="_blank" rel="noopener">Smart contract Fuzzing</a></li>
+</ul>
+<h4 id="common-threat-vectors">Common Threat Vectors <a href="#common-threat-vectors" class="anchor">🔗</a></h4><p>Smart contract audits enable developers to provide a thorough analysis of smart contract sets. The main goal of a smart contract audit is to detect and eliminate vulnerabilities, starting with the most common threat vectors.</p>
+<ul>
+<li><a href="https://github.com/kadenzipfel/smart-contract-attack-vectors" target="_blank" rel="noopener">Smart Contract Attack Vectors</a></li>
+<li><a href="https://blog.sigmaprime.io/solidity-security.html" target="_blank" rel="noopener">Solidity Security: Comprehensive list of known attack vectors and common anti-patterns</a></li>
+<li><a href="https://www.apriorit.com/dev-blog/578-blockchain-attack-vectors" target="_blank" rel="noopener">Blockchain Attack Vectors: Vulnerabilities of the Most Secure Technology</a></li>
+</ul>
+<h4 id="source-of-randomness-attacks">Source of Randomness Attacks <a href="#source-of-randomness-attacks" class="anchor">🔗</a></h4><p>The security of cryptographic systems depends on some secret data that is known to authorized persons but unknown and unpredictable to others. To achieve this unpredictability, some randomization is typically employed. Modern cryptographic protocols often require frequent generation of random quantities. Cryptographic attacks that subvert or exploit weaknesses in this process are known as randomness attacks.</p>
+<ul>
+<li><a href="https://blog.finxter.com/randomness-or-replicatedlogic-attack-on-smart-contracts/" target="_blank" rel="noopener">Smart Contract Randomness or ReplicatedLogic Attack</a></li>
+</ul>
+<h3 id="tools">Tools <a href="#tools" class="anchor">🔗</a></h3><p>Blockchain and smart contract technology is faily new, therefore, you should expect constant changes in the security landscape, as new bugs and security risks are discovered, and new best practices are developed. Keeping track of this constantly moving landscape proves difficult, so using tools to aid this mission is important. The cost of failing to propertly secure smart contracts can be high, and because change can be difficult, we must make use of these tools.</p>
+<h4 id="slither">Slither <a href="#slither" class="anchor">🔗</a></h4><p>Slither is a Solidity static analysis framework written in Python 3. It runs a suite of vulnerability detectors, prints visual information about contract details, and provides an API to easily write custom analyses. Slither enables developers to find vulnerabilities, enhance their code comprehension, and quickly prototype custom analyses.</p>
+<ul>
+<li><a href="https://github.com/crytic/slither/blob/master/README.md" target="_blank" rel="noopener">Slither, the Solidity source analyzer</a></li>
+</ul>
+<h4 id="manticore">Manticore <a href="#manticore" class="anchor">🔗</a></h4><p>Manticore is a symbolic execution tool for analysis of smart contracts and binaries.</p>
+<ul>
+<li><a href="https://manticore.readthedocs.io/" target="_blank" rel="noopener">Manticore Docs</a></li>
+</ul>
+<h4 id="mythx">Mythx <a href="#mythx" class="anchor">🔗</a></h4><p>MythX is a comprehensive smart contract security analysis tools developed by Consensys. It allows users to detect security vulnerabilities in Ethereum smart contracts throughout the development life cycle as well as analyze Solidity dapps for security holes and known smart contract vulnerabilities.</p>
+<ul>
+<li><a href="https://mythx.io/" target="_blank" rel="noopener">MythX Official Site</a></li>
+<li><a href="https://docs.mythx.io/" target="_blank" rel="noopener">MythX Documentation</a></li>
+</ul>
+<h4 id="echidna">Echidna <a href="#echidna" class="anchor">🔗</a></h4><p>Echidna is a Haskell program designed for fuzzing/property-based testing of Ethereum smarts contracts. It uses sophisticated grammar-based fuzzing campaigns based on a contract ABI to falsify user-defined predicates or Solidity assertions.</p>
+<ul>
+<li><a href="https://github.com/crytic/echidna/blob/master/README.md" target="_blank" rel="noopener">Echidna: A Fast Smart Contract Fuzzer</a></li>
+</ul>
+<h2 id="management-platforms">Management Platforms <a href="#management-platforms" class="anchor">🔗</a></h2><p>Managing smart contracts in a production environment (mainnet) can prove difficult as users must keep track of different versions, blockchains, deployments, etc. Using a tool for this process eliminates a lot of the risk that comes with manual tracking.</p>
+<h3 id="openzeppelin">OpenZeppelin <a href="#openzeppelin" class="anchor">🔗</a></h3><p>OpenZeppelin Contracts helps you minimize risk by using battle-tested libraries of smart contracts for Ethereum and other blockchains. It includes the most used implementations of ERC standards.</p>
+<ul>
+<li><a href="https://docs.openzeppelin.com/contracts/" target="_blank" rel="noopener">OpenZeppelin Contracts</a></li>
+</ul>
+<h2 id="version-control-systems">Version Control Systems <a href="#version-control-systems" class="anchor">🔗</a></h2><p>Version control/source control systems allow developers to track and control changes to code over time. These services often include the ability to make atomic revisions to code, branch/fork off of specific points, and to compare versions of code. They are useful in determining the who, what, when, and why code changes were made.</p>
+<ul>
+<li><a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a></li>
+<li><a href="https://www.mercurial-scm.org/" target="_blank" rel="noopener">Mercurial</a></li>
+<li><a href="https://www.atlassian.com/git/tutorials/what-is-version-control" target="_blank" rel="noopener">What is Version Control?</a></li>
+</ul>
+<h3 id="git">Git <a href="#git" class="anchor">🔗</a></h3><p>Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=zbKdDsNNOhg" target="_blank" rel="noopener">Version Control System Introduction</a></li>
+<li><a href="https://www.youtube.com/watch?v=SWYqp7iY_Tc" target="_blank" rel="noopener">Git &amp; GitHub Crash Course For Beginners</a></li>
+<li><a href="https://youtu.be/Y9XZQO1n_7c?t=21" target="_blank" rel="noopener">Learn Git in 20 Minutes</a></li>
+<li><a href="https://github.com/jlord/git-it-electron" target="_blank" rel="noopener">Learn Git on the command line</a></li>
+</ul>
+<h2 id="repo-hosting-services">Repo Hosting Services <a href="#repo-hosting-services" class="anchor">🔗</a></h2><p>When working on a team, you often need a remote place to put your code so others can access it, create their own branches, and create or review pull requests. These services often include issue tracking, code review, and continuous integration features. A few popular choices are GitHub, GitLab, BitBucket, and AWS CodeCommit.</p>
+<ul>
+<li><a href="https://bitbucket.org/product/code-repository" target="_blank" rel="noopener">How to choose the best source code repository</a></li>
+</ul>
+<h3 id="github">GitHub <a href="#github" class="anchor">🔗</a></h3><p>GitHub is a provider of Internet hosting for software development and version control using Git. It offers the distributed version control and source code management functionality of Git, plus its own features.</p>
+<ul>
+<li><a href="https://github.com/" target="_blank" rel="noopener">GitHub Website</a></li>
+</ul>
+<h3 id="gitlab">GitLab <a href="#gitlab" class="anchor">🔗</a></h3><p>GitLab is a provider of internet hosting for software development and version control using Git. It offers the distributed version control and source code management functionality of Git, plus its own features.</p>
+<ul>
+<li><a href="https://gitlab.com/" target="_blank" rel="noopener">GitLab Website</a></li>
+</ul>
+<h3 id="bitbucket">Bitbucket <a href="#bitbucket" class="anchor">🔗</a></h3><p>Bitbucket is a Git based hosting and source code repository service that is Atlassian&rsquo;s alternative to other products like GitHub, GitLab etc</p>
+<p>Bitbucket offers hosting options via Bitbucket Cloud (Atlassian&rsquo;s servers), Bitbucket Server (customer&rsquo;s on-premise) or Bitbucket Data Centre (number of servers in customers on-premise or cloud environment)</p>
+<ul>
+<li><a href="https://bitbucket.org/product" target="_blank" rel="noopener">Bitbucket Website</a></li>
+</ul>
+<h2 id="dapps---decentralized-applications">dApps - Decentralized Applications <a href="#dapps---decentralized-applications" class="anchor">🔗</a></h2><p>A decentralised application (dApp) is an application that can operate autonomously, through the use of smart contracts that run on a blockchain. Like traditional applications, dApps provide some function or utility to its users.</p>
+<ul>
+<li><a href="https://ethereum.org/en/developers/docs/dapps/" target="_blank" rel="noopener">Introduction to dApps</a></li>
+<li><a href="https://www.coindesk.com/learn/what-is-a-dapp-decentralized-apps-explained/" target="_blank" rel="noopener">What Is a Dapp? Decentralized Apps Explained</a></li>
+</ul>
+<h3 id="frontend-frameworks">Frontend Frameworks <a href="#frontend-frameworks" class="anchor">🔗</a></h3><p>Web frameworks are designed to write web applications. Frameworks are collections of libraries that aid in the development of a software product or website. Frameworks for web application development are collections of various tools. Frameworks vary in their capabilities and functions, depending on the tasks set. They define the structure, establish the rules, and provide the development tools required.</p>
+<ul>
+<li><a href="https://moralis.io/web3-frontend-everything-you-need-to-learn-about-building-dapp-frontends/" target="_blank" rel="noopener">Web3 Frontend – Everything You Need to Learn About Building Dapp Frontends</a></li>
+<li><a href="https://www.youtube.com/watch?v=D_MO9vIRBcA" target="_blank" rel="noopener">What is the difference between a framework and a library?</a></li>
+<li><a href="https://www.youtube.com/watch?v=cuHDQhDhvPE" target="_blank" rel="noopener">Which JS Framework is best?</a></li>
+</ul>
+<h4 id="react">React <a href="#react" class="anchor">🔗</a></h4><p>React is the most popular front-end JavaScript library for building user interfaces. React can also render on the server using Node and power mobile apps using React Native.</p>
+<ul>
+<li><a href="https://reactjs.org/" target="_blank" rel="noopener">React Website</a></li>
+</ul>
+<h4 id="angular">Angular <a href="#angular" class="anchor">🔗</a></h4><p>Angular is a component based front-end development framework built on TypeScript which includes a collection of well-integrated libraries that include features like routing, forms management, client-server communication, and more.</p>
+<ul>
+<li><a href="https://angular.io/start" target="_blank" rel="noopener">Official - Getting started with Angular</a></li>
+</ul>
+<h4 id="vuejs">Vue.js <a href="#vuejs" class="anchor">🔗</a></h4><p>Vue.js is an open-source JavaScript framework for building user interfaces and single-page applications. It is mainly focused on front end development.</p>
+<ul>
+<li><a href="https://vuejs.org/" target="_blank" rel="noopener">Vue.js Website</a></li>
+</ul>
+<h3 id="testing-1">Testing <a href="#testing-1" class="anchor">🔗</a></h3><p>A key to building software that meets requirements without defects is testing. Software testing helps developers know they are building the right software. When tests are run as part of the development process (often with continuous integration tools), they build confidence and prevent regressions in the code.</p>
+<p>Like traditional software, testing dApps involves testing the entire stack that makes up the dApp (backend, frontend, db, etc.).</p>
+<ul>
+<li><a href="https://www.guru99.com/software-testing-introduction-importance.html" target="_blank" rel="noopener">What is Software Testing?</a></li>
+<li><a href="https://www.browserstack.com/guide/testing-pyramid-for-test-automation" target="_blank" rel="noopener">Testing Pyramid</a></li>
+<li><a href="https://rhian-is.medium.com/how-to-test-dapps-decentralized-applications-4662cf61db90" target="_blank" rel="noopener">How to test dApps (decentralized applications)</a></li>
+</ul>
+<h3 id="deployment-1">Deployment <a href="#deployment-1" class="anchor">🔗</a></h3><p>Deploying a dApp involves deployment of all of its layers, generally through a management framework.</p>
+<ul>
+<li><a href="https://www.moesif.com/blog/blockchain/ethereum/Tutorial-for-building-Ethereum-Dapp-with-Integrated-Error-Monitoring/" target="_blank" rel="noopener">Tutorial for building an Ethereum DApp with Integrated Web3 Monitoring</a></li>
+</ul>
+<h3 id="maintenance">Maintenance <a href="#maintenance" class="anchor">🔗</a></h3><p>dApps can be harder to maintain because the code and data published to the blockchain is harder to modify. It’s hard for developers to make updates to their dapps (or the underlying data stored by a dapp) once they are deployed, even if bugs or security risks are identified in an old version.</p>
+<h3 id="architecture">Architecture <a href="#architecture" class="anchor">🔗</a></h3><p>Unlike Web2 applications, in Web3 there’s no centralized database that stores the application state or user identity, and there’s no centralized web server where the backend logic resides.</p>
+<ul>
+<li><a href="https://www.preethikasireddy.com/post/the-architecture-of-a-web-3-0-application" target="_blank" rel="noopener">The Architecture of a Web 3.0 application</a></li>
+<li><a href="https://www.freecodecamp.org/news/how-to-design-a-secure-backend-for-your-decentralized-application-9541b5d8bddb/" target="_blank" rel="noopener">Decentralized Applications Architecture: Back End, Security and Design Patterns</a></li>
+</ul>
+<h3 id="security-1">Security <a href="#security-1" class="anchor">🔗</a></h3><p>dApps face unique security challenges as they run on immutable blockchains. dApps are harder to maintain, and developers cannot modify or update their codes once deployed. Therefore, special consideration must be taken before putting it on the blockchain.</p>
+<ul>
+<li><a href="https://github.com/Dexaran/DAPP-security-standards/blob/master/README.md" target="_blank" rel="noopener">DAPP Security Standards</a></li>
+<li><a href="https://livebook.manning.com/book/building-ethereum-dapps/chapter-14/" target="_blank" rel="noopener">dApp Security Considerations</a></li>
+<li><a href="https://www.immunebytes.com/blog/dapp-security/#Benefits_of_DApps_Security" target="_blank" rel="noopener">dApp Security:All You Need to Know</a></li>
+</ul>
+<h3 id="applicability">Applicability <a href="#applicability" class="anchor">🔗</a></h3><p>dApps can be used for just about anything that requires two or more parties to agree on something. When the appropriate conditions are met, the smart contract will execute automatically. An important differentiation is that these transactions are no longer based on trust but they are rather based on cryptographically-backed smart contracts.</p>
+<ul>
+<li><a href="https://www.sofi.com/learn/content/what-is-a-dapp/" target="_blank" rel="noopener">What Is a dApp? A Guide to Decentralized Applications</a></li>
+<li><a href="https://consensys.net/blockchain-use-cases/" target="_blank" rel="noopener">Blockchain Use Cases and Applications by Industry</a></li>
+<li><a href="https://roboticsandautomationnews.com/2022/05/20/the-real-world-use-cases-for-blockchain-technology/" target="_blank" rel="noopener">The real-world use cases for blockchain technology</a></li>
+</ul>
+<h4 id="defi">DeFi <a href="#defi" class="anchor">🔗</a></h4><p>Decentralized finance offers financial instruments without relying on intermediaries such as brokerages, exchanges, or banks by using smart contracts on a blockchain.</p>
+<ul>
+<li><a href="https://www.investopedia.com/decentralized-finance-defi-5113835" target="_blank" rel="noopener">Decentralized Finance (DeFi) Definition</a></li>
+<li><a href="https://www.coinbase.com/learn/crypto-basics/what-is-defi" target="_blank" rel="noopener">What is DeFi?</a></li>
+</ul>
+<h4 id="daos">DAOs <a href="#daos" class="anchor">🔗</a></h4><p>A decentralized autonomous organization (DAO) is an emerging form of legal structure. With no central governing body, every member within a DAO typically shares a common goal and attempt to act in the best interest of the entity. Popularized through cryptocurrency enthusiasts and blockchain technology, DAOs are used to make decisions in a bottoms-up management approach.</p>
+<ul>
+<li><a href="https://consensys.net/blog/blockchain-explained/what-is-a-dao-and-how-do-they-work/" target="_blank" rel="noopener">What Is A DAO And How Do They Work?</a></li>
+<li><a href="https://www.investopedia.com/tech/what-dao/" target="_blank" rel="noopener">Decentralized Autonomous Organization (DAO)</a></li>
+</ul>
+<h4 id="nfts">NFTs <a href="#nfts" class="anchor">🔗</a></h4><p>A non-fungible token (NFT) is a financial security consisting of digital data stored in a blockchain, a form of distributed ledger. The ownership of an NFT is recorded in the blockchain, and can be transferred by the owner, allowing NFTs to be sold and traded.</p>
+<ul>
+<li><a href="https://www.investopedia.com/non-fungible-tokens-nft-5115211" target="_blank" rel="noopener">Non-Fungible Token (NFT)</a></li>
+<li><a href="https://www.theverge.com/22310188/nft-explainer-what-is-blockchain-crypto-art-faq" target="_blank" rel="noopener">NFTs, explained</a></li>
+<li><a href="https://youtu.be/NNQLJcJEzv0" target="_blank" rel="noopener">NFT Explained In 5 Minutes | What Is NFT? - Non Fungible Token</a></li>
+</ul>
+<h4 id="payments">Payments <a href="#payments" class="anchor">🔗</a></h4><p>Blockchain technology has the ability to eliminate all the tolls exacted by centralized organization when transferring payments.</p>
+<ul>
+<li><a href="https://consensys.net/blockchain-use-cases/finance/#payments" target="_blank" rel="noopener">How does blockchain impact global payments and remittances?</a></li>
+<li><a href="https://blog.chain.link/smart-contract-use-cases/#external-payments" target="_blank" rel="noopener">Smart Contract Use Cases - Payments</a></li>
+</ul>
+<h4 id="insurance">Insurance <a href="#insurance" class="anchor">🔗</a></h4><p>Blockchain technology has the ability to automate claims functions by verifying real-world data through the use of an oracle. It also automates payments between parties for claims and thus lower administrative costs for insurance companies.</p>
+<ul>
+<li><a href="https://blog.chain.link/smart-contract-use-cases/#insurance" target="_blank" rel="noopener">Smart Contract Use Cases - Insurance</a></li>
+<li><a href="https://imaginovation.net/blog/blockchain-insurance-industry-examples/" target="_blank" rel="noopener">Top 7 Use Cases of Blockchain in the Insurance Industry</a></li>
+</ul>
+<h3 id="client-libraries">Client libraries <a href="#client-libraries" class="anchor">🔗</a></h3><p>You don&rsquo;t need to write every smart contract in your project from scratch. There are many open source smart contract libraries available that provide reusable building blocks for your project that can save you from having to reinvent the wheel.</p>
+<h4 id="ethersjs">Ethers.js <a href="#ethersjs" class="anchor">🔗</a></h4><p>The ethers.js library aims to be a complete and compact library for interacting with the Ethereum Blockchain and its ecosystem. It was originally designed for use with ethers.io and has since expanded into a more general-purpose library.</p>
+<ul>
+<li><a href="https://docs.ethers.io/" target="_blank" rel="noopener">Ethers.js Documentation</a></li>
+</ul>
+<h4 id="web3js">Web3.js <a href="#web3js" class="anchor">🔗</a></h4><p>web3.js is a collection of libraries that allow you to interact with a local or remote ethereum node using HTTP, IPC or WebSocket.</p>
+<ul>
+<li><a href="https://web3js.readthedocs.io/" target="_blank" rel="noopener">web3.js Documentation</a></li>
+</ul>
+<h4 id="moralis-sdk">Moralis SDK <a href="#moralis-sdk" class="anchor">🔗</a></h4><p>A library that gives you access to the powerful Moralis Server backend from your JavaScript app.</p>
+<ul>
+<li><a href="https://github.com/MoralisWeb3/Moralis-JS-SDK/blob/main/README.md" target="_blank" rel="noopener">Moralis SDK</a></li>
+</ul>
+<h3 id="client-nodes">Client Nodes <a href="#client-nodes" class="anchor">🔗</a></h3><p>A blockchain is a distributed network of computers (known as nodes) running software that can verify blocks and transaction data. The software application, known as a client, must be run on your computer to turn it into a blockchain node.</p>
+<h4 id="geth">Geth <a href="#geth" class="anchor">🔗</a></h4><p>Go Ethereum (Geth) is one of the three original implementations (along with C++ and Python) of the Ethereum protocol. It is written in Go, fully open source and licensed under the GNU LGPL v3.</p>
+<ul>
+<li><a href="https://geth.ethereum.org/docs/" target="_blank" rel="noopener">Geth Documentation</a></li>
+</ul>
+<h4 id="besu">Besu <a href="#besu" class="anchor">🔗</a></h4><p>Besu is an Apache 2.0 licensed, MainNet compatible, Ethereum client written in Java.</p>
+<ul>
+<li><a href="https://github.com/hyperledger/besu" target="_blank" rel="noopener">Besu Ethereum Client</a></li>
+</ul>
+<h4 id="nethermind">Nethermind <a href="#nethermind" class="anchor">🔗</a></h4><p>Nethermind is a high-performance, highly configurable full Ethereum protocol client built on .NET that runs on Linux, Windows, and macOS, and supports Clique, Aura, Ethash, and Proof-of-Stake consensus algorithms.</p>
+<ul>
+<li><a href="https://docs.nethermind.io/nethermind/" target="_blank" rel="noopener">Nethermind Documentation</a></li>
+</ul>
+<h4 id="substrate">Substrate <a href="#substrate" class="anchor">🔗</a></h4><p>Substrate is a Software Development Kit (SDK) specifically designed to provide you with all of the fundamental components s blockchain requires so you can focus on crafting the logic that makes your chain unique and innovative.</p>
+<ul>
+<li><a href="https://docs.substrate.io/quick-start/" target="_blank" rel="noopener">Substrate Documentation</a></li>
+</ul>
+<h3 id="node-as-a-service-naas">Node as a Service (NaaS) <a href="#node-as-a-service-naas" class="anchor">🔗</a></h3><p>Running your own blockchain node can be challenging, especially when getting started or while scaling fast. There are a number of services that run optimized node infrastructures for you, so you can focus on developing your application or product instead.</p>
+<ul>
+<li><a href="https://www.infoq.com/articles/blockchain-as-a-service-get-block/" target="_blank" rel="noopener">Blockchain Node Providers and How They Work</a></li>
+<li><a href="https://ethereum.org/en/developers/docs/nodes-and-clients/nodes-as-a-service/" target="_blank" rel="noopener">Node as a Service - Ethereum</a></li>
+</ul>
+<h4 id="alchemy">Alchemy <a href="#alchemy" class="anchor">🔗</a></h4><p>Alchemy is a developer platform that empowers companies to build scalable and reliable decentralized applications without the hassle of managing blockchain infrastructure in-house.</p>
+<ul>
+<li><a href="https://www.alchemy.com/" target="_blank" rel="noopener">Alchemy official site</a></li>
+</ul>
+<h4 id="infura">Infura <a href="#infura" class="anchor">🔗</a></h4><p>Infura provides the tools and infrastructure that allow developers to easily take their blockchain application from testing to scaled deployment - with simple, reliable access to Ethereum and IPFS.</p>
+<ul>
+<li><a href="https://infura.io/" target="_blank" rel="noopener">Infura official site</a></li>
+</ul>
+<h4 id="moralis">Moralis <a href="#moralis" class="anchor">🔗</a></h4><p>Moralis provides a single workflow for building high performance dapps. Fully compatible with your favorite web3 tools and services.</p>
+<ul>
+<li><a href="https://moralis.io/" target="_blank" rel="noopener">Moralis official site</a></li>
+</ul>
+<h4 id="quicknode">Quicknode <a href="#quicknode" class="anchor">🔗</a></h4><p>QuickNode is a Web3 developer platform used to build and scale blockchain applications.</p>
+<ul>
+<li><a href="https://www.quicknode.com/" target="_blank" rel="noopener">Quicknode official site</a></li>
+</ul>
+<h3 id="supporting-languages">Supporting Languages <a href="#supporting-languages" class="anchor">🔗</a></h3><p>While the bulk of the logic in blockchain applications is handled by smart contracts, all the surrounding services that support those smart contracts (frontend, monitoring, etc.) are often written in other languages.</p>
+<h4 id="javascript">JavaScript <a href="#javascript" class="anchor">🔗</a></h4><p>JavaScript, often abbreviated JS, is a programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS. It lets us add interactivity to pages e.g. you might have seen sliders, alerts, click interactions, and popups etc on different websites &ndash; all of that is built using JavaScript. Apart from being used in the browser, it is also used in other non-browser environments as well such as Node.js for writing server-side code in JavaScript, Electron for writing desktop applications, React Native for mobile applications and so on.</p>
+<ul>
+<li><a href="https://www.w3schools.com/js/" target="_blank" rel="noopener">W3Schools – JavaScript Tutorial</a></li>
+<li><a href="https://javascript.info/" target="_blank" rel="noopener">The Modern JavaScript Tutorial</a></li>
+<li><a href="https://eloquentjavascript.net/" target="_blank" rel="noopener">Eloquent Javascript - Book</a></li>
+</ul>
+<h4 id="python">Python <a href="#python" class="anchor">🔗</a></h4><p>Python is a well known programming language which is both a strongly typed and a dynamically typed language. Being an interpreted language, code is executed as soon as it is written and the Python syntax allows for writing code in functional, procedureal or object-oriented programmatic ways.</p>
+<ul>
+<li><a href="https://www.python.org/" target="_blank" rel="noopener">Python Website</a></li>
+</ul>
+<h4 id="go">Go <a href="#go" class="anchor">🔗</a></h4><p>Go is an open source programming language supported by Google. Go can be used to write cloud services, CLI tools, used for API development, and much more.</p>
+<ul>
+<li><a href="https://go.dev/doc/" target="_blank" rel="noopener">Go Reference Documentation</a></li>
+</ul>
+<h2 id="building-for-scale">Building for Scale <a href="#building-for-scale" class="anchor">🔗</a></h2><p>Due to the limited number of transactions-per-second (TPS) built-in to blockchains, a number of alternative mechanism and technologies have emerged to aid the scaling of blockchain dApps.</p>
+<h3 id="state-and-payment-channels">State and Payment Channels <a href="#state-and-payment-channels" class="anchor">🔗</a></h3><p>State channels refer to the process in which users transact with one another directly outside of the blockchain, or ‘off-chain,’ and greatly minimize their use of ‘on-chain’ operations.</p>
+<ul>
+<li><a href="https://education.district0x.io/general-topics/understanding-ethereum/basics-state-channels/" target="_blank" rel="noopener">The Basics of State Channels</a></li>
+<li><a href="https://www.talentica.com/blogs/state-channels-an-introduction-to-off-chain-transactions/" target="_blank" rel="noopener">State Channels: An Introduction to Off-chain Transactions</a></li>
+</ul>
+<h3 id="optimistic-rollups-and-fraud-proofs">Optimistic Rollups and Fraud Proofs <a href="#optimistic-rollups-and-fraud-proofs" class="anchor">🔗</a></h3><p>‍Optimistic rollups are a layer 2 (L2) construction that improves throughput and latency on Ethereum’s base layer by moving computation and data storage off-chain. An optimistic rollup processes transactions outside of Ethereum Mainnet, reducing congestion on the base layer and improving scalability.</p>
+<p>Optimistic rollups allow anyone to publish blocks without providing proofs of validity. However, to ensure the chain remains safe, optimistic rollups specify a time window during which anyone can dispute a state transition.</p>
+<ul>
+<li><a href="https://www.alchemy.com/overviews/optimistic-rollups" target="_blank" rel="noopener">How Do Optimistic Rollups Work (The Complete Guide)</a></li>
+</ul>
+<h3 id="zero-knowledge-rollups-and-zero-knowledge-proof">Zero Knowledge Rollups and Zero Knowledge Proof <a href="#zero-knowledge-rollups-and-zero-knowledge-proof" class="anchor">🔗</a></h3><p>Zero-knowledge rollups (ZK-rollups) are layer 2 scaling solutions that increase the throughput of a blockchain by moving computation and state-storage off-chain.</p>
+<ul>
+<li><a href="https://ethereum.org/en/developers/docs/scaling/zk-rollups" target="_blank" rel="noopener">Zero-Knowledge Rollups - Ethereum</a></li>
+<li><a href="https://www.alchemy.com//blog/zero-knowledge-rollups" target="_blank" rel="noopener">What are Zero-Knowledge Rollups (ZK-rollups)?</a></li>
+</ul>
+<h3 id="validium">Validium <a href="#validium" class="anchor">🔗</a></h3><p>Validium is a scaling solution that enforces integrity of transactions using validity proofs like ZK-rollups, but doesn’t store transaction data on the Ethereum Mainnet. While off-chain data availability introduces trade-offs, it can lead to massive improvements in scalability</p>
+<ul>
+<li><a href="https://ethereum.org/en/developers/docs/scaling/validium/" target="_blank" rel="noopener">Validium - Ethereum</a></li>
+</ul>
+<h3 id="sidechains">Sidechains <a href="#sidechains" class="anchor">🔗</a></h3><p>A sidechain is a separate blockchain network that connects to another blockchain – called a parent blockchain or mainnet – via a two-way peg.</p>
+<ul>
+<li><a href="https://ethereum.org/en/developers/docs/scaling/sidechains/" target="_blank" rel="noopener">Sidechains - Ethereum</a></li>
+<li><a href="https://www.coindesk.com/learn/an-introduction-to-sidechains" target="_blank" rel="noopener">An Introduction to Sidechains</a></li>
+</ul>
+<h3 id="plasma">Plasma <a href="#plasma" class="anchor">🔗</a></h3><p>Plasma is a framework that allows the creation of child blockchains that use the main Ethereum chain as a layer of trust and arbitration. In Plasma, child chains can be designed to meet the requirements of specific use cases, specifically those that are not currently feasible on Ethereum.</p>
+<ul>
+<li><a href="https://ethereum.org/en/developers/docs/scaling/plasma/" target="_blank" rel="noopener">Plasma Chains - Ethereum</a></li>
+</ul>
+<h3 id="ethereum-2">Ethereum 2 <a href="#ethereum-2" class="anchor">🔗</a></h3><p>Ethereum 2.0 marks a long-anticipated upgrade to the Ethereum public mainnet. Designed to accelerate Ethereum’s usage and adoption by improving its performance, Ethereum 2.0 implements Proof of Stake.</p>
+<ul>
+<li><a href="https://consensys.net/blog/blockchain-explained/what-is-ethereum-2/" target="_blank" rel="noopener">What Is Ethereum 2.0?</a></li>
+<li><a href="https://www.forbes.com/advisor/investing/cryptocurrency/ethereum-2/" target="_blank" rel="noopener">What Is Ethereum 2.0? Understanding The Merge</a></li>
+</ul>
+<h3 id="on-chain-scaling">On-Chain Scaling <a href="#on-chain-scaling" class="anchor">🔗</a></h3><p>On-chain scaling refers to any direct modification made to a blockchain, like data sharding and execution sharding in the incoming version of Ethereum 2.0. Another type of on-chain scaling would be a sidechain with two-way bridge to Ethereum, like Polygon.</p>
+<ul>
+<li><a href="https://ethereum.org/en/developers/docs/scaling/" target="_blank" rel="noopener">Scaling - Ethereum</a></li>
+</ul>
+<h2 id="summary">Summary <a href="#summary" class="anchor">🔗</a></h2><p>Keep Learning.</p>
+<p>Thanks <a href="https://roadmap.sh/" target="_blank" rel="noopener">roadmap</a>.</p>
+
+    </div>
+
+    
+    
+    
+  <div id="comment">
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-dxmvw3ac3t" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/viper-00" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/ZhongMingYang00" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Viper
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>
