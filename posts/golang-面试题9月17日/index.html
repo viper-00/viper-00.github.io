@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <title>Golang 面试题（9月17日） | Viper</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="前言 🔗本周末有空找时间面试了一家做海外物流和翻译的公司，主要依托于 Shopify 在线电商平台，为商户和用户提供交易和翻译的能力。 面试分为笔试和技术面，这">
+<meta name="generator" content="Hugo 0.101.0" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+ 
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-3CPL7G0HYV', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://viper00.fun/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Golang 面试题（9月17日）</h1>
+
+    <div class="tip">
+        <time datetime="2022-09-17 16:00:41 &#43;0800 CST">2022年09月17日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1069字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          3分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#笔试题">笔试题</a>
+      <ul>
+        <li><a href="#1-用你最了解的语言对-array3728913452311-进行快速排序">1. 用你最了解的语言对 array(3,7,2,8,9,13,45,23,11) 进行快速排序。</a></li>
+        <li><a href="#2-用正则表达式验证上面两段字符串是否符合-html-语言的标准a-和-b-是否可以在浏览器上显示">2. 用正则表达式验证上面两段字符串是否符合 html 语言的标准，a 和 b 是否可以在浏览器上显示？</a></li>
+        <li><a href="#3-用你了解的语言写出递归的实现">3. 用你了解的语言写出递归的实现。</a></li>
+        <li><a href="#4-session-和-cookie-的区别和联系">4. session 和 cookie 的区别和联系。</a></li>
+        <li><a href="#5-索引的作用哪些字段不能加索引假设对-abc-增加联合索引当用-ac-作为条件去查询时联合索引是否会被利用到为什么">5. 索引的作用？哪些字段不能加索引？假设对 A、B、C 增加联合索引，当用 A、C 作为条件去查询时，联合索引是否会被利用到？为什么？</a></li>
+        <li><a href="#6-随机产生-6-个范围时是1100的整数把这些数字中所有个位或十位为-5-的数字打印出来">6. 随机产生 6 个范围时是[1,100]的整数，把这些数字中所有个位或十位为 5 的数字打印出来。</a></li>
+        <li><a href="#7-现有供十几万商家进行物流查询的系统的单号表结构如下表所示现在此表已经有千亿级别数据请问如何合理分表让系统能更加高效运行">7. 现有供十几万商家进行物流查询的系统的单号表结构如下表所示，现在此表已经有千亿级别数据，请问如何合理分表让系统能更加高效运行？</a></li>
+        <li><a href="#8-ajax是什么ajax的交互模型流程ajax跨域的解决办法">8. AJAX是什么？AJAX的交互模型（流程）？AJAX跨域的解决办法？</a></li>
+        <li><a href="#9-定义一个方法查找指定数字在数组中出现的位置若出现多次多次打印如数组1232要查找的数是-2-则方法内部会打印索引值-13数组1232要查找的数是-5-则会打印-数组中没有这个数字">9. 定义一个方法，查找指定数字在数组中出现的位置（若出现多次，多次打印）如：数组[1232]要查找的数是 2 则方法内部会打印索引值 1，3，数组[1232]要查找的数是 5 则会打印 “数组中没有这个数字”。</a></li>
+        <li><a href="#10-一个-5l一个-6l-的瓶子要得到-3l-的水问什么方法">10. 一个 5L，一个 6L 的瓶子，要得到 3L 的水，问什么方法？</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="前言">前言 <a href="#%e5%89%8d%e8%a8%80" class="anchor">🔗</a></h1><p>本周末有空找时间面试了一家做海外物流和翻译的公司，主要依托于 Shopify 在线电商平台，为商户和用户提供交易和翻译的能力。</p>
+<p>面试分为笔试和技术面，这篇博客主要专注于笔试的面试题。把问题都记录起来，为下次面试做好准备。</p>
+<h2 id="笔试题">笔试题 <a href="#%e7%ac%94%e8%af%95%e9%a2%98" class="anchor">🔗</a></h2><ol>
+<li>用你最了解的语言对 array(3,7,2,8,9,13,45,23,11) 进行快速排序。</li>
+<li>用正则表达式验证上面两段字符串是否符合 html 语言的标准，a 和 b 是否可以在浏览器上显示？</li>
+<li>用你了解的语言写出递归的实现。</li>
+<li>session 和 cookie 的区别和联系。</li>
+<li>索引的作用？哪些字段不能加索引？假设对 A、B、C 增加联合索引，当用 A、C 作为条件去查询时，联合索引是否会被利用到？为什么？</li>
+<li>随机产生 6 个范围时是[1,100]的整数，把这些数字中所有个位或十位为 5 的数字打印出来。</li>
+<li>现有供十几万商家进行物流查询的系统的单号表结构如下表所示，现在此表已经有千亿级别数据，请问如何合理分表让系统能更加高效运行？</li>
+<li>AJAX是什么？AJAX的交互模型（流程）？AJAX跨域的解决办法？</li>
+<li>定义一个方法，查找指定数字在数组中出现的位置（若出现多次，多次打印）如：数组[1232]要查找的数是 2 则方法内部会打印索引值 1，3，数组[1232]要查找的数是 5 则会打印 “数组中没有这个数字”。</li>
+<li>一个 5L，一个 6L 的瓶子，要得到 3L 的水，问什么方法？</li>
+</ol>
+<h3 id="1-用你最了解的语言对-array3728913452311-进行快速排序">1. 用你最了解的语言对 array(3,7,2,8,9,13,45,23,11) 进行快速排序。 <a href="#1-%e7%94%a8%e4%bd%a0%e6%9c%80%e4%ba%86%e8%a7%a3%e7%9a%84%e8%af%ad%e8%a8%80%e5%af%b9-array3728913452311-%e8%bf%9b%e8%a1%8c%e5%bf%ab%e9%80%9f%e6%8e%92%e5%ba%8f" class="anchor">🔗</a></h3><h3 id="2-用正则表达式验证上面两段字符串是否符合-html-语言的标准a-和-b-是否可以在浏览器上显示">2. 用正则表达式验证上面两段字符串是否符合 html 语言的标准，a 和 b 是否可以在浏览器上显示？ <a href="#2-%e7%94%a8%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f%e9%aa%8c%e8%af%81%e4%b8%8a%e9%9d%a2%e4%b8%a4%e6%ae%b5%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%98%af%e5%90%a6%e7%ac%a6%e5%90%88-html-%e8%af%ad%e8%a8%80%e7%9a%84%e6%a0%87%e5%87%86a-%e5%92%8c-b-%e6%98%af%e5%90%a6%e5%8f%af%e4%bb%a5%e5%9c%a8%e6%b5%8f%e8%a7%88%e5%99%a8%e4%b8%8a%e6%98%be%e7%a4%ba" class="anchor">🔗</a></h3><ul>
+<li>a: &lt;div&gt;这是 html 吗？&lt;/span&gt;</li>
+<li>b: &lt;div&gt;这是 html 吗？&lt;/div&gt;</li>
+</ul>
+<h3 id="3-用你了解的语言写出递归的实现">3. 用你了解的语言写出递归的实现。 <a href="#3-%e7%94%a8%e4%bd%a0%e4%ba%86%e8%a7%a3%e7%9a%84%e8%af%ad%e8%a8%80%e5%86%99%e5%87%ba%e9%80%92%e5%bd%92%e7%9a%84%e5%ae%9e%e7%8e%b0" class="anchor">🔗</a></h3><h3 id="4-session-和-cookie-的区别和联系">4. session 和 cookie 的区别和联系。 <a href="#4-session-%e5%92%8c-cookie-%e7%9a%84%e5%8c%ba%e5%88%ab%e5%92%8c%e8%81%94%e7%b3%bb" class="anchor">🔗</a></h3><h3 id="5-索引的作用哪些字段不能加索引假设对-abc-增加联合索引当用-ac-作为条件去查询时联合索引是否会被利用到为什么">5. 索引的作用？哪些字段不能加索引？假设对 A、B、C 增加联合索引，当用 A、C 作为条件去查询时，联合索引是否会被利用到？为什么？ <a href="#5-%e7%b4%a2%e5%bc%95%e7%9a%84%e4%bd%9c%e7%94%a8%e5%93%aa%e4%ba%9b%e5%ad%97%e6%ae%b5%e4%b8%8d%e8%83%bd%e5%8a%a0%e7%b4%a2%e5%bc%95%e5%81%87%e8%ae%be%e5%af%b9-abc-%e5%a2%9e%e5%8a%a0%e8%81%94%e5%90%88%e7%b4%a2%e5%bc%95%e5%bd%93%e7%94%a8-ac-%e4%bd%9c%e4%b8%ba%e6%9d%a1%e4%bb%b6%e5%8e%bb%e6%9f%a5%e8%af%a2%e6%97%b6%e8%81%94%e5%90%88%e7%b4%a2%e5%bc%95%e6%98%af%e5%90%a6%e4%bc%9a%e8%a2%ab%e5%88%a9%e7%94%a8%e5%88%b0%e4%b8%ba%e4%bb%80%e4%b9%88" class="anchor">🔗</a></h3><h3 id="6-随机产生-6-个范围时是1100的整数把这些数字中所有个位或十位为-5-的数字打印出来">6. 随机产生 6 个范围时是[1,100]的整数，把这些数字中所有个位或十位为 5 的数字打印出来。 <a href="#6-%e9%9a%8f%e6%9c%ba%e4%ba%a7%e7%94%9f-6-%e4%b8%aa%e8%8c%83%e5%9b%b4%e6%97%b6%e6%98%af1100%e7%9a%84%e6%95%b4%e6%95%b0%e6%8a%8a%e8%bf%99%e4%ba%9b%e6%95%b0%e5%ad%97%e4%b8%ad%e6%89%80%e6%9c%89%e4%b8%aa%e4%bd%8d%e6%88%96%e5%8d%81%e4%bd%8d%e4%b8%ba-5-%e7%9a%84%e6%95%b0%e5%ad%97%e6%89%93%e5%8d%b0%e5%87%ba%e6%9d%a5" class="anchor">🔗</a></h3><h3 id="7-现有供十几万商家进行物流查询的系统的单号表结构如下表所示现在此表已经有千亿级别数据请问如何合理分表让系统能更加高效运行">7. 现有供十几万商家进行物流查询的系统的单号表结构如下表所示，现在此表已经有千亿级别数据，请问如何合理分表让系统能更加高效运行？ <a href="#7-%e7%8e%b0%e6%9c%89%e4%be%9b%e5%8d%81%e5%87%a0%e4%b8%87%e5%95%86%e5%ae%b6%e8%bf%9b%e8%a1%8c%e7%89%a9%e6%b5%81%e6%9f%a5%e8%af%a2%e7%9a%84%e7%b3%bb%e7%bb%9f%e7%9a%84%e5%8d%95%e5%8f%b7%e8%a1%a8%e7%bb%93%e6%9e%84%e5%a6%82%e4%b8%8b%e8%a1%a8%e6%89%80%e7%a4%ba%e7%8e%b0%e5%9c%a8%e6%ad%a4%e8%a1%a8%e5%b7%b2%e7%bb%8f%e6%9c%89%e5%8d%83%e4%ba%bf%e7%ba%a7%e5%88%ab%e6%95%b0%e6%8d%ae%e8%af%b7%e9%97%ae%e5%a6%82%e4%bd%95%e5%90%88%e7%90%86%e5%88%86%e8%a1%a8%e8%ae%a9%e7%b3%bb%e7%bb%9f%e8%83%bd%e6%9b%b4%e5%8a%a0%e9%ab%98%e6%95%88%e8%bf%90%e8%a1%8c" class="anchor">🔗</a></h3><table>
+<thead>
+<tr>
+<th>Id（自增且唯一）</th>
+<th>userid（用户id）</th>
+<th>trackingNumber</th>
+<th>expressCode</th>
+<th>createTime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>845</td>
+<td>987454342</td>
+<td>dhI</td>
+<td>5435433433</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+<tr>
+<td>6985656542</td>
+<td>652</td>
+<td>254684752</td>
+<td>ups</td>
+<td>5654214542</td>
+</tr>
+</tbody>
+</table>
+<h3 id="8-ajax是什么ajax的交互模型流程ajax跨域的解决办法">8. AJAX是什么？AJAX的交互模型（流程）？AJAX跨域的解决办法？ <a href="#8-ajax%e6%98%af%e4%bb%80%e4%b9%88ajax%e7%9a%84%e4%ba%a4%e4%ba%92%e6%a8%a1%e5%9e%8b%e6%b5%81%e7%a8%8bajax%e8%b7%a8%e5%9f%9f%e7%9a%84%e8%a7%a3%e5%86%b3%e5%8a%9e%e6%b3%95" class="anchor">🔗</a></h3><h3 id="9-定义一个方法查找指定数字在数组中出现的位置若出现多次多次打印如数组1232要查找的数是-2-则方法内部会打印索引值-13数组1232要查找的数是-5-则会打印-数组中没有这个数字">9. 定义一个方法，查找指定数字在数组中出现的位置（若出现多次，多次打印）如：数组[1232]要查找的数是 2 则方法内部会打印索引值 1，3，数组[1232]要查找的数是 5 则会打印 “数组中没有这个数字”。 <a href="#9-%e5%ae%9a%e4%b9%89%e4%b8%80%e4%b8%aa%e6%96%b9%e6%b3%95%e6%9f%a5%e6%89%be%e6%8c%87%e5%ae%9a%e6%95%b0%e5%ad%97%e5%9c%a8%e6%95%b0%e7%bb%84%e4%b8%ad%e5%87%ba%e7%8e%b0%e7%9a%84%e4%bd%8d%e7%bd%ae%e8%8b%a5%e5%87%ba%e7%8e%b0%e5%a4%9a%e6%ac%a1%e5%a4%9a%e6%ac%a1%e6%89%93%e5%8d%b0%e5%a6%82%e6%95%b0%e7%bb%841232%e8%a6%81%e6%9f%a5%e6%89%be%e7%9a%84%e6%95%b0%e6%98%af-2-%e5%88%99%e6%96%b9%e6%b3%95%e5%86%85%e9%83%a8%e4%bc%9a%e6%89%93%e5%8d%b0%e7%b4%a2%e5%bc%95%e5%80%bc-13%e6%95%b0%e7%bb%841232%e8%a6%81%e6%9f%a5%e6%89%be%e7%9a%84%e6%95%b0%e6%98%af-5-%e5%88%99%e4%bc%9a%e6%89%93%e5%8d%b0-%e6%95%b0%e7%bb%84%e4%b8%ad%e6%b2%a1%e6%9c%89%e8%bf%99%e4%b8%aa%e6%95%b0%e5%ad%97" class="anchor">🔗</a></h3><h3 id="10-一个-5l一个-6l-的瓶子要得到-3l-的水问什么方法">10. 一个 5L，一个 6L 的瓶子，要得到 3L 的水，问什么方法？ <a href="#10-%e4%b8%80%e4%b8%aa-5l%e4%b8%80%e4%b8%aa-6l-%e7%9a%84%e7%93%b6%e5%ad%90%e8%a6%81%e5%be%97%e5%88%b0-3l-%e7%9a%84%e6%b0%b4%e9%97%ae%e4%bb%80%e4%b9%88%e6%96%b9%e6%b3%95" class="anchor">🔗</a></h3><h2 id="总结">总结 <a href="#%e6%80%bb%e7%bb%93" class="anchor">🔗</a></h2><p>保持好心态，积极学习。</p>
+<p>Happy Hacking！</p>
+
+    </div>
+
+    
+    
+    
+  <div id="comment">
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-dxmvw3ac3t" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/viper-00" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/ZhongMingYang00" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Viper
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

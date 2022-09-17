@@ -69,7 +69,7 @@ if (!doNotTrack) {
           ·
         </span>
         <span>
-          3295字
+          3331字
         </span>
         <span class="split">
           ·
@@ -109,6 +109,7 @@ if (!doNotTrack) {
         <li><a href="#文件目录基本操作">文件目录基本操作</a></li>
         <li><a href="#文件权限">文件权限</a></li>
         <li><a href="#默认权限">默认权限</a></li>
+        <li><a href="#journalctl">journalctl</a></li>
       </ul>
     </li>
     <li><a href="#压缩和打包">压缩和打包</a>
@@ -325,7 +326,11 @@ if (!doNotTrack) {
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ chmod 754 文件名称
 </span></span></code></pre></div><h3 id="默认权限">默认权限 <a href="#%e9%bb%98%e8%ae%a4%e6%9d%83%e9%99%90" class="anchor">🔗</a></h3><p>文件的默认没有可执行文件，所以是 <strong>666</strong>，也就是 <strong>-rw-rw-rw-</strong>。
 目录的默认权限因为需要进入，所以必须是可执行的，因此为 <strong>777</strong>，也就是 <strong>drwxrwxrwx</strong>。</p>
-<h2 id="压缩和打包">压缩和打包 <a href="#%e5%8e%8b%e7%bc%a9%e5%92%8c%e6%89%93%e5%8c%85" class="anchor">🔗</a></h2><p>Linux 下有很多压缩文件名，有些既能压缩也能解压，例如：</p>
+<h3 id="journalctl">journalctl <a href="#journalctl" class="anchor">🔗</a></h3><p>查看指定systemd服务的日志信息</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>journalctl -u service-name.service
+</span></span></code></pre></div><p>或者使用更简便的写法</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>journalctl -u service-name
+</span></span></code></pre></div><h2 id="压缩和打包">压缩和打包 <a href="#%e5%8e%8b%e7%bc%a9%e5%92%8c%e6%89%93%e5%8c%85" class="anchor">🔗</a></h2><p>Linux 下有很多压缩文件名，有些既能压缩也能解压，例如：</p>
 <table>
 <thead>
 <tr>
